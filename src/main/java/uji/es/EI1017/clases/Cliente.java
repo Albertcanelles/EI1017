@@ -17,4 +17,25 @@ public class Cliente {
         this.fechaAlta = fechaAlta;
         this.tarifa = tarifa;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public double getTarifa() {
+        return tarifa;
+    }
+
 }
