@@ -9,13 +9,16 @@ public class Cliente {
     private String email;
     private Date fechaAlta;
     private double tarifa;
+    //Si tipo cliente es =true es un particular
+    private boolean tipoParticular;
 
-    public Cliente(String nombre, String nif, String email, Date fechaAlta, double tarifa) {
+    public Cliente(String nombre, String nif, String email, Date fechaAlta, double tarifa, boolean tipoParticular) {
         this.nombre = nombre;
         this.nif = nif;
         this.email = email;
         this.fechaAlta = fechaAlta;
         this.tarifa = tarifa;
+        this.tipoParticular = tipoParticular;
     }
 
     public String getNombre() {
@@ -38,4 +41,5 @@ public class Cliente {
         return tarifa;
     }
 
+    public boolean isTipoParticular() { return tipoParticular; }
 }
