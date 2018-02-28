@@ -13,6 +13,8 @@ public class CrudCliente {
     public void insertarCliente(Cliente cliente){
         listaClientes.add(cliente);
     }
+
+
     public void borrarCliente (Cliente cliente){
         if (listaClientes.contains(cliente))
             listaClientes.remove(cliente);

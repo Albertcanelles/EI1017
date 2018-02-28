@@ -2,9 +2,12 @@ package uji.es.EI1017.Pruebas;
 
 import uji.es.EI1017.clases.Cliente;
 import uji.es.EI1017.crud.CrudCliente;
+import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.*;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Ejecutar {
@@ -19,6 +22,8 @@ public class Ejecutar {
 
         switch(opcionMenu) {
             case GESTIONAR_CLIENTES:
+                CrudCliente crudCliente = new CrudCliente();  // Llamamos a los metodos de la clase CrudCliente
+                Calendar calendar = Calendar.getInstance();
                 /*LLAMADA DEL SUB MENU CLIENTES*/
                 System.out.println(OpcionesMenuClientes.getMenu());
                 System.out.print("Elije una opción:");
@@ -27,6 +32,15 @@ public class Ejecutar {
                 /*FINAL LLAMADA SUB MENU CLIENTES*/
                 switch (opcionMenuCliente) {
                     case DAR_DE_ALTA_CLIENTE:
+                        System.out.println("Introduce el nombre:");
+                        String nombre = scanner.next();
+                        System.out.println("Introduce el NIF:");
+                        String nif = scanner.next();
+                        System.out.println("Introduce el email:");
+                        String email = scanner.next();
+                        Date fechaAlta = calendar.getTime();
+                        double tarifa = 5.5;
+
                         /*LLAMADA DEL SUB MENU TIPO CLIENTES*/
                         System.out.println(OpcionesMenuTipoCliente.getMenu());
                         System.out.print("Elije una opción:");
@@ -35,24 +49,38 @@ public class Ejecutar {
                         /*GINAL LLAMADA SUB MENU TIPO CLIENTES*/
                         switch (opcionesMenuTipoCliente) {
                             case PARTICULAR:
-                                System.out.println("Has seleccionado particular");
+                                System.out.println("Introduce el apellido:");
+                                String apellido = scanner.next();
+                                Cliente particular = new Particular(nombre,nif, email, fechaAlta, tarifa, apellido,true);
+                                crudCliente.insertarCliente(particular);
                                 break;
                             case EMPRESA:
-                                System.out.println("Has seleccionado empresa");
+                                Cliente empresa = new Empresa(nombre,nif, email, fechaAlta, tarifa,false);
+                                crudCliente.insertarCliente(empresa);
                                 break;
                         }
                         break;
                     case BORRAR_CLIENTE:
-                        System.out.println("Has seleccionado borrar cliente");
+                        System.out.println("Introduce el NIF de la persona a eliminar");
+                        Cliente cs;
+                        nif = scanner.next();
+                        cs =crudCliente.unCliente(nif);
+                        crudCliente.borrarCliente(cs);
+
                         break;
                     case CAMBIAR_TARIFA_CLIENTE:
                         System.out.println("Has seleccionado modificar la tarifa del cliente");
                         break;
                     case RECUPERAR_CLIENTE_POR_NIF:
-                        System.out.println("Has seleccionado recuperar cliente por NIF");
+                        System.out.println("Introduce el NIF de la persona a eliminar");
+                        nif = scanner.next();
+                        crudCliente.unCliente(nif);
                         break;
                     case RECUPERAR_TODOS_CLIENTES:
                         System.out.println("Has seleccionado recuperar todos clientes");
+                        for(int i = 0; i<crudCliente.listarClientes().size(); i++) {
+                            System.out.println(crudCliente.listarClientes().get(i).toString());
+                        }
                         break;
                 }
                 break;
@@ -95,21 +123,5 @@ public class Ejecutar {
                     System.out.println("Te vas a la puta elige bien");
                     break;
         }
-        /*Cliente hola = new Cliente("Juanjo", "2323B", "bomberocanelles@gmail.com", null , 5.5,false);
-        Particular adeu = new Particular("Albert", "2323A", "bomberocanelles@gmail.com", null , 5.5, "Campos",true);
-        CrudCliente holax = new CrudCliente();
-        holax.insertarCliente(hola);
-        holax.insertarCliente(adeu);
-        holax.listarClientes();
-        holax.unCliente("2323A");
-
-        holax.borrarCliente(hola);
-        holax.listarClientes();
-        for(int i = 0; i<holax.listarClientes().size(); i++) {
-            System.out.println(holax.listarClientes().get(i).toString());
-        }
-        //CrudCliente.insertarCliente(hola);
-        System.out.printf(adeu.getEmail());*/
-
     }
 }
