@@ -13,6 +13,10 @@ public class Particular extends Cliente {
         this.apellidos= apellidos;
     }
 
+    public Particular() {
+
+    }
+
     public String getApellidos() { return apellidos; }
 
     public void setApellidos(String apellidos) {

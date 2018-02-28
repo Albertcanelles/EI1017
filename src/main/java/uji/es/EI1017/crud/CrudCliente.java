@@ -33,4 +33,16 @@ public class CrudCliente {
         }
         return null;
     }
-}
+
+    @Override
+    public String toString(){
+        Cliente cs = new Cliente();
+        Cliente pr = new Particular();
+        String cadena = null;
+        for(int i = 0; i<listaClientes.size(); i++) {
+            cs = listaClientes.get(i);
+            cadena = cadena+"Cliente [Nombre: "+cs.getNombre()+"NIF: "+cs.getNif()+"Email: "+cs.getEmail()+"]";
+            }
+            return cadena;
+        }
+    }
