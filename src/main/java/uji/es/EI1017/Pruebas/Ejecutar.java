@@ -3,8 +3,7 @@ package uji.es.EI1017.Pruebas;
 import uji.es.EI1017.clases.Cliente;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.herencias.Particular;
-import uji.es.EI1017.menu.OpcionesMenu;
-import uji.es.EI1017.menu.OpcionesMenuClientes;
+import uji.es.EI1017.menu.*;
 
 import java.util.Scanner;
 
@@ -22,14 +21,26 @@ public class Ejecutar {
             case GESTIONAR_CLIENTES:
                 /*LLAMADA DEL SUB MENU CLIENTES*/
                 System.out.println(OpcionesMenuClientes.getMenu());
-                Scanner clientes = new Scanner(System.in);
                 System.out.print("Elije una opción:");
                 byte opcion_cliente = scanner.nextByte();
                 OpcionesMenuClientes opcionMenuCliente = OpcionesMenuClientes.getOpcion(opcion_cliente);
                 /*FINAL LLAMADA SUB MENU CLIENTES*/
                 switch (opcionMenuCliente) {
                     case DAR_DE_ALTA_CLIENTE:
-                        System.out.println("Has seleccionado insertar cliente");
+                        /*LLAMADA DEL SUB MENU TIPO CLIENTES*/
+                        System.out.println(OpcionesMenuTipoCliente.getMenu());
+                        System.out.print("Elije una opción:");
+                        byte opcion_TipoCliente = scanner.nextByte();
+                        OpcionesMenuTipoCliente opcionesMenuTipoCliente = OpcionesMenuTipoCliente.getOpcion(opcion_TipoCliente);
+                        /*GINAL LLAMADA SUB MENU TIPO CLIENTES*/
+                        switch (opcionesMenuTipoCliente) {
+                            case PARTICULAR:
+                                System.out.println("Has seleccionado particular");
+                                break;
+                            case EMPRESA:
+                                System.out.println("Has seleccionado empresa");
+                                break;
+                        }
                         break;
                     case BORRAR_CLIENTE:
                         System.out.println("Has seleccionado borrar cliente");
@@ -46,10 +57,39 @@ public class Ejecutar {
                 }
                 break;
             case GESTIONAR_FACTURAS:
-                System.out.println("Has seleccionado gestionar facturas");;
+                /*LLAMADA DEL SUB MENU CLIENTES*/
+                System.out.println(OpcionesMenuFacturas.getMenu());
+                System.out.print("Elije una opción:");
+                byte opcion_factura = scanner.nextByte();
+                OpcionesMenuFacturas opcionesMenuFacturas = OpcionesMenuFacturas.getOpcion(opcion_factura);
+                /*FINAL LLAMADA SUB MENU CLIENTES*/
+                switch (opcionesMenuFacturas) {
+                    case EMITIR_FACTURA_PARA_CLIENTE:
+                        System.out.println("Has seleccionado emitir factura a un cliente");
+                        break;
+                    case RECUPERAR_DATOS_FACTURA_POR_CODIGO:
+                        System.out.println("Has seleccionado recuperar datos de una factura por codigo");
+                        break;
+                    case RECUPERAR_TODAS_FACTUAS_CLIENTE:
+                        System.out.println("Has seleccionado recuperar todas las facturas de un client");
+                        break;
+                }
                 break;
             case GESTIONAR_LLAMADAS:
-                System.out.println("Has seleccionado gestionar llamadas");;
+                /*LLAMADA DEL SUB MENU LLAMADAS*/
+                System.out.println(OpcionesMenuLlamadas.getMenu());
+                System.out.print("Elije una opción:");
+                byte opcion_llamada = scanner.nextByte();
+                OpcionesMenuLlamadas opcionesMenuLlamadas = OpcionesMenuLlamadas.getOpcion(opcion_llamada);
+                /*FINAL LLAMADA SUB MENU LLAMADAS*/
+                switch (opcionesMenuLlamadas) {
+                    case DAR_DE_ALTA_UNA_LLAMADA:
+                        System.out.println("Has seleccionado dar una llamada de alta");
+                        break;
+                    case LISTAR_LLAMADAS_DE_UN_CLIENTE:
+                        System.out.println("Has seleccionado Listar llamadas de un cliente");
+                        break;
+                }
                 break;
                 default:
                     System.out.println("Te vas a la puta elige bien");
