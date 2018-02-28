@@ -45,5 +45,5 @@ public class Cliente {
         return tarifa;
     }
 
-    public boolean isTipoParticular() { return tipoParticular; }
+    public boolean esTipoParticular() { return tipoParticular; }
 }

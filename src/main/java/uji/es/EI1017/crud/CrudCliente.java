@@ -20,7 +20,7 @@ public class CrudCliente {
     }
 
     public List<Cliente> listarClientes(){
-        System.out.printf(listaClientes.toString());
+        System.out.println(listaClientes.toString());
         return listaClientes;
     }
 
