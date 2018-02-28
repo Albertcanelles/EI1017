@@ -46,4 +46,18 @@ public class Cliente {
     }
 
     public boolean esTipoParticular() { return tipoParticular; }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nombre=" + nombre +
+                ", nif=" + nif +
+                ", email=" + email +
+                ", fechaAlta=" + fechaAlta +
+                ", tarifa=" + tarifa +
+                ", tipoParticular=" + tipoParticular +
+                '}';
+    }
 }
+
+

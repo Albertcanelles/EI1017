@@ -1,13 +1,12 @@
 package uji.es.EI1017.menu;
 
-public enum OpcionesMenu   {
-    GESTIONAR_CLIENTES("Gestion de los clientes."),
-    GESTIONAR_LLAMADAS("Gestion de las llamadas."),
-    GESTIONAR_FACTURAS("Gestion de las facturas");
+public enum OpcionesMenuLlamadas {
+    DAR_DE_ALTA_UNA_LLAMADA("Introduce una llamada"),
+    LISTAR_LLAMADAS_DE_UN_CLIENTE("Listado de todas las llamadas de un cliente");
 
     private String descripcion;
 
-    private OpcionesMenu(String descripcion) {
+    private OpcionesMenuLlamadas(String descripcion) {
         this.descripcion = descripcion;
     }
 
@@ -15,13 +14,13 @@ public enum OpcionesMenu   {
         return descripcion;
     }
 
-    public static OpcionesMenu getOpcion(int posicion) {
+    public static OpcionesMenuLlamadas getOpcion(int posicion) {
         return values()[posicion];
     }
 
     public static String getMenu() {
         StringBuilder sb = new StringBuilder();
-        for(OpcionesMenu opcion: OpcionesMenu.values()) {
+        for(OpcionesMenuLlamadas opcion: OpcionesMenuLlamadas.values()) {
             sb.append(opcion.ordinal());
             sb.append(".- ");
             sb.append(opcion.getDescripcion());
@@ -29,4 +28,6 @@ public enum OpcionesMenu   {
         }
         return sb.toString();
     }
+
+
 }

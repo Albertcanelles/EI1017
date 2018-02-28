@@ -1,7 +1,6 @@
 package uji.es.EI1017.crud;
 
 import uji.es.EI1017.clases.Cliente;
-import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
 
 import java.util.ArrayList;
@@ -19,8 +18,7 @@ public class CrudCliente {
             listaClientes.remove(cliente);
     }
 
-    public List<Cliente> listarClientes(){
-        System.out.println(listaClientes.toString());
+    public ArrayList<Cliente> listarClientes(){
         return listaClientes;
     }
 
@@ -33,16 +31,4 @@ public class CrudCliente {
         }
         return null;
     }
-
-    @Override
-    public String toString(){
-        Cliente cs = new Cliente();
-        Cliente pr = new Particular();
-        String cadena = null;
-        for(int i = 0; i<listaClientes.size(); i++) {
-            cs = listaClientes.get(i);
-            cadena = cadena+"Cliente [Nombre: "+cs.getNombre()+"NIF: "+cs.getNif()+"Email: "+cs.getEmail()+"]";
-            }
-            return cadena;
-        }
     }
