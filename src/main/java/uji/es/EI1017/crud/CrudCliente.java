@@ -37,14 +37,13 @@ public class CrudCliente {
             case PARTICULAR:
                 System.out.println("Introduce el apellido:");
                 String apellido = scanner.next();
+
                 Cliente particular = new Particular(nombre,nif, email, fechaAlta, tarifa, apellido,true);
                 listaClientes.add(particular);
-                System.out.println("Insertado");
                 break;
             case EMPRESA:
                 Cliente empresa = new Cliente(nombre,nif, email, fechaAlta, tarifa,false);
                 listaClientes.add(empresa);
-                System.out.println("Insertado");
                 break;
         }
         /* FINAL DE SELECCION DE TIPO DE CLIENTE*/
@@ -52,12 +51,16 @@ public class CrudCliente {
 
 
     public void borrarCliente (){
-        System.out.println("Introduce el NIF de la persona a eliminar");
-        Cliente cs;
-        String nif = scanner.next();
-        cs = unCliente(nif);
-        if (listaClientes.contains(cs))
-            listaClientes.remove(cs);
+        try {
+            System.out.println("Introduce el NIF de la persona a eliminar");
+            Cliente cs;
+            String nif = scanner.next();
+            cs = unCliente(nif);
+            if (listaClientes.contains(cs))
+                listaClientes.remove(cs);
+        } catch (Exception IndexOutOfBoundsException) {
+            System.err.println("El cliente que quiere eliminar no existe");
+        }
     }
 
     public ArrayList<Cliente> listarClientes(){
@@ -65,11 +68,16 @@ public class CrudCliente {
     }
 
     public Cliente unCliente(String nif) {
+        try {
         for(int i = 0; i<=listaClientes.size(); i++) {
             if(listaClientes.get(i).getNif() == nif) {
                 System.out.println(listaClientes.get(i).getNombre());
                 return listaClientes.get(i);
             }
+        }
+
+        }catch (Exception NullPointerException) {
+            System.err.println("Todavia no hay clientes");
         }
         return null;
     }

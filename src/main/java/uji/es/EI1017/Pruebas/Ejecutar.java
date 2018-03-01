@@ -12,7 +12,7 @@ public class Ejecutar {
         do {
             /*LLAMADA DEL MENU PRINCIPAL*/
             System.out.println(OpcionesMenu.getMenu());
-            System.out.print("Elije una opción:");
+            System.out.println("Elije una opción:");
              opcion = scanner.nextByte();
             OpcionesMenu opcionMenu = OpcionesMenu.getOpcion(opcion);
             /*FINAL LLAMADA MENU PRINCIPAL*/
@@ -42,6 +42,10 @@ public class Ejecutar {
                             crudCliente.unCliente(nif);
                             break;
                         case RECUPERAR_TODOS_CLIENTES:
+                            if(crudCliente.listarClientes().size() == 0) {
+                                System.err.println("Todavia no hay clientes");
+                                break;
+                            }
                             System.out.println("Has seleccionado recuperar todos clientes");
                             for (int i = 0; i < crudCliente.listarClientes().size(); i++) {
                                 System.out.println(crudCliente.listarClientes().get(i).toString());
