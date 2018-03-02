@@ -36,12 +36,12 @@ public class Ejecutar {
                         case CAMBIAR_TARIFA_CLIENTE:
                             System.out.println("Has seleccionado modificar la tarifa del cliente");
                             break;
-                        case RECUPERAR_CLIENTE_POR_NIF:
+                        case RECUPERAR_CLIENTE_POR_NIF: // Recuperamos solamente un cliente por nif
                             System.out.println("Introduce el NIF de la persona a recuperar");
                             String nif = scanner.next();
                             crudCliente.unCliente(nif);
                             break;
-                        case RECUPERAR_TODOS_CLIENTES:
+                        case RECUPERAR_TODOS_CLIENTES:  // Recuperamos todos los clientes en la lista actualmente
                             if(crudCliente.listarClientes().size() == 0) {
                                 System.err.println("Todavia no hay clientes");
                                 break;
@@ -87,6 +87,8 @@ public class Ejecutar {
                             System.out.println("Has seleccionado Listar llamadas de un cliente");
                             break;
                     }
+                case SALIR:
+                    System.exit(0);
             }
         }while(opcion!=-1);
     }

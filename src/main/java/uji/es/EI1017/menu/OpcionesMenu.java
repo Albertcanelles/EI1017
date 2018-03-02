@@ -3,7 +3,8 @@ package uji.es.EI1017.menu;
 public enum OpcionesMenu   {
     GESTIONAR_CLIENTES("Gestion de los clientes."),
     GESTIONAR_LLAMADAS("Gestion de las llamadas."),
-    GESTIONAR_FACTURAS("Gestion de las facturas");
+    GESTIONAR_FACTURAS("Gestion de las facturas."),
+    SALIR("Salir del programa");
 
     private String descripcion;
 

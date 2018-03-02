@@ -70,7 +70,7 @@ public class CrudCliente {
     public Cliente unCliente(String nif) {
         try {
         for(int i = 0; i<=listaClientes.size(); i++) {
-            if(listaClientes.get(i).getNif() == nif) {
+            if(listaClientes.get(i).getNif().equals(nif) ) {
                 System.out.println(listaClientes.get(i).getNombre());
                 return listaClientes.get(i);
             }
