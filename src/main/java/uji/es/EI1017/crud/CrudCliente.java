@@ -21,6 +21,8 @@ public class CrudCliente {
         String nif = scanner.next();
         System.out.println("Introduce el email:");
         String email = scanner.next();
+        System.out.println("Introduce la direccion:");
+        String direccion = scanner.next();
         Date fechaAlta = calendar.getTime();
         double tarifa = 5.5;
         /* FIN DE RECOLECCION DE DATOS POR TECLADO*/
@@ -38,11 +40,11 @@ public class CrudCliente {
                 System.out.println("Introduce el apellido:");
                 String apellido = scanner.next();
 
-                Cliente particular = new Particular(nombre,nif, email, fechaAlta, tarifa, apellido,true);
+                Cliente particular = new Particular(nombre,nif, email, direccion ,fechaAlta, tarifa, apellido,true);
                 listaClientes.add(particular);
                 break;
             case EMPRESA:
-                Cliente empresa = new Cliente(nombre,nif, email, fechaAlta, tarifa,false);
+                Cliente empresa = new Empresa(nombre,nif, email, direccion , fechaAlta, tarifa,false);
                 listaClientes.add(empresa);
                 break;
         }

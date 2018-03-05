@@ -7,15 +7,17 @@ public class Cliente {
     private String nombre;
     private String nif;
     private String email;
+    private String direccion;
     private Date fechaAlta;
     private double tarifa;
     //Si tipo cliente es =true es un particular
     private boolean tipoParticular;
 
-    public Cliente(String nombre, String nif, String email, Date fechaAlta, double tarifa, boolean tipoParticular) {
+    public Cliente(String nombre, String nif, String email, String direccion ,Date fechaAlta, double tarifa, boolean tipoParticular) {
         this.nombre = nombre;
         this.nif = nif;
         this.email = email;
+        this.direccion = direccion;
         this.fechaAlta = fechaAlta;
         this.tarifa = tarifa;
         this.tipoParticular = tipoParticular;
@@ -37,6 +39,10 @@ public class Cliente {
         return email;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
     public Date getFechaAlta() {
         return fechaAlta;
     }
@@ -53,6 +59,7 @@ public class Cliente {
                 "nombre=" + nombre +
                 ", nif=" + nif +
                 ", email=" + email +
+                ", direccion=" + direccion +
                 ", fechaAlta=" + fechaAlta +
                 ", tarifa=" + tarifa +
                 ", tipoParticular=" + tipoParticular +

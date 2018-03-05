@@ -8,8 +8,8 @@ public class Particular extends Cliente {
 
     private String apellidos;
 
-    public Particular(String nombre, String nif, String email, Date fechaAlta, double tarifa, String apellidos, boolean tipoParticular ) {
-        super(nombre, nif, email, fechaAlta, tarifa, tipoParticular);
+    public Particular(String nombre, String nif, String email, String direccion,Date fechaAlta, double tarifa, String apellidos, boolean tipoParticular ) {
+        super(nombre, nif, email, direccion,fechaAlta, tarifa, tipoParticular);
         this.apellidos= apellidos;
     }
 
