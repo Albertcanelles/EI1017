@@ -68,7 +68,7 @@ public class Ejecutar {
                             System.out.println("Has seleccionado recuperar datos de una factura por codigo");
                             break;
                         case RECUPERAR_TODAS_FACTUAS_CLIENTE:
-                            System.out.println("Has seleccionado recuperar todas las facturas de un client");
+                            System.out.println("Has seleccionado recuperar todas las facturas de un cliente");
                             break;
                     }
                     break;
