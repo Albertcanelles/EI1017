@@ -3,7 +3,10 @@ package uji.es.EI1017.herencias;
 import uji.es.EI1017.clases.Cliente;
 
 import java.util.Date;
-
+/*
+ * Albert Cañelles Panisello
+ * Daniel Garcia Ruiz
+ */
 public class Particular extends Cliente {
 
     private String apellidos;

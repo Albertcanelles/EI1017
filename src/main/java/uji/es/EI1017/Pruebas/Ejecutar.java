@@ -1,13 +1,13 @@
 package uji.es.EI1017.Pruebas;
+/*
+ * Albert Cañelles Panisello
+ * Daniel Garcia Ruiz
+ */
 
-import uji.es.EI1017.clases.Llamada;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudFactura;
 import uji.es.EI1017.crud.CrudLlamada;
 import uji.es.EI1017.menu.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Ejecutar {

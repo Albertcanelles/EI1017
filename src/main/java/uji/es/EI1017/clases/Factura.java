@@ -1,5 +1,8 @@
 package uji.es.EI1017.clases;
-
+/*
+ * Albert Cañelles Panisello
+ * Daniel Garcia Ruiz
+ */
 import java.util.Date;
 
 public class Factura {

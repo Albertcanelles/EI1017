@@ -1,5 +1,8 @@
 package uji.es.EI1017.menu;
-
+/*
+ * Albert Cañelles Panisello
+ * Daniel Garcia Ruiz
+ */
 public enum OpcionesMenuTipoCliente {
     PARTICULAR("El cliente es un particular?"),
     EMPRESA("El cliente es una empresa?");

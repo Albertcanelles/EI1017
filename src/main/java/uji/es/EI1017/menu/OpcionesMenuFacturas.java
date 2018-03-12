@@ -1,5 +1,8 @@
 package uji.es.EI1017.menu;
-
+/*
+ * Albert Cañelles Panisello
+ * Daniel Garcia Ruiz
+ */
 public enum OpcionesMenuFacturas {
     EMITIR_FACTURA_PARA_CLIENTE("Selecciona el cliente para emitir su factura"),
     RECUPERAR_DATOS_FACTURA_POR_CODIGO("Introduce el codigo de la factura a recuperar"),

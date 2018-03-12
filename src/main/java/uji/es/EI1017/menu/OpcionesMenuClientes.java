@@ -1,5 +1,8 @@
 package uji.es.EI1017.menu;
-
+/*
+ * Albert Cañelles Panisello
+ * Daniel Garcia Ruiz
+ */
 public enum OpcionesMenuClientes  {
     DAR_DE_ALTA_CLIENTE("Dar de alta a un nuevo cliente."),
     BORRAR_CLIENTE("Eliminar un cliente."),

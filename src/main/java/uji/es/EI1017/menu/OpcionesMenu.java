@@ -1,5 +1,8 @@
 package uji.es.EI1017.menu;
-
+/*
+ * Albert Cañelles Panisello
+ * Daniel Garcia Ruiz
+ */
 public enum OpcionesMenu   {
     GESTIONAR_CLIENTES("Gestion de los clientes."),
     GESTIONAR_LLAMADAS("Gestion de las llamadas."),
