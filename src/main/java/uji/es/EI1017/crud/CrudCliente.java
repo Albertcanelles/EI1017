@@ -17,8 +17,14 @@ public class CrudCliente {
         /* RECOLECCION DE DATOS POR TECLADO */
         System.out.println("Introduce el nombre:");
         String nombre = scanner.next();
+        while(nombre == null){
+            System.out.println("No se admiten nombres de valor null");
+        }
         System.out.println("Introduce el NIF:");
         String nif = scanner.next();
+        while(nif.length()!= 9){
+            System.out.println("Su NIF no es valido, ha de tener 8 números y una letra al final");
+        }
         System.out.println("Introduce el email:");
         String email = scanner.next();
         System.out.println("Introduce la direccion:");

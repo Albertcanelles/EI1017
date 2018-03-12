@@ -17,6 +17,9 @@ public class CrudFactura {
     public Factura emitirFactura() {
         System.out.println("Introduce el DNI del cliente:");
         String DNI = scanner.next();
+        while ( DNI.length()!= 9){
+            System.out.println("DNI invalido, ha de tener 8 números y una letra al final");
+        }
         System.out.println("Introduce el codigo de la factura:");
         int codigoFactura= scanner.nextInt();
         Date emisionFactura = calendar.getTime();
