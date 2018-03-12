@@ -1,7 +1,13 @@
 package uji.es.EI1017.Pruebas;
 
+import uji.es.EI1017.clases.Llamada;
 import uji.es.EI1017.crud.CrudCliente;
+import uji.es.EI1017.crud.CrudFactura;
+import uji.es.EI1017.crud.CrudLlamada;
 import uji.es.EI1017.menu.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Ejecutar {
@@ -9,11 +15,13 @@ public class Ejecutar {
         int opcion = 0;
         Scanner scanner = new Scanner(System.in);
         CrudCliente crudCliente = new CrudCliente();  // Llamamos a los metodos de la clase CrudCliente
+        CrudLlamada crudLlamada = new CrudLlamada();  // Llamamos a los metodos de la clase CrudLlamada
+        CrudFactura crudFactura = new CrudFactura();  // Llamamos a los metodos de la clase CrudFactura
         do {
             /*LLAMADA DEL MENU PRINCIPAL*/
             System.out.println(OpcionesMenu.getMenu());
             System.out.println("Elije una opción:");
-             opcion = scanner.nextByte();
+            opcion = scanner.nextByte();
             OpcionesMenu opcionMenu = OpcionesMenu.getOpcion(opcion);
             /*FINAL LLAMADA MENU PRINCIPAL*/
 
@@ -62,13 +70,13 @@ public class Ejecutar {
                     /*FINAL LLAMADA SUB MENU CLIENTES*/
                     switch (opcionesMenuFacturas) {
                         case EMITIR_FACTURA_PARA_CLIENTE:
-                            System.out.println("Has seleccionado emitir factura a un cliente");
+                            crudFactura.emitirFactura();
                             break;
                         case RECUPERAR_DATOS_FACTURA_POR_CODIGO:
-                            System.out.println("Has seleccionado recuperar datos de una factura por codigo");
+                            crudFactura.devolverDatosFacturaPorCodigo();
                             break;
                         case RECUPERAR_TODAS_FACTUAS_CLIENTE:
-                            System.out.println("Has seleccionado recuperar todas las facturas de un cliente");
+                            crudFactura.recuperarTodasFacturas();
                             break;
                     }
                     break;
@@ -81,15 +89,17 @@ public class Ejecutar {
                     /*FINAL LLAMADA SUB MENU LLAMADAS*/
                     switch (opcionesMenuLlamadas) {
                         case DAR_DE_ALTA_UNA_LLAMADA:
-                            System.out.println("Has seleccionado dar una llamada de alta");
+                            crudLlamada.insertarLlamada();
                             break;
                         case LISTAR_LLAMADAS_DE_UN_CLIENTE:
-                            System.out.println("Has seleccionado Listar llamadas de un cliente");
+                            crudLlamada.listarLlamadas();
                             break;
                     }
+                    break;
                 case SALIR:
                     System.exit(0);
             }
-        }while(opcion!=-1);
+        }while(opcion>=0);
+
     }
 }

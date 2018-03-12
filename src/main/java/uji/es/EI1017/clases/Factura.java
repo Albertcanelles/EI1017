@@ -25,7 +25,7 @@ public class Factura {
         return minutos;
     }
 
-    public Date getEmisionFactura() {
+    public Date getFecha() {
         return emisionFactura;
     }
 
@@ -35,5 +35,36 @@ public class Factura {
 
     public Date getFechaInicial() {
         return fechaInicial;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setMinutos(double minutos) {
+        this.minutos = minutos;
+    }
+
+    public void setEmisionFactura(Date emisionFactura) {
+        this.emisionFactura = emisionFactura;
+    }
+
+    public void setFechaFinal(Date fechaFinal) {
+        this.fechaFinal = fechaFinal;
+    }
+
+    public void setFechaInicial(Date fechaInicial) {
+        this.fechaInicial = fechaInicial;
+    }
+
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "codigo=" + codigo +
+                ", minutos=" + minutos +
+                ", emisionFactura=" + emisionFactura +
+                ", fechaFinal=" + fechaFinal +
+                ", fechaInicial=" + fechaInicial +
+                '}';
     }
 }

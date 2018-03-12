@@ -43,7 +43,7 @@ public class Cliente {
         return direccion;
     }
 
-    public Date getFechaAlta() {
+    public Date getFecha() {
         return fechaAlta;
     }
 
