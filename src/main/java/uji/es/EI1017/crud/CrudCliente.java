@@ -19,16 +19,30 @@ public class CrudCliente {
         String nombre = scanner.next();
         while(nombre == null){
             System.out.println("No se admiten nombres de valor null");
+            System.out.println("Introduce el nombre:");
+            nombre = scanner.next();
         }
         System.out.println("Introduce el NIF:");
         String nif = scanner.next();
         while(nif.length()!= 9){
             System.out.println("Su NIF no es valido, ha de tener 8 números y una letra al final");
+            System.out.println("Introduce el NIF:");
+            nif = scanner.next();
         }
         System.out.println("Introduce el email:");
         String email = scanner.next();
+        while(email.length()<10){
+            System.out.println("Email demasiado corto, ha de tener más de 10 carácteres ");
+            System.out.println("Introduce el email:");
+            email = scanner.next();
+        }
         System.out.println("Introduce la direccion:");
         String direccion = scanner.next();
+        while(direccion.length()<10){
+            System.out.println("Dirección no valida, ha de tener 10 o más carácteres");
+            System.out.println("Introduce la direccion:");
+            direccion = scanner.next();
+        }
         Date fechaAlta = calendar.getTime();
         double tarifa = 5.5;
         /* FIN DE RECOLECCION DE DATOS POR TECLADO*/

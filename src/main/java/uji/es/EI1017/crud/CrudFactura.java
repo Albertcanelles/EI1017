@@ -19,9 +19,16 @@ public class CrudFactura {
         String DNI = scanner.next();
         while ( DNI.length()!= 9){
             System.out.println("DNI invalido, ha de tener 8 números y una letra al final");
+            System.out.println("Introduce el DNI del cliente:");
+            DNI = scanner.next();
         }
         System.out.println("Introduce el codigo de la factura:");
         int codigoFactura= scanner.nextInt();
+        while (codigoFactura<2){
+            System.out.println("Código invalido, ha de ser un número de al menos 3 digitos");
+            System.out.println("Introduce el codigo de la factura:");
+            codigoFactura= scanner.nextInt();
+        }
         Date emisionFactura = calendar.getTime();
         System.out.println("Introduce el la fecha inicio dd/MM/yyyy");
         Date fechaInicial = null;
