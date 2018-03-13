@@ -8,6 +8,7 @@ public enum OpcionesMenuClientes  {
     BORRAR_CLIENTE("Eliminar un cliente."),
     CAMBIAR_TARIFA_CLIENTE("Cambiar tarifa de un cliente."),
     RECUPERAR_CLIENTE_POR_NIF("Seleccionar un cliente por su NIF."),
+    LISTAR_CLIENTES_ENTRE_FECHAS("Mostrar clientes dado de alta entre dos fechas."),
     RECUPERAR_TODOS_CLIENTES("Seleccion de todos los clientes.");
 
     private String descripcion;

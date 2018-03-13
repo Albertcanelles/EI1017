@@ -59,6 +59,9 @@ public class Ejecutar {
                                 System.out.println(crudCliente.listarClientes().get(i).toString());
                             }
                             break;
+                        case LISTAR_CLIENTES_ENTRE_FECHAS:
+                            System.out.println("HAs seleccionado listar entre fechas");
+                            break;
                     }
                     break;
                 case GESTIONAR_FACTURAS:
@@ -78,6 +81,9 @@ public class Ejecutar {
                         case RECUPERAR_TODAS_FACTUAS_CLIENTE:
                             crudFactura.recuperarTodasFacturas();
                             break;
+                        case LISTAR_FACTURAS_ENTRE_FECHAS:
+                            System.out.println("HAs seleccionado listar entre fechas");
+                            break;
                     }
                     break;
                 case GESTIONAR_LLAMADAS:
@@ -93,6 +99,9 @@ public class Ejecutar {
                             break;
                         case LISTAR_LLAMADAS_DE_UN_CLIENTE:
                             crudLlamada.listarLlamadas();
+                            break;
+                        case LISTAR_LLAMADAS_ENTRE_FECHAS:
+                            System.out.println("HAs seleccionado listar entre fechas");
                             break;
                     }
                     break;

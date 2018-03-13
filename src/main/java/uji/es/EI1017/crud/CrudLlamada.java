@@ -23,7 +23,8 @@ public class CrudLlamada {
         }
         System.out.println("Introduce el numero a llamar:");
         int telefono = scanner.nextInt();
-        while ( telefono != 9){
+        String cod_valor = String.valueOf(telefono);
+        while ( cod_valor.length() != 9){
             System.out.println("El número no es válido, ha de ser un número de nueve dígitos");
             System.out.println("Introduce el numero a llamar:");
             telefono = scanner.nextInt();
