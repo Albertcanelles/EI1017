@@ -34,12 +34,16 @@ public class CrudFactura {
         }
         Date emisionFactura = calendar.getTime();
         System.out.println("Introduce el la fecha inicio dd/MM/yyyy");
-        Date fechaInicial = null;
-        try {
-            fechaInicial = new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine());
-        } catch (ParseException e) {
-            e.printStackTrace();
+        String fechaEntrada = scanner.nextLine();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date testDate = null;
+        String date = fechaEntrada;
+        try{
+            testDate = df.parse(date);
+        }catch (Exception e){
+            System.out.println("Invalid format");
         }
+
         System.out.println("Introduce el la fecha final dd/MM/yyyy");
         Date fechaFinal = null;
         try {
@@ -47,8 +51,8 @@ public class CrudFactura {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        float duracion = crudLlamada.sumarMinutos(DNI, fechaInicial, fechaFinal);
-        Factura factura = new Factura(codigoFactura, duracion, emisionFactura,fechaInicial, fechaFinal);
+        float duracion = crudLlamada.sumarMinutos(DNI, fechaFinal, fechaFinal);
+        Factura factura = new Factura(codigoFactura, duracion, emisionFactura,fechaFinal, fechaFinal);
         facturas.add(factura);
         if(listaFacturas.containsKey(DNI)) {
             listaFacturas.replace(DNI, facturas, facturas);
