@@ -42,7 +42,7 @@ public class Ejecutar {
                             crudCliente.borrarCliente(); // En la clase crudCliente metodo borrarClient se realizan todas las operaciones
                             break;
                         case CAMBIAR_TARIFA_CLIENTE:
-                            System.out.println("Has seleccionado modificar la tarifa del cliente");
+                            System.out.println("Has seleccionado modificar la tarifa de un cliente");
                             break;
                         case RECUPERAR_CLIENTE_POR_NIF: // Recuperamos solamente un cliente por nif
                             System.out.println("Introduce el NIF de la persona a recuperar");
