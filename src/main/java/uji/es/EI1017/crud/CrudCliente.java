@@ -7,6 +7,7 @@ import uji.es.EI1017.clases.Cliente;
 import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
+import uji.es.EI1017.metodos.MetodosCliente;
 
 import java.util.*;
 
@@ -89,7 +90,7 @@ public class CrudCliente {
     }
 
     public ArrayList<Cliente> listarClientes(){
-        return listaClientes;
+        return MetodosCliente.listarClientes(listaClientes);
     }
 
     public Cliente unCliente(String nif) {

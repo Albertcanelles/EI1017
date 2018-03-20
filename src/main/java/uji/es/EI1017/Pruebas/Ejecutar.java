@@ -7,6 +7,7 @@ package uji.es.EI1017.Pruebas;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudFactura;
 import uji.es.EI1017.crud.CrudLlamada;
+import uji.es.EI1017.metodos.*;
 import uji.es.EI1017.menu.*;
 import java.util.Scanner;
 
