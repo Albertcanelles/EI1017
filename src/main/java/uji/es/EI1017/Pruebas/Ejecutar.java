@@ -7,17 +7,23 @@ package uji.es.EI1017.Pruebas;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudFactura;
 import uji.es.EI1017.crud.CrudLlamada;
-import uji.es.EI1017.metodos.*;
 import uji.es.EI1017.menu.*;
+import uji.es.EI1017.recoleccionDatos.recolectorDatosCliente;
+import uji.es.EI1017.recoleccionDatos.recolectorDatosFactura;
+import uji.es.EI1017.recoleccionDatos.recolectorDatosLlamada;
+
 import java.util.Scanner;
 
 public class Ejecutar {
     public static void main (String [ ] args) {
         int opcion = 0;
         Scanner scanner = new Scanner(System.in);
-        CrudCliente crudCliente = new CrudCliente();  // Llamamos a los metodos de la clase CrudCliente
-        CrudLlamada crudLlamada = new CrudLlamada();  // Llamamos a los metodos de la clase CrudLlamada
-        CrudFactura crudFactura = new CrudFactura();  // Llamamos a los metodos de la clase CrudFactura
+        recolectorDatosCliente recolectorCliente = new recolectorDatosCliente(); // Clase utilizada para la recoleccion datos de clientes
+        recolectorDatosLlamada recolectorLlamada = new recolectorDatosLlamada(); // Clase utilizada para la recoleccion datos de llamadas
+        recolectorDatosFactura recolectorFactura = new recolectorDatosFactura(); // Clase utilizada para la recoleccion datos de facturas
+        CrudCliente crudCliente = new CrudCliente();  // Clase utilizada para obtener datos de Clientes
+        CrudLlamada crudLlamada = new CrudLlamada();  // Clase utilizada para obtener datos de Llamadas
+        CrudFactura crudFactura = new CrudFactura();  // Clase utilizada para obtener datos de Facturas
         do {
             /*LLAMADA DEL MENU PRINCIPAL*/
             System.out.println(OpcionesMenu.getMenu());
@@ -37,18 +43,16 @@ public class Ejecutar {
                     /*FINAL LLAMADA SUB MENU CLIENTES*/
                     switch (opcionMenuCliente) {
                         case DAR_DE_ALTA_CLIENTE:
-                            crudCliente.insertarCliente(); // En la clase crudCliente metodo insertarCliente se realizan todas las operaciones
+                            recolectorCliente.insertarDatosCliente(); // En la clase crudCliente metodo insertarCliente se realizan todas las operaciones
                             break;
                         case BORRAR_CLIENTE:
-                            crudCliente.borrarCliente(); // En la clase crudCliente metodo borrarClient se realizan todas las operaciones
+                            recolectorCliente.eliminarClienteDNI(); // En la clase crudCliente metodo borrarClient se realizan todas las operaciones
                             break;
                         case CAMBIAR_TARIFA_CLIENTE:
                             System.out.println("Has seleccionado modificar la tarifa de un cliente");
                             break;
                         case RECUPERAR_CLIENTE_POR_NIF: // Recuperamos solamente un cliente por nif
-                            System.out.println("Introduce el NIF de la persona a recuperar");
-                            String nif = scanner.next();
-                            crudCliente.unCliente(nif);
+                            recolectorCliente.recuperarClientePorDNI();
                             break;
                         case RECUPERAR_TODOS_CLIENTES:  // Recuperamos todos los clientes en la lista actualmente
                             if(crudCliente.listarClientes().size() == 0) {
@@ -74,13 +78,13 @@ public class Ejecutar {
                     /*FINAL LLAMADA SUB MENU CLIENTES*/
                     switch (opcionesMenuFacturas) {
                         case EMITIR_FACTURA_PARA_CLIENTE:
-                            crudFactura.emitirFactura();
+                            recolectorFactura.insertarDatosFactura();
                             break;
                         case RECUPERAR_DATOS_FACTURA_POR_CODIGO:
-                            crudFactura.devolverDatosFacturaPorCodigo();
+                            recolectorFactura.devolverFactuasPorCodigo();
                             break;
                         case RECUPERAR_TODAS_FACTUAS_CLIENTE:
-                            crudFactura.recuperarTodasFacturas();
+                            recolectorFactura.devolverFacturasUnCliente();
                             break;
                         case LISTAR_FACTURAS_ENTRE_FECHAS:
                             System.out.println("HAs seleccionado listar entre fechas");
@@ -96,10 +100,10 @@ public class Ejecutar {
                     /*FINAL LLAMADA SUB MENU LLAMADAS*/
                     switch (opcionesMenuLlamadas) {
                         case DAR_DE_ALTA_UNA_LLAMADA:
-                            crudLlamada.insertarLlamada();
+                            recolectorLlamada.insertarDatosLlamada();
                             break;
                         case LISTAR_LLAMADAS_DE_UN_CLIENTE:
-                            crudLlamada.listarLlamadas();
+                            recolectorLlamada.listarLlamadasUnCliente();
                             break;
                         case LISTAR_LLAMADAS_ENTRE_FECHAS:
                             System.out.println("HAs seleccionado listar entre fechas");
