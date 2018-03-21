@@ -1,9 +1,9 @@
-package uji.es.EI1017.herencias;
+package uji.es.EI1017.Herencias;
 /*
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
-import uji.es.EI1017.clases.Cliente;
+import uji.es.EI1017.Clases.Cliente;
 
 import java.util.Date;
 

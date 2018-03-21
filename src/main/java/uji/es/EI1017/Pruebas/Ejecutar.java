@@ -4,10 +4,10 @@ package uji.es.EI1017.Pruebas;
  * Daniel Garcia Ruiz
  */
 
-import uji.es.EI1017.crud.CrudCliente;
-import uji.es.EI1017.crud.CrudFactura;
-import uji.es.EI1017.crud.CrudLlamada;
-import uji.es.EI1017.menu.*;
+import uji.es.EI1017.Crud.CrudCliente;
+import uji.es.EI1017.Crud.CrudFactura;
+import uji.es.EI1017.Crud.CrudLlamada;
+import uji.es.EI1017.Menu.*;
 import uji.es.EI1017.recoleccionDatos.recolectorDatosCliente;
 import uji.es.EI1017.recoleccionDatos.recolectorDatosFactura;
 import uji.es.EI1017.recoleccionDatos.recolectorDatosLlamada;

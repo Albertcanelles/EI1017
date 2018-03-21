@@ -1,13 +1,10 @@
-package uji.es.EI1017.crud;
+package uji.es.EI1017.Crud;
 /*
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
-import uji.es.EI1017.clases.Factura;
-import uji.es.EI1017.clases.Llamada;
+import uji.es.EI1017.Clases.Factura;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CrudFactura {
