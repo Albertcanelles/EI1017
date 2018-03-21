@@ -1,12 +1,10 @@
-package uji.es.EI1017.crud;
+package uji.es.EI1017.Crud;
 /*
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
-import uji.es.EI1017.clases.Cliente;
-import uji.es.EI1017.herencias.Empresa;
-import uji.es.EI1017.herencias.Particular;
-import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
+import uji.es.EI1017.Clases.Cliente;
+
 import java.util.*;
 
 public class CrudCliente {
@@ -16,7 +14,7 @@ public class CrudCliente {
 
     public void insertarCliente(Cliente cliente){
             listaClientes.add(cliente);
-        }
+    }
 
     public boolean borrarCliente (Cliente cliente){
         try {
