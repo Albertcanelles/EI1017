@@ -30,6 +30,10 @@ public class CrudCliente {
         return listaClientes;
     }
 
+
+    public int tamanyoLista(){
+        return listaClientes.size();
+    }
     public Cliente unCliente(String nif) {
         try {
         for(int i = 0; i<=listaClientes.size(); i++) {

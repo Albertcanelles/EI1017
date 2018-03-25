@@ -60,12 +60,12 @@ public class Ejecutar {
                                 break;
                             }
                             System.out.println("Has seleccionado recuperar todos clientes");
-                            for (int i = 0; i < crudCliente.listarClientes().size(); i++) {
+                            for (int i = 0; i < crudCliente.tamanyoLista(); i++) {
                                 System.out.println(crudCliente.listarClientes().get(i).toString());
                             }
                             break;
                         case LISTAR_CLIENTES_ENTRE_FECHAS:
-                            System.out.println("HAs seleccionado listar entre fechas");
+                            System.out.println("Has seleccionado listar entre fechas");
                             break;
                     }
                     break;
