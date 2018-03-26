@@ -1,4 +1,4 @@
-package uji.es.EI1017.Clases;
+package uji.es.EI1017.clases;
 /*
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz

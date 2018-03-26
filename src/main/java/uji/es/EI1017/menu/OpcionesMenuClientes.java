@@ -1,4 +1,4 @@
-package uji.es.EI1017.Menu;
+package uji.es.EI1017.menu;
 /*
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz

@@ -1,9 +1,9 @@
-package uji.es.EI1017.Crud;
+package uji.es.EI1017.crud;
 /*
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
-import uji.es.EI1017.Clases.Factura;
+import uji.es.EI1017.clases.Factura;
 
 import java.util.*;
 
