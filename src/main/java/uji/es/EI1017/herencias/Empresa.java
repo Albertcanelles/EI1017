@@ -1,4 +1,4 @@
-package uji.es.EI1017.Herencias;
+package uji.es.EI1017.herencias;
 /*
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz

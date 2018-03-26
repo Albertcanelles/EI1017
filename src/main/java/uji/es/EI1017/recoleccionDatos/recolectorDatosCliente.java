@@ -1,10 +1,10 @@
 package uji.es.EI1017.recoleccionDatos;
 
 import uji.es.EI1017.Clases.Cliente;
-import uji.es.EI1017.Crud.CrudCliente;
-import uji.es.EI1017.Herencias.Empresa;
-import uji.es.EI1017.Herencias.Particular;
-import uji.es.EI1017.Menu.OpcionesMenuTipoCliente;
+import uji.es.EI1017.crud.CrudCliente;
+import uji.es.EI1017.herencias.Empresa;
+import uji.es.EI1017.herencias.Particular;
+import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
 
 import java.util.Calendar;
 import java.util.Date;
