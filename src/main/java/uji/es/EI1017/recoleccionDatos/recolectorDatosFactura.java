@@ -1,6 +1,6 @@
 package uji.es.EI1017.recoleccionDatos;
 
-import uji.es.EI1017.clases.Factura;
+import uji.es.EI1017.Clases.Factura;
 import uji.es.EI1017.crud.CrudFactura;
 import uji.es.EI1017.crud.CrudLlamada;
 

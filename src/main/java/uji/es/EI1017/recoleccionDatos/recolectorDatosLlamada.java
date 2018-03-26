@@ -1,6 +1,6 @@
 package uji.es.EI1017.recoleccionDatos;
 
-import uji.es.EI1017.clases.Llamada;
+import uji.es.EI1017.Clases.Llamada;
 import uji.es.EI1017.crud.CrudLlamada;
 
 import java.util.Calendar;

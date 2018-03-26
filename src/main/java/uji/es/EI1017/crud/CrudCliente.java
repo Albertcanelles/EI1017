@@ -3,7 +3,7 @@ package uji.es.EI1017.crud;
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
-import uji.es.EI1017.clases.Cliente;
+import uji.es.EI1017.Clases.Cliente;
 
 import java.util.*;
 
