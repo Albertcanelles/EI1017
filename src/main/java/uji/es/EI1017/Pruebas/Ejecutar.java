@@ -18,12 +18,13 @@ public class Ejecutar {
     public static void main (String [ ] args) {
         int opcion = 0;
         Scanner scanner = new Scanner(System.in);
-        recolectorDatosCliente recolectorCliente = new recolectorDatosCliente(); // Clase utilizada para la recoleccion datos de clientes
-        recolectorDatosLlamada recolectorLlamada = new recolectorDatosLlamada(); // Clase utilizada para la recoleccion datos de llamadas
-        recolectorDatosFactura recolectorFactura = new recolectorDatosFactura(); // Clase utilizada para la recoleccion datos de facturas
         CrudCliente crudCliente = new CrudCliente();  // Clase utilizada para obtener datos de Clientes
         CrudLlamada crudLlamada = new CrudLlamada();  // Clase utilizada para obtener datos de Llamadas
         CrudFactura crudFactura = new CrudFactura();  // Clase utilizada para obtener datos de Facturas
+        recolectorDatosCliente recolectorCliente = new recolectorDatosCliente(crudCliente); // Clase utilizada para la recoleccion datos de clientes
+        recolectorDatosLlamada recolectorLlamada = new recolectorDatosLlamada(crudLlamada); // Clase utilizada para la recoleccion datos de llamadas
+        recolectorDatosFactura recolectorFactura = new recolectorDatosFactura(crudLlamada, crudFactura); // Clase utilizada para la recoleccion datos de facturas
+
         do {
             /*LLAMADA DEL MENU PRINCIPAL*/
             System.out.println(OpcionesMenu.getMenu());

@@ -8,10 +8,13 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class recolectorDatosLlamada {
-    CrudLlamada crudLlamada = new CrudLlamada();  // Llamamos a los recoleccionDatos de la clase CrudLlamada
+    CrudLlamada crudLlamada;  // Llamamos a los recoleccionDatos de la clase CrudLlamada
     Calendar calendar = Calendar.getInstance();
     Scanner scanner = new Scanner(System.in);
 
+    public recolectorDatosLlamada(CrudLlamada crudLlamada) {
+        this.crudLlamada = crudLlamada;
+    }
     public void insertarDatosLlamada() {
         System.out.println("Introduce el DNI del cliente:");
         String DNI = scanner.next();

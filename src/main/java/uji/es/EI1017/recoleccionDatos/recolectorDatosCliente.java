@@ -13,9 +13,14 @@ import java.util.Scanner;
 public class recolectorDatosCliente {
 
 
-    CrudCliente crudCliente = new CrudCliente();  // Llamamos a los recoleccionDatos de la clase CrudCliente
+    CrudCliente crudCliente;
     Calendar calendar = Calendar.getInstance();
     Scanner scanner = new Scanner(System.in);
+
+    // Constructor para pasar la referencia del ejecutar.
+    public recolectorDatosCliente(CrudCliente crud){
+        this.crudCliente = crud;
+    }
 
 
     public void insertarDatosCliente() {

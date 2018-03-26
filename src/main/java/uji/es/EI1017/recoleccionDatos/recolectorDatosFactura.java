@@ -10,10 +10,15 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class recolectorDatosFactura {
-    CrudFactura crudFactura = new CrudFactura();  // Llamamos a los recoleccionDatos de la clase CrudFactura
-    CrudLlamada crudLlamada = new CrudLlamada();  // Llamamos a los recoleccionDatos de la clase CrudLlamada
+    CrudFactura crudFactura;  // Llamamos a los recoleccionDatos de la clase CrudFactura
+    CrudLlamada crudLlamada;  // Llamamos a los recoleccionDatos de la clase CrudLlamada
     Calendar calendar = Calendar.getInstance();
     Scanner scanner = new Scanner(System.in);
+
+    public recolectorDatosFactura(CrudLlamada crudLlamada, CrudFactura crudFactura) {
+        this.crudFactura = crudFactura;
+        this.crudLlamada = crudLlamada;
+    }
 
     public void insertarDatosFactura() {
         System.out.println("Introduce el DNI del cliente:");
