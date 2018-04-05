@@ -1,10 +1,12 @@
 package uji.es.EI1017.recoleccionDatos;
 
 import uji.es.EI1017.Clases.Llamada;
-import uji.es.EI1017.crud.CrudLlamada;
+import uji.es.EI1017.crud.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Collection;
 import java.util.Scanner;
 
 public class recolectorDatosLlamada {
@@ -38,7 +40,7 @@ public class recolectorDatosLlamada {
             System.out.println("Introduce la duracion:");
             duracion = scanner.nextFloat();
         }
-        Date fechaLlamada = calendar.getTime();
+        LocalDateTime fechaLlamada = LocalDateTime.now();
         Llamada llamada = new Llamada(telefono, fechaLlamada, duracion);
         crudLlamada.insertarLlamada(llamada,DNI);
     }
@@ -47,5 +49,15 @@ public class recolectorDatosLlamada {
         System.out.println("Introduce el DNI del cliente a listar:");
         String DNI = scanner.next();
         crudLlamada.listarLlamadas(DNI);
+    }
+    public void listarLLamadas(){
+        LocalDateTime fechaIni = recolectorDatosGenerico.pedirFecha();
+        LocalDateTime fechaFin = recolectorDatosGenerico.pedirFecha();
+        ArrayList<Llamada> todas = crudLlamada.getLlamadas();
+        Collection<Llamada> lista = CrudGenerico.extraerConjunto(todas , fechaIni, fechaFin);
+        for(Llamada iter : lista){
+            System.out.println(iter.toString());
+        }
+
     }
 }

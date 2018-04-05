@@ -3,20 +3,21 @@ package uji.es.EI1017.Clases;
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
-import java.util.Date;
+import java.time.LocalDateTime;
 
-public class Cliente {
+
+public class Cliente implements Fecha{
 
     private String nombre;
     private String nif;
     private String email;
     private String direccion;
-    private Date fechaAlta;
+    private LocalDateTime fechaAlta;
     private double tarifa;
     //Si tipo cliente es =true es un particular
     private boolean tipoParticular;
 
-    public Cliente(String nombre, String nif, String email, String direccion ,Date fechaAlta, double tarifa, boolean tipoParticular) {
+    public Cliente(String nombre, String nif, String email, String direccion ,LocalDateTime fechaAlta, double tarifa, boolean tipoParticular) {
         this.nombre = nombre;
         this.nif = nif;
         this.email = email;
@@ -46,7 +47,7 @@ public class Cliente {
         return direccion;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fechaAlta;
     }
 

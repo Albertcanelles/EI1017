@@ -1,13 +1,14 @@
 package uji.es.EI1017.recoleccionDatos;
 
 import uji.es.EI1017.Clases.Factura;
+import uji.es.EI1017.Clases.Llamada;
 import uji.es.EI1017.crud.CrudFactura;
+import uji.es.EI1017.crud.CrudGenerico;
 import uji.es.EI1017.crud.CrudLlamada;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class recolectorDatosFactura {
     CrudFactura crudFactura;  // Llamamos a los recoleccionDatos de la clase CrudFactura
@@ -35,30 +36,13 @@ public class recolectorDatosFactura {
             System.out.println("Introduce el codigo de la factura:");
             codigoFactura= scanner.nextInt();
         }
-        Date emisionFactura = calendar.getTime();
-        System.out.println("Introduce el la fecha inicio dd/MM/yyyy");
-        String StrfechaInicio = scanner.nextLine();
-        StrfechaInicio= scanner.nextLine();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaInicio  = null;
-        String date = StrfechaInicio;
-        try{
-            fechaInicio  = df.parse(date);
-        }catch (Exception e){
-            System.out.println("Invalid format");
-        }
+        LocalDateTime emisionFactura = LocalDateTime.now();
+        System.out.println("Introduce el la fecha inicio");
+        LocalDateTime fechaInicio = recolectorDatosGenerico.pedirFecha();
 
-        System.out.println("Introduce el la fecha final dd/MM/yyyy");
-        String StrfechaFinal = scanner.nextLine();
-        StrfechaFinal = scanner.nextLine();
-        df = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaFinal  = null;
-        date = StrfechaFinal;
-        try{
-            fechaFinal  = df.parse(date);
-        }catch (Exception e){
-            System.out.println("Invalid format");
-        }
+        System.out.println("Introduce el la fecha final");
+        LocalDateTime fechaFinal = recolectorDatosGenerico.pedirFecha();
+
         float duracion = crudLlamada.sumarMinutos(DNI, fechaInicio, fechaFinal);
         Factura factura = new Factura(codigoFactura, duracion, emisionFactura,fechaInicio, fechaFinal);
         crudFactura.emitirFactura(factura, DNI);
@@ -75,5 +59,14 @@ public class recolectorDatosFactura {
         String DNI = scanner.next();
         crudFactura.recuperarTodasFacturas(DNI);
     }
+    public void listarFacturas(){
+        LocalDateTime fechaIni = recolectorDatosGenerico.pedirFecha();
+        LocalDateTime fechaFin = recolectorDatosGenerico.pedirFecha();
+        ArrayList<Factura> todas = crudFactura.getFacturas();
+        Collection<Factura> lista = CrudGenerico.extraerConjunto(todas , fechaIni, fechaFin);
+        for(Factura iter : lista){
+            System.out.println(iter.toString());
+        }
 
+    }
 }

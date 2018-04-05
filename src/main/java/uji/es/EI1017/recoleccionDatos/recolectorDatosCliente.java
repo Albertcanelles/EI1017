@@ -1,14 +1,15 @@
 package uji.es.EI1017.recoleccionDatos;
 
 import uji.es.EI1017.Clases.Cliente;
+import uji.es.EI1017.Clases.Factura;
 import uji.es.EI1017.crud.CrudCliente;
+import uji.es.EI1017.crud.CrudGenerico;
 import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class recolectorDatosCliente {
 
@@ -84,7 +85,7 @@ public class recolectorDatosCliente {
             Cliente cs;
             String nif = scanner.next();
             cs = crudCliente.unCliente(nif);
-            if (crudCliente.listaClientes.contains(cs))
+            if (crudCliente.getListaClientes().contains(cs))
                 crudCliente.borrarCliente(cs);
 
     }
@@ -93,5 +94,14 @@ public class recolectorDatosCliente {
         System.out.println("Introduce el NIF de la persona a recuperar");
         String nif = scanner.next();
         crudCliente.unCliente(nif);
+    }
+    public void listarFacturas(){
+        LocalDateTime fechaIni = recolectorDatosGenerico.pedirFecha();
+        LocalDateTime fechaFin = recolectorDatosGenerico.pedirFecha();
+        ArrayList<Cliente> todas = crudCliente.getListaClientes();
+        Collection<Cliente> lista = CrudGenerico.extraerConjunto(todas , fechaIni, fechaFin);
+        for(Cliente iter : lista){
+            System.out.println(iter.toString());
+        }
     }
 }

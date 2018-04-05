@@ -4,13 +4,18 @@ package uji.es.EI1017.crud;
  * Daniel Garcia Ruiz
  */
 import uji.es.EI1017.Clases.Cliente;
+import uji.es.EI1017.recoleccionDatos.recolectorDatosGenerico;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class CrudCliente {
 
-    public ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+    private ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
 
+    public ArrayList<Cliente> getListaClientes() {
+        return listaClientes;
+    }
 
     public void insertarCliente(Cliente cliente){
             listaClientes.add(cliente);

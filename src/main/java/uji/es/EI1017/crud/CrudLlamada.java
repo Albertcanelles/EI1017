@@ -5,10 +5,11 @@ package uji.es.EI1017.crud;
  */
 import uji.es.EI1017.Clases.Llamada;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class CrudLlamada {
-    ArrayList<Llamada> llamadas = new ArrayList<Llamada>();
+    private ArrayList<Llamada> llamadas = new ArrayList<Llamada>();
     HashMap<String, ArrayList<Llamada>> listaLlamadas = new HashMap<String, ArrayList<Llamada>>();
 
 
@@ -20,6 +21,10 @@ public class CrudLlamada {
         else {
             listaLlamadas.put(DNI, llamadas);
         }
+    }
+
+    public ArrayList<Llamada> getLlamadas() {
+        return llamadas;
     }
 
     public ArrayList<Llamada> listarLlamadas(String DNI) {  // Ineficiente lo mas seguro revisar para entrega final DE NADA ;)
@@ -39,19 +44,20 @@ public class CrudLlamada {
     /*
     * Metodo utilizado para la suma de los minutos totales a la hora de generar la factura
     * */
-    public float sumarMinutos(String DNI, Date FechaInicio, Date FechaFinal) {
-            float suma = 0;
-        if(listaLlamadas.containsKey(DNI)){
-            for (HashMap.Entry entry : listaLlamadas.entrySet()){
-                if(entry.getKey().equals(DNI))
-                    for(int i = 0; i<listaLlamadas.entrySet().size(); i++) {
-                        suma+=listaLlamadas.get(i).get(i).getDuracion();
+    public float sumarMinutos(String DNI, LocalDateTime FechaInicio, LocalDateTime FechaFinal) {
+        float suma = 0;
+        if (listaLlamadas.containsKey(DNI)) {
+            for (HashMap.Entry entry : listaLlamadas.entrySet()) {
+                if (entry.getKey().equals(DNI))
+                    for (int i = 0; i < listaLlamadas.entrySet().size(); i++) {
+                        suma += listaLlamadas.get(i).get(i).getDuracion();
                     }
             }
-        }else {
+        } else {
             System.err.println("No existe el cliente");
         }
 
         return suma;
     }
+
 }

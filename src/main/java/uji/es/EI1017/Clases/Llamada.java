@@ -3,14 +3,14 @@ package uji.es.EI1017.Clases;
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
-import java.util.Date;
+import java.time.LocalDateTime;
 
-public class Llamada {
+public class Llamada implements Fecha{
     private int telefono;
-    private Date fechaLlamada;
+    private LocalDateTime fechaLlamada;
     private float duracion;
 
-    public Llamada(int telefono, Date fechaLlamada, float duracion) {
+    public Llamada(int telefono, LocalDateTime fechaLlamada, float duracion) {
         this.telefono = telefono;
         this.fechaLlamada = fechaLlamada;
         this.duracion = duracion;
@@ -20,7 +20,7 @@ public class Llamada {
         return telefono;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fechaLlamada;
     }
 
@@ -32,7 +32,7 @@ public class Llamada {
         this.telefono = telefono;
     }
 
-    public void setFechaLlamada(Date fechaLlamada) {
+    public void setFechaLlamada(LocalDateTime fechaLlamada) {
         this.fechaLlamada = fechaLlamada;
     }
 

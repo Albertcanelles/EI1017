@@ -10,7 +10,7 @@ import java.util.*;
 public class CrudFactura {
     ArrayList<Factura> facturas = new ArrayList<Factura>();
     HashMap<String, ArrayList<Factura>> listaFacturas = new HashMap<String, ArrayList<Factura>>();
-    CrudLlamada crudLlamada = new CrudLlamada();
+    private CrudLlamada crudLlamada = new CrudLlamada();
 
     public Factura emitirFactura(Factura factura, String DNI) {
         facturas.add(factura);
@@ -21,6 +21,10 @@ public class CrudFactura {
             listaFacturas.put(DNI, facturas);
         }
         return factura;
+    }
+
+    public ArrayList<Factura> getFacturas() {
+        return facturas;
     }
 
     public String devolverDatosFacturaPorCodigo(int codigoFactura) {

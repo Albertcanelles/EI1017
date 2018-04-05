@@ -3,16 +3,17 @@ package uji.es.EI1017.Clases;
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
-import java.util.Date;
+import java.time.LocalDateTime;
 
-public class Factura {
+
+public class Factura implements Fecha {
     private int codigo;
     private double minutos;
-    private Date emisionFactura;
-    private Date fechaFinal;
-    private Date fechaInicial;
+    private LocalDateTime emisionFactura;
+    private LocalDateTime fechaFinal;
+    private LocalDateTime fechaInicial;
 
-    public Factura(int codigo, double minutos, Date emisionFactura, Date fechaFinal, Date fechaInicial) {
+    public Factura(int codigo, double minutos, LocalDateTime emisionFactura, LocalDateTime fechaFinal, LocalDateTime fechaInicial) {
         this.codigo = codigo;
         this.minutos = minutos;
         this.emisionFactura = emisionFactura;
@@ -28,15 +29,15 @@ public class Factura {
         return minutos;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return emisionFactura;
     }
 
-    public Date getFechaFinal() {
+    public LocalDateTime getFechaFinal() {
         return fechaFinal;
     }
 
-    public Date getFechaInicial() {
+    public LocalDateTime getFechaInicial() {
         return fechaInicial;
     }
 
@@ -48,15 +49,15 @@ public class Factura {
         this.minutos = minutos;
     }
 
-    public void setEmisionFactura(Date emisionFactura) {
+    public void setEmisionFactura(LocalDateTime emisionFactura) {
         this.emisionFactura = emisionFactura;
     }
 
-    public void setFechaFinal(Date fechaFinal) {
+    public void setFechaFinal(LocalDateTime fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 
-    public void setFechaInicial(Date fechaInicial) {
+    public void setFechaInicial(LocalDateTime fechaInicial) {
         this.fechaInicial = fechaInicial;
     }
 
