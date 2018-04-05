@@ -2,6 +2,7 @@ package uji.es.EI1017.herencias;
 
 import uji.es.EI1017.Clases.Cliente;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 /*
  * Albert Cañelles Panisello
@@ -11,7 +12,7 @@ public class Particular extends Cliente {
 
     private String apellidos;
 
-    public Particular(String nombre, String nif, String email, String direccion,Date fechaAlta, double tarifa, String apellidos, boolean tipoParticular ) {
+    public Particular(String nombre, String nif, String email, String direccion, LocalDateTime fechaAlta, double tarifa, String apellidos, boolean tipoParticular ) {
         super(nombre, nif, email, direccion,fechaAlta, tarifa, tipoParticular);
         this.apellidos= apellidos;
     }
