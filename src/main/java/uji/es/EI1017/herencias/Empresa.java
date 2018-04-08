@@ -6,7 +6,6 @@ package uji.es.EI1017.herencias;
 import uji.es.EI1017.Clases.Cliente;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Empresa extends Cliente{
 

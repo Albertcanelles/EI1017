@@ -4,6 +4,8 @@ import uji.es.EI1017.Clases.Cliente;
 import uji.es.EI1017.Clases.Factura;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudGenerico;
+import uji.es.EI1017.excepciones.ErrorEntreFechasException;
+import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
@@ -54,7 +56,7 @@ public class recolectorDatosCliente {
             System.out.println("Introduce la direccion:");
             direccion = scanner.next();
         }
-        Date fechaAlta = calendar.getTime();
+        LocalDateTime fechaAlta = LocalDateTime.now();
         double tarifa = 5.5;
         /* FIN DE RECOLECCION DE DATOS POR TECLADO*/
 
@@ -84,24 +86,33 @@ public class recolectorDatosCliente {
             System.out.println("Introduce el DNI de la persona a eliminar");
             Cliente cs;
             String nif = scanner.next();
-            cs = crudCliente.unCliente(nif);
-            if (crudCliente.getListaClientes().contains(cs))
-                crudCliente.borrarCliente(cs);
+            try{
+                cs = crudCliente.unCliente(nif);
+                if (crudCliente.getListaClientes().contains(cs))
+                    crudCliente.borrarCliente(cs);
+
+            }catch (NoExisteClienteException e){};
 
     }
 
     public void recuperarClientePorDNI() {
         System.out.println("Introduce el NIF de la persona a recuperar");
         String nif = scanner.next();
-        crudCliente.unCliente(nif);
+        try{
+            crudCliente.unCliente(nif);
+
+        }catch (NoExisteClienteException e){};
     }
     public void listarFacturas(){
         LocalDateTime fechaIni = recolectorDatosGenerico.pedirFecha();
         LocalDateTime fechaFin = recolectorDatosGenerico.pedirFecha();
-        ArrayList<Cliente> todas = crudCliente.getListaClientes();
-        Collection<Cliente> lista = CrudGenerico.extraerConjunto(todas , fechaIni, fechaFin);
-        for(Cliente iter : lista){
-            System.out.println(iter.toString());
-        }
+        try {
+            recolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
+            ArrayList<Cliente> todas = crudCliente.getListaClientes();
+            Collection<Cliente> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            for (Cliente iter : lista) {
+                System.out.println(iter.toString());
+            }
+        }catch (ErrorEntreFechasException e){};
     }
 }

@@ -1,5 +1,7 @@
 package uji.es.EI1017.recoleccionDatos;
 
+import uji.es.EI1017.excepciones.ErrorEntreFechasException;
+
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -25,5 +27,10 @@ public class recolectorDatosGenerico {
         }
         LocalDateTime fecha = LocalDateTime.of(año, mes, dia, hora, min);
         return fecha;
+    }
+    public static boolean compruebaFecha(LocalDateTime ini, LocalDateTime fin) throws ErrorEntreFechasException{
+        if(ini.isBefore(fin))
+            return true;
+        throw new ErrorEntreFechasException();
     }
 }

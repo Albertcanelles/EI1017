@@ -2,6 +2,7 @@ package uji.es.EI1017.recoleccionDatos;
 
 import uji.es.EI1017.Clases.Llamada;
 import uji.es.EI1017.crud.*;
+import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -53,11 +54,14 @@ public class recolectorDatosLlamada {
     public void listarLLamadas(){
         LocalDateTime fechaIni = recolectorDatosGenerico.pedirFecha();
         LocalDateTime fechaFin = recolectorDatosGenerico.pedirFecha();
-        ArrayList<Llamada> todas = crudLlamada.getLlamadas();
-        Collection<Llamada> lista = CrudGenerico.extraerConjunto(todas , fechaIni, fechaFin);
-        for(Llamada iter : lista){
-            System.out.println(iter.toString());
-        }
+        try {
+            recolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
+            ArrayList<Llamada> todas = crudLlamada.getLlamadas();
+            Collection<Llamada> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            for(Llamada iter : lista){
+                System.out.println(iter.toString());
+            }
+        }catch (ErrorEntreFechasException e){};
 
     }
 }

@@ -5,6 +5,7 @@ import uji.es.EI1017.Clases.Llamada;
 import uji.es.EI1017.crud.CrudFactura;
 import uji.es.EI1017.crud.CrudGenerico;
 import uji.es.EI1017.crud.CrudLlamada;
+import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -62,11 +63,13 @@ public class recolectorDatosFactura {
     public void listarFacturas(){
         LocalDateTime fechaIni = recolectorDatosGenerico.pedirFecha();
         LocalDateTime fechaFin = recolectorDatosGenerico.pedirFecha();
-        ArrayList<Factura> todas = crudFactura.getFacturas();
-        Collection<Factura> lista = CrudGenerico.extraerConjunto(todas , fechaIni, fechaFin);
-        for(Factura iter : lista){
-            System.out.println(iter.toString());
-        }
-
+        try {
+            recolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
+            ArrayList<Factura> todas = crudFactura.getFacturas();
+            Collection<Factura> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            for (Factura iter : lista) {
+                System.out.println(iter.toString());
+            }
+        } catch (ErrorEntreFechasException e){};
     }
 }

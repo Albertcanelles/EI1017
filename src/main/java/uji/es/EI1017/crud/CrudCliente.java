@@ -4,6 +4,7 @@ package uji.es.EI1017.crud;
  * Daniel Garcia Ruiz
  */
 import uji.es.EI1017.Clases.Cliente;
+import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.recoleccionDatos.recolectorDatosGenerico;
 
 import java.time.LocalDateTime;
@@ -39,19 +40,16 @@ public class CrudCliente {
     public int tamanyoLista(){
         return listaClientes.size();
     }
-    public Cliente unCliente(String nif) {
-        try {
+    public Cliente unCliente(String nif) throws NoExisteClienteException {
+
         for(int i = 0; i<=listaClientes.size(); i++) {
             if(listaClientes.get(i).getNif().equals(nif) ) {
                 System.out.println(listaClientes.get(i).getNombre());
                 return listaClientes.get(i);
             }
         }
+        throw new NoExisteClienteException();
 
-        }catch (Exception NullPointerException) {
-            System.err.println("Todavia no hay clientes");
-        }
-        return null;
     }
 
 
