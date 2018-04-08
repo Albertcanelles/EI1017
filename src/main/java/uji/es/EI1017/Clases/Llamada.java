@@ -3,9 +3,10 @@ package uji.es.EI1017.Clases;
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Llamada implements Fecha{
+public class Llamada implements Fecha, Serializable{
     private int telefono;
     private LocalDateTime fechaLlamada;
     private float duracion;

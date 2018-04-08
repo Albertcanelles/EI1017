@@ -3,10 +3,11 @@ package uji.es.EI1017.Clases;
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
-public class Cliente implements Fecha{
+public class Cliente implements Fecha, Serializable{
 
     private String nombre;
     private String nif;

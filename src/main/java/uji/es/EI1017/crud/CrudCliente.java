@@ -7,10 +7,11 @@ import uji.es.EI1017.Clases.Cliente;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.recoleccionDatos.recolectorDatosGenerico;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class CrudCliente {
+public class CrudCliente implements Serializable {
 
     private ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
 

@@ -3,10 +3,11 @@ package uji.es.EI1017.Clases;
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
-public class Factura implements Fecha {
+public class Factura implements Fecha, Serializable {
     private int codigo;
     private double minutos;
     private LocalDateTime emisionFactura;

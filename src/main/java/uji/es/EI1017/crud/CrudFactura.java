@@ -5,9 +5,10 @@ package uji.es.EI1017.crud;
  */
 import uji.es.EI1017.Clases.Factura;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class CrudFactura {
+public class CrudFactura implements Serializable {
     ArrayList<Factura> facturas = new ArrayList<Factura>();
     HashMap<String, ArrayList<Factura>> listaFacturas = new HashMap<String, ArrayList<Factura>>();
     private CrudLlamada crudLlamada = new CrudLlamada();

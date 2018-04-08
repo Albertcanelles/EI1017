@@ -12,15 +12,25 @@ import uji.es.EI1017.recoleccionDatos.recolectorDatosCliente;
 import uji.es.EI1017.recoleccionDatos.recolectorDatosFactura;
 import uji.es.EI1017.recoleccionDatos.recolectorDatosLlamada;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Ejecutar {
-    public static void main (String [ ] args) {
+public class Ejecutar implements Serializable {
+
+    CrudCliente crudCliente;
+    CrudLlamada crudLlamada;
+    CrudFactura crudFactura;
+
+    public Ejecutar(){
+        crudCliente = new CrudCliente();
+        crudFactura = new CrudFactura();
+        crudLlamada = new CrudLlamada();
+    }
+
+
+    public void menu() {
         int opcion = 0;
         Scanner scanner = new Scanner(System.in);
-        CrudCliente crudCliente = new CrudCliente();  // Clase utilizada para obtener datos de Clientes
-        CrudLlamada crudLlamada = new CrudLlamada();  // Clase utilizada para obtener datos de Llamadas
-        CrudFactura crudFactura = new CrudFactura();  // Clase utilizada para obtener datos de Facturas
         recolectorDatosCliente recolectorCliente = new recolectorDatosCliente(crudCliente); // Clase utilizada para la recoleccion datos de clientes
         recolectorDatosLlamada recolectorLlamada = new recolectorDatosLlamada(crudLlamada); // Clase utilizada para la recoleccion datos de llamadas
         recolectorDatosFactura recolectorFactura = new recolectorDatosFactura(crudLlamada, crudFactura); // Clase utilizada para la recoleccion datos de facturas
@@ -112,7 +122,8 @@ public class Ejecutar {
                     }
                     break;
                 case SALIR:
-                    System.exit(0);
+                    //System.exit(0);
+                    return;
             }
         }while(opcion>=0);
 

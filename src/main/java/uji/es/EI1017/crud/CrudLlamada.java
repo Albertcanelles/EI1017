@@ -5,10 +5,11 @@ package uji.es.EI1017.crud;
  */
 import uji.es.EI1017.Clases.Llamada;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class CrudLlamada {
+public class CrudLlamada implements Serializable {
     private ArrayList<Llamada> llamadas = new ArrayList<Llamada>();
     HashMap<String, ArrayList<Llamada>> listaLlamadas = new HashMap<String, ArrayList<Llamada>>();
 
