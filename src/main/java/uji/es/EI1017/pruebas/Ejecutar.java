@@ -32,7 +32,7 @@ public class Ejecutar implements Serializable {
         int opcion = 0;
         Scanner scanner = new Scanner(System.in);
         recolectorDatosCliente recolectorCliente = new recolectorDatosCliente(crudCliente); // Clase utilizada para la recoleccion datos de clientes
-        recolectorDatosLlamada recolectorLlamada = new recolectorDatosLlamada(crudLlamada); // Clase utilizada para la recoleccion datos de llamadas
+        recolectorDatosLlamada recolectorLlamada = new recolectorDatosLlamada(crudLlamada, crudCliente); // Clase utilizada para la recoleccion datos de llamadas
         recolectorDatosFactura recolectorFactura = new recolectorDatosFactura(crudLlamada, crudFactura); // Clase utilizada para la recoleccion datos de facturas
 
         do {
@@ -76,7 +76,7 @@ public class Ejecutar implements Serializable {
                             }
                             break;
                         case LISTAR_CLIENTES_ENTRE_FECHAS:
-                            System.out.println("Has seleccionado listar entre fechas");
+                            recolectorCliente.listarFacturas();
                             break;
                     }
                     break;
@@ -98,7 +98,7 @@ public class Ejecutar implements Serializable {
                             recolectorFactura.devolverFacturasUnCliente();
                             break;
                         case LISTAR_FACTURAS_ENTRE_FECHAS:
-                            System.out.println("HAs seleccionado listar entre fechas");
+                            recolectorFactura.listarFacturas();
                             break;
                     }
                     break;
@@ -117,7 +117,7 @@ public class Ejecutar implements Serializable {
                             recolectorLlamada.listarLlamadasUnCliente();
                             break;
                         case LISTAR_LLAMADAS_ENTRE_FECHAS:
-                            System.out.println("HAs seleccionado listar entre fechas");
+                            recolectorLlamada.listarLLamadas();
                             break;
                     }
                     break;

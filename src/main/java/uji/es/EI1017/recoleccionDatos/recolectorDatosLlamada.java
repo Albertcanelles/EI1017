@@ -12,11 +12,13 @@ import java.util.Scanner;
 
 public class recolectorDatosLlamada {
     CrudLlamada crudLlamada;  // Llamamos a los recoleccionDatos de la clase CrudLlamada
+    CrudCliente crudCliente;
     Calendar calendar = Calendar.getInstance();
     Scanner scanner = new Scanner(System.in);
 
-    public recolectorDatosLlamada(CrudLlamada crudLlamada) {
+    public recolectorDatosLlamada(CrudLlamada crudLlamada, CrudCliente crudCliente) {
         this.crudLlamada = crudLlamada;
+        this.crudCliente = crudCliente;
     }
     public void insertarDatosLlamada() {
         System.out.println("Introduce el DNI del cliente:");
@@ -64,4 +66,6 @@ public class recolectorDatosLlamada {
         }catch (ErrorEntreFechasException e){};
 
     }
+
+
 }

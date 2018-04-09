@@ -44,7 +44,7 @@ public class recolectorDatosFactura {
         System.out.println("Introduce el la fecha final");
         LocalDateTime fechaFinal = recolectorDatosGenerico.pedirFecha();
 
-        float duracion = crudLlamada.sumarMinutos(DNI, fechaInicio, fechaFinal);
+        float duracion = sumarMinutos(DNI, fechaInicio, fechaFinal);
         Factura factura = new Factura(codigoFactura, duracion, emisionFactura,fechaInicio, fechaFinal);
         crudFactura.emitirFactura(factura, DNI);
     }
@@ -72,4 +72,20 @@ public class recolectorDatosFactura {
             }
         } catch (ErrorEntreFechasException e){};
     }
+
+
+    public float sumarMinutos(String DNI, LocalDateTime fechaIni, LocalDateTime fechaFin) {
+        float suma = 0;
+        try {
+            recolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
+            ArrayList<Llamada> todas = crudLlamada.getLlamadas();
+            Collection<Llamada> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            for (Llamada iter : lista) {
+                //System.out.println(iter.toString());
+                suma= suma + iter.getDuracion();
+            }
+        } catch (ErrorEntreFechasException e){};
+        return suma;
+    }
+
 }
