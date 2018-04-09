@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class CrudLlamada implements Serializable {
-    private ArrayList<Llamada> llamadas = new ArrayList<Llamada>();
+    ArrayList<Llamada> llamadas = new ArrayList<Llamada>();
     HashMap<String, ArrayList<Llamada>> listaLlamadas = new HashMap<String, ArrayList<Llamada>>();
 
 
@@ -29,6 +29,7 @@ public class CrudLlamada implements Serializable {
     }
 
     public ArrayList<Llamada> listarLlamadas(String DNI) {  // Ineficiente lo mas seguro revisar para entrega final DE NADA ;)
+        ArrayList<Llamada> nueva = new ArrayList<Llamada>();
         if(listaLlamadas.containsKey(DNI)){
             for (HashMap.Entry entry : listaLlamadas.entrySet()){
                 if(entry.getKey().equals(DNI))
@@ -39,26 +40,8 @@ public class CrudLlamada implements Serializable {
         }else {
             System.err.println("No existe el cliente");
         }
-       return null;
+       return nueva;
     }
 
-    /*
-    * Metodo utilizado para la suma de los minutos totales a la hora de generar la factura
-    * */
-    public float sumarMinutos(String DNI, LocalDateTime FechaInicio, LocalDateTime FechaFinal) {
-        float suma = 0;
-        if (listaLlamadas.containsKey(DNI)) {
-            for (HashMap.Entry entry : listaLlamadas.entrySet()) {
-                if (entry.getKey().equals(DNI))
-                    for (int i = 0; i < listaLlamadas.entrySet().size(); i++) {
-                        suma += listaLlamadas.get(i).get(i).getDuracion();
-                    }
-            }
-        } else {
-            System.err.println("No existe el cliente");
-        }
-
-        return suma;
-    }
 
 }

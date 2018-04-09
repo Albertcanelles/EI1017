@@ -17,6 +17,7 @@ public class Llamada implements Fecha, Serializable{
         this.duracion = duracion;
     }
 
+
     public int getTelefono() {
         return telefono;
     }
