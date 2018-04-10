@@ -31,16 +31,17 @@ public class CrudLlamada implements Serializable {
     public ArrayList<Llamada> listarLlamadas(String DNI) {  // Ineficiente lo mas seguro revisar para entrega final DE NADA ;)
         ArrayList<Llamada> nueva = new ArrayList<Llamada>();
         if(listaLlamadas.containsKey(DNI)){
+            Object valor = null;
             for (HashMap.Entry entry : listaLlamadas.entrySet()){
                 if(entry.getKey().equals(DNI))
-                    for(int i = 0; i<listaLlamadas.entrySet().size(); i++) {
                         System.out.println(listaLlamadas.entrySet().toString());
-                    }
+                         valor = entry.getValue();
+                         nueva = (ArrayList<Llamada>) valor;
             }
         }else {
             System.err.println("No existe el cliente");
         }
-       return nueva;
+        return nueva;
     }
 
 

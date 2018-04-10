@@ -78,7 +78,7 @@ public class recolectorDatosFactura {
         float suma = 0;
         try {
             recolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
-            ArrayList<Llamada> todas = crudLlamada.getLlamadas();
+            ArrayList<Llamada> todas = crudLlamada.listarLlamadas(DNI);
             Collection<Llamada> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
             for (Llamada iter : lista) {
                 //System.out.println(iter.toString());
