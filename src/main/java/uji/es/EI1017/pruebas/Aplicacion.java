@@ -7,7 +7,7 @@ public class Aplicacion {
         GuardadoDatos data = new GuardadoDatos();
         Ejecutar ejecutar = data.lectura();
         ejecutar.menu();
-        System.out.println("vamos a guardar");
+        //System.out.println("vamos a guardar");
         try {
             data.escritura(ejecutar);
         }catch (IOException e){

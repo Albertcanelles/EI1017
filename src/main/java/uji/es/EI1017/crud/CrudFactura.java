@@ -29,9 +29,10 @@ public class CrudFactura implements Serializable {
     }
 
     public String devolverDatosFacturaPorCodigo(int codigoFactura) {
-        for(int i = 0; i< listaFacturas.size();i++) {
-            if(listaFacturas.get(i).equals(codigoFactura)) {
-                return listaFacturas.get(i).toString();
+        for(int i = 0; i< facturas.size();i++) {
+            if(facturas.get(i).getCodigo() == codigoFactura) {
+                System.out.println(facturas.get(i).toString());
+                return facturas.get(i).toString();
             }
         }
         return "No existe la factura";
