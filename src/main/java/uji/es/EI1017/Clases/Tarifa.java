@@ -6,10 +6,15 @@ import java.io.Serializable;
 * Albert Cañelles Panisello
 * Daniel Garcia Ruiz
 */
-public class Tarifa implements Serializable {
-    private double precio = 5.5;
+public abstract class Tarifa implements Serializable {
+    private float precio;
 
-    public double getPrecio() {
+    public Tarifa(float precio){
+        this.precio = precio;
+    }
+
+    public float getPrecio() {
         return precio;
     }
+
 }
