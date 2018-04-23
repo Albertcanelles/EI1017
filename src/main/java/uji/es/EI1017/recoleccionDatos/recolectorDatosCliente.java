@@ -19,9 +19,9 @@ import java.util.*;
 public class recolectorDatosCliente {
 
 
-    CrudCliente crudCliente;
+    private CrudCliente crudCliente;
     Calendar calendar = Calendar.getInstance();
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     // Constructor para pasar la referencia del ejecutar.
     public recolectorDatosCliente(CrudCliente crud){
@@ -98,7 +98,9 @@ public class recolectorDatosCliente {
                 if (crudCliente.getListaClientes().contains(cs))
                     crudCliente.borrarCliente(cs);
 
-            }catch (NoExisteClienteException e){};
+            }catch (NoExisteClienteException e){
+                System.out.printf("Error");;
+            }
 
     }
 
@@ -108,7 +110,9 @@ public class recolectorDatosCliente {
         try{
             crudCliente.unCliente(nif);
 
-        }catch (NoExisteClienteException e){};
+        }catch (NoExisteClienteException e){
+            System.out.println("Error");;
+        }
     }
     public void listarFacturas(){
         LocalDateTime fechaIni = recolectorDatosGenerico.pedirFecha();
@@ -120,6 +124,8 @@ public class recolectorDatosCliente {
             for (Cliente iter : lista) {
                 System.out.println(iter.toString());
             }
-        }catch (ErrorEntreFechasException e){};
+        }catch (ErrorEntreFechasException e){
+            return;
+        }
     }
 }

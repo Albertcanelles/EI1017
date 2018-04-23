@@ -8,13 +8,13 @@ import uji.es.EI1017.decorador.TarifaTardes;
 
 public interface IFabrica {
 
-    public Cliente getParticular(String apellido);
+     Cliente getParticular(String apellido);
 
-    public Cliente getEmpresa();
+     Cliente getEmpresa();
 
-    public Tarifa getTarifaBasica(float precio);
+     Tarifa getTarifaBasica(float precio);
 
-    public TarifaTardes getTarifaTardes(Tarifa tarifa, float precio);
+     TarifaTardes getTarifaTardes(Tarifa tarifa, float precio);
 
-    public TarifaDomingos getTarifaDomingo(Tarifa tarifa, float precio);
+     TarifaDomingos getTarifaDomingo(Tarifa tarifa, float precio);
 }

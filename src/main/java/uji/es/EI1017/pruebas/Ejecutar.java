@@ -59,9 +59,6 @@ public class Ejecutar implements Serializable {
                         case BORRAR_CLIENTE:
                             recolectorCliente.eliminarClienteDNI(); // En la clase crudCliente metodo borrarClient se realizan todas las operaciones
                             break;
-                        case CAMBIAR_TARIFA_CLIENTE:
-                            System.out.println("Has seleccionado modificar la tarifa de un cliente");
-                            break;
                         case RECUPERAR_CLIENTE_POR_NIF: // Recuperamos solamente un cliente por nif
                             recolectorCliente.recuperarClientePorDNI();
                             break;

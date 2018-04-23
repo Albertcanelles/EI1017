@@ -17,13 +17,13 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class recolectorDatosFactura {
-    CrudFactura crudFactura;  // Llamamos a los recoleccionDatos de la clase CrudFactura
-    CrudLlamada crudLlamada;  // Llamamos a los recoleccionDatos de la clase CrudLlamada
-    TarifaBasica basica;
-    TarifaTardes tardes;
-    TarifaDomingos domingos;
-    Calendar calendar = Calendar.getInstance();
-    Scanner scanner = new Scanner(System.in);
+    private CrudFactura crudFactura;  // Llamamos a los recoleccionDatos de la clase CrudFactura
+    private CrudLlamada crudLlamada;  // Llamamos a los recoleccionDatos de la clase CrudLlamada
+    private TarifaBasica basica;
+    private TarifaTardes tardes;
+    private TarifaDomingos domingos;
+    private Calendar calendar = Calendar.getInstance();
+    private Scanner scanner = new Scanner(System.in);
 
     public recolectorDatosFactura(CrudLlamada crudLlamada, CrudFactura crudFactura) {
         this.crudFactura = crudFactura;
@@ -87,11 +87,13 @@ public class recolectorDatosFactura {
             for (Factura iter : lista) {
                 System.out.println(iter.toString());
             }
-        } catch (ErrorEntreFechasException e){};
+        } catch (ErrorEntreFechasException e){
+            System.out.println("Error");
+        }
     }
 
 
-    public float sumarMinutos(String DNI, LocalDateTime fechaIni, LocalDateTime fechaFin) {
+    private float sumarMinutos(String DNI, LocalDateTime fechaIni, LocalDateTime fechaFin) {
         float suma = 0;
         try {
             recolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
@@ -101,7 +103,9 @@ public class recolectorDatosFactura {
                 //System.out.println(iter.toString());
                 suma= suma + iter.getDuracion();
             }
-        } catch (ErrorEntreFechasException e){};
+        } catch (ErrorEntreFechasException e){
+            return suma;
+        }
         return suma;
     }
     public float calcularFactura(String DNI) throws NoExisteClienteException {
