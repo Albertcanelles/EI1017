@@ -80,26 +80,12 @@ public class recolectorDatosCliente {
             case PARTICULAR:
                 System.out.println("Introduce el apellido:");
                 String apellido = scanner.next();
-                Cliente particular;
-                particular = fabrica.getParticular(apellido);
-                particular.setNombre(nombre);
-                particular.setNif(nif);
-                particular.setDireccion(direccion);
-                particular.setEmail(email);
-                particular.setTarifa(tarifa);
+                Cliente particular = new Particular(nombre, nif, email, direccion, fechaAlta, tarifa, apellido, true);
                 crudCliente.insertarCliente(particular);
-                /*Cliente particular = new Particular(nombre, nif, email, direccion, fechaAlta, tarifa, apellido, true);
-                crudCliente.insertarCliente(particular);*/
 
                 break;
             case EMPRESA:
-                Cliente empresa;
-                empresa = fabrica.getEmpresa();
-                empresa.setNombre(nombre);
-                empresa.setNif(nif);
-                empresa.setDireccion(direccion);
-                empresa.setEmail(email);
-                empresa.setTarifa(tarifa);
+                Cliente empresa = new Empresa(nombre, nif, email, direccion, fechaAlta, tarifa, false);
                 crudCliente.insertarCliente(empresa);
                 break;
         }
