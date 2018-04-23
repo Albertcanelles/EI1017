@@ -7,7 +7,7 @@ public class ClienteTest {
 
     @Test
     public void TestInsertarCliente() {
-        Cliente cs = new Cliente("Albert","47628956G","bomberocanelles","Apartat de correus",null,1.5,false);
+        Cliente cs = new Cliente("Albert","47628956G","bomberocanelles","Apartat de correus",null,null,false);
         CrudCliente crudCliente = new CrudCliente();
         crudCliente.insertarCliente(cs);
         Assert.assertEquals(1, crudCliente.tamanyoLista());
@@ -16,7 +16,7 @@ public class ClienteTest {
 
     @Test
     public void TestBorrarCliente() {
-        Cliente cs = new Cliente("Albert","47628956G","bomberocanelles","Apartat de correus",null,1.5,false);
+        Cliente cs = new Cliente("Albert","47628956G","bomberocanelles","Apartat de correus",null,null,false);
         CrudCliente crudCliente = new CrudCliente();
         crudCliente.insertarCliente(cs);
         //crudCliente.borrarCliente(cs);

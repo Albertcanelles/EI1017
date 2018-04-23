@@ -8,7 +8,7 @@ public class LlamadaTest {
 
     @Test
     public void InsertarLlamadaTest() {
-        Cliente cs = new Cliente("Albert","47628956G","bomberocanelles","Apartat de correus",null,1.5,false);
+        Cliente cs = new Cliente("Albert","47628956G","bomberocanelles","Apartat de correus",null,null,false);
         Llamada llm = new Llamada(666405658,null, (float) 1.5);
         CrudLlamada cr = new CrudLlamada();
         cr.insertarLlamada(llm, cs.getNif());

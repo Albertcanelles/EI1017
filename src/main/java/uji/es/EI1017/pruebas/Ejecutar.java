@@ -59,9 +59,6 @@ public class Ejecutar implements Serializable {
                         case BORRAR_CLIENTE:
                             recolectorCliente.eliminarClienteDNI(); // En la clase crudCliente metodo borrarClient se realizan todas las operaciones
                             break;
-                        case CAMBIAR_TARIFA_CLIENTE:
-                            System.out.println("Has seleccionado modificar la tarifa de un cliente");
-                            break;
                         case RECUPERAR_CLIENTE_POR_NIF: // Recuperamos solamente un cliente por nif
                             recolectorCliente.recuperarClientePorDNI();
                             break;
@@ -77,6 +74,8 @@ public class Ejecutar implements Serializable {
                             break;
                         case LISTAR_CLIENTES_ENTRE_FECHAS:
                             recolectorCliente.listarFacturas();
+                            break;
+                        case ATRAS:
                             break;
                     }
                     break;
@@ -100,6 +99,8 @@ public class Ejecutar implements Serializable {
                         case LISTAR_FACTURAS_ENTRE_FECHAS:
                             recolectorFactura.listarFacturas();
                             break;
+                        case ATRAS:
+                            break;
                     }
                     break;
                 case GESTIONAR_LLAMADAS:
@@ -118,6 +119,8 @@ public class Ejecutar implements Serializable {
                             break;
                         case LISTAR_LLAMADAS_ENTRE_FECHAS:
                             recolectorLlamada.listarLLamadas();
+                            break;
+                        case ATRAS:
                             break;
                     }
                     break;

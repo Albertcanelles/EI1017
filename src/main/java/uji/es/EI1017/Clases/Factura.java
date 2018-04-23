@@ -14,6 +14,10 @@ public class Factura implements Fecha, Serializable {
     private LocalDateTime fechaFinal;
     private LocalDateTime fechaInicial;
 
+    public Factura() {
+
+    }
+
     public Factura(int codigo, double minutos, LocalDateTime emisionFactura,LocalDateTime fechaInicial, LocalDateTime fechaFinal) {
         this.codigo = codigo;
         this.minutos = minutos;

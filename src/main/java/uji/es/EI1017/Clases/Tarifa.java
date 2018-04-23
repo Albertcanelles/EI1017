@@ -6,7 +6,7 @@ import java.io.Serializable;
 * Albert Cañelles Panisello
 * Daniel Garcia Ruiz
 */
-public abstract class Tarifa implements Serializable {
+public class Tarifa implements Serializable {
     private float precio;
 
     public Tarifa(float precio){

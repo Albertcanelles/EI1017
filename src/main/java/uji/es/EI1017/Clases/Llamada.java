@@ -11,6 +11,10 @@ public class Llamada implements Fecha, Serializable{
     private LocalDateTime fechaLlamada;
     private float duracion;
 
+    public Llamada() {
+
+    }
+
     public Llamada(int telefono, LocalDateTime fechaLlamada, float duracion) {
         this.telefono = telefono;
         this.fechaLlamada = fechaLlamada;

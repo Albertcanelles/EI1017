@@ -2,13 +2,16 @@ package uji.es.EI1017.recoleccionDatos;
 
 import uji.es.EI1017.Clases.Cliente;
 import uji.es.EI1017.Clases.Factura;
+import uji.es.EI1017.Clases.Tarifa;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudGenerico;
+
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
+
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -16,9 +19,9 @@ import java.util.*;
 public class recolectorDatosCliente {
 
 
-    CrudCliente crudCliente;
+    private CrudCliente crudCliente;
     Calendar calendar = Calendar.getInstance();
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     // Constructor para pasar la referencia del ejecutar.
     public recolectorDatosCliente(CrudCliente crud){
@@ -57,7 +60,11 @@ public class recolectorDatosCliente {
             direccion = scanner.next();
         }
         LocalDateTime fechaAlta = LocalDateTime.now();
-        double tarifa = 5.5;
+
+        System.out.println("Introduce el precio de la tarifa basica:");
+        float precio = scanner.nextFloat();
+        Tarifa tarifa = new Tarifa(precio);
+
         /* FIN DE RECOLECCION DE DATOS POR TECLADO*/
 
         /* LLAMADA DEL SUB MENU TIPO CLIENTES*/
@@ -91,7 +98,9 @@ public class recolectorDatosCliente {
                 if (crudCliente.getListaClientes().contains(cs))
                     crudCliente.borrarCliente(cs);
 
-            }catch (NoExisteClienteException e){};
+            }catch (NoExisteClienteException e){
+                System.out.printf("Error");;
+            }
 
     }
 
@@ -101,7 +110,9 @@ public class recolectorDatosCliente {
         try{
             crudCliente.unCliente(nif);
 
-        }catch (NoExisteClienteException e){};
+        }catch (NoExisteClienteException e){
+            System.out.println("Error");;
+        }
     }
     public void listarFacturas(){
         LocalDateTime fechaIni = recolectorDatosGenerico.pedirFecha();
@@ -113,6 +124,8 @@ public class recolectorDatosCliente {
             for (Cliente iter : lista) {
                 System.out.println(iter.toString());
             }
-        }catch (ErrorEntreFechasException e){};
+        }catch (ErrorEntreFechasException e){
+            return;
+        }
     }
 }
