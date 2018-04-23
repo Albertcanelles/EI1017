@@ -8,6 +8,7 @@ import uji.es.EI1017.crud.CrudGenerico;
 
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
+import uji.es.EI1017.factoria.Fabrica;
 import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
@@ -22,7 +23,7 @@ public class recolectorDatosCliente {
     private CrudCliente crudCliente;
     Calendar calendar = Calendar.getInstance();
     private Scanner scanner = new Scanner(System.in);
-
+    private Fabrica fabrica;
     // Constructor para pasar la referencia del ejecutar.
     public recolectorDatosCliente(CrudCliente crud){
         this.crudCliente = crud;
@@ -79,11 +80,26 @@ public class recolectorDatosCliente {
             case PARTICULAR:
                 System.out.println("Introduce el apellido:");
                 String apellido = scanner.next();
-                Cliente particular = new Particular(nombre, nif, email, direccion, fechaAlta, tarifa, apellido, true);
+                Cliente particular;
+                particular = fabrica.getParticular(apellido);
+                particular.setNombre(nombre);
+                particular.setNif(nif);
+                particular.setDireccion(direccion);
+                particular.setEmail(email);
+                particular.setTarifa(tarifa);
                 crudCliente.insertarCliente(particular);
+                /*Cliente particular = new Particular(nombre, nif, email, direccion, fechaAlta, tarifa, apellido, true);
+                crudCliente.insertarCliente(particular);*/
+
                 break;
             case EMPRESA:
-                Cliente empresa = new Empresa(nombre, nif, email, direccion, fechaAlta, tarifa, false);
+                Cliente empresa;
+                empresa = fabrica.getEmpresa();
+                empresa.setNombre(nombre);
+                empresa.setNif(nif);
+                empresa.setDireccion(direccion);
+                empresa.setEmail(email);
+                empresa.setTarifa(tarifa);
                 crudCliente.insertarCliente(empresa);
                 break;
         }
