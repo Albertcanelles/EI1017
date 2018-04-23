@@ -6,7 +6,8 @@ package uji.es.EI1017.menu;
 public enum OpcionesMenuLlamadas {
     DAR_DE_ALTA_UNA_LLAMADA("Introduce una llamada"),
     LISTAR_LLAMADAS_DE_UN_CLIENTE("Listado de todas las llamadas de un cliente"),
-    LISTAR_LLAMADAS_ENTRE_FECHAS("Mostrar llamadas realizadas entre dos fechas.");
+    LISTAR_LLAMADAS_ENTRE_FECHAS("Mostrar llamadas realizadas entre dos fechas."),
+    ATRAS("Atras...");
 
     private String descripcion;
 

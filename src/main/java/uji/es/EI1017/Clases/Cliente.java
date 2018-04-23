@@ -14,11 +14,11 @@ public class Cliente implements Fecha, Serializable{
     private String email;
     private String direccion;
     private LocalDateTime fechaAlta;
-    private double tarifa;
+    private Tarifa tarifa;
     //Si tipo cliente es =true es un particular
     private boolean tipoParticular;
 
-    public Cliente(String nombre, String nif, String email, String direccion ,LocalDateTime fechaAlta, double tarifa, boolean tipoParticular) {
+    public Cliente(String nombre, String nif, String email, String direccion ,LocalDateTime fechaAlta, Tarifa tarifa, boolean tipoParticular) {
         this.nombre = nombre;
         this.nif = nif;
         this.email = email;
@@ -52,7 +52,7 @@ public class Cliente implements Fecha, Serializable{
         return fechaAlta;
     }
 
-    public double getTarifa() {
+    public Tarifa getTarifa() {
         return tarifa;
     }
 

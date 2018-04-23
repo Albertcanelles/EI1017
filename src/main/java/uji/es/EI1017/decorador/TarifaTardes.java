@@ -6,12 +6,12 @@ public class TarifaTardes extends Tarifa {
 
     private Tarifa tarifa;
 
-    public TarifaTardes(Tarifa tarifa) {
-        super(5);
-        this.tarifa=tarifa;
+    public TarifaTardes(Tarifa tarifa, float precioTarifaTardes) {
+        super(precioTarifaTardes);
+        this.tarifa = tarifa;
     }
     @Override
     public float getPrecio(){
-        return tarifa.getPrecio() + super.getPrecio();
+        return super.getPrecio();
     }
 }

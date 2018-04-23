@@ -2,13 +2,17 @@ package uji.es.EI1017.recoleccionDatos;
 
 import uji.es.EI1017.Clases.Cliente;
 import uji.es.EI1017.Clases.Factura;
+import uji.es.EI1017.Clases.Tarifa;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudGenerico;
+import uji.es.EI1017.decorador.TarifaDomingos;
+import uji.es.EI1017.decorador.TarifaTardes;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
+import uji.es.EI1017.menu.OpcionesTarifa;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -57,7 +61,28 @@ public class recolectorDatosCliente {
             direccion = scanner.next();
         }
         LocalDateTime fechaAlta = LocalDateTime.now();
-        double tarifa = 5.5;
+
+        System.out.println("Introduce el precio de la tarifa basica:");
+        float precio = scanner.nextFloat();
+        Tarifa tarifa = new Tarifa(precio);
+        System.out.println(OpcionesTarifa.getMenu());
+        System.out.print("Elije una opción:");
+        byte opcion_tarifa = scanner.nextByte();
+        OpcionesTarifa opcionTarifa = OpcionesTarifa.getOpcion(opcion_tarifa);
+        switch (opcionTarifa) {
+            case TARIFA_POR_DIAS:
+                System.out.println("Introduce el precio de la tarifa:");
+                precio = scanner.nextFloat();
+                tarifa = new TarifaTardes(tarifa,precio);
+                break;
+            case TARIFA_POR_HORAS:
+                System.out.println("Introduce el precio de la tarifa:");
+                precio = scanner.nextFloat();
+                tarifa = new TarifaDomingos(tarifa,precio);
+                break;
+            case NO_GRACIAS:
+                break;
+        }
         /* FIN DE RECOLECCION DE DATOS POR TECLADO*/
 
         /* LLAMADA DEL SUB MENU TIPO CLIENTES*/

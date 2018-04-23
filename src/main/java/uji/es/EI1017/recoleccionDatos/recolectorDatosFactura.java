@@ -22,6 +22,12 @@ public class recolectorDatosFactura {
     Calendar calendar = Calendar.getInstance();
     Scanner scanner = new Scanner(System.in);
 
+    public recolectorDatosFactura(CrudLlamada crudLlamada, CrudFactura crudFactura) {
+        this.crudFactura = crudFactura;
+        this.crudLlamada = crudLlamada;
+
+    }
+
     public recolectorDatosFactura(CrudLlamada crudLlamada, CrudFactura crudFactura, TarifaBasica basica, TarifaTardes tardes, TarifaDomingos domingos) {
         this.crudFactura = crudFactura;
         this.crudLlamada = crudLlamada;
@@ -95,24 +101,26 @@ public class recolectorDatosFactura {
         } catch (ErrorEntreFechasException e){};
         return suma;
     }
-    public float calcularFactura(String DNI){
+    /*public float calcularFactura(String DNI) {
         ArrayList<Llamada> llamadasCliente = crudLlamada.listarLlamadas(DNI);
         float precioTotal = 0;
         float importe;
-        for (Llamada iter : llamadasCliente){
-            if ( ! iter.getFecha().getDayOfWeek().equals(7)) {// Comprovado que sea 7 el domingo. Se hace con un .equals porque devuelve un dato de la clase DayOfTheWeek y no un entero
-                if( iter.getFecha().getHour() < 16 && iter.getFecha().getHour() > 20 ) { //La tarifa de por las tardes se hace de 16 a 20
-                    TarifaBasica tarifa = Tarifa();
+        for (Llamada iter : llamadasCliente) {
+            if (!iter.getFecha().getDayOfWeek().equals(7)) {// Comprovado que sea 7 el domingo. Se hace con un .equals porque devuelve un dato de la clase DayOfTheWeek y no un entero
+                if (iter.getFecha().getHour() < 16 && iter.getFecha().getHour() > 20) { //La tarifa de por las tardes se hace de 16 a 20
+                    TarifaBasica tarifa = new Tarifa(0,15);
                     importe = tarifa.getPrecio();
-                    precioTotal += iter.getDuracion()* importe;
-            }else{
+                    precioTotal += iter.getDuracion() * importe;
+                } else {
                     TarifaTardes tarifa = Tarifa();
                     importe = tarifa.getPrecio();
-                    precioTotal += iter.getDuracion()* importe;
+                    precioTotal += iter.getDuracion() * importe;
                 }
-        }
+            }
 
+
+        }
         return precioTotal;
-    }
+    }*/
 
 }

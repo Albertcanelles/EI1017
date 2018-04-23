@@ -7,7 +7,8 @@ public enum OpcionesMenuFacturas {
     EMITIR_FACTURA_PARA_CLIENTE("Selecciona el cliente para emitir su factura"),
     RECUPERAR_DATOS_FACTURA_POR_CODIGO("Introduce el codigo de la factura a recuperar"),
     LISTAR_FACTURAS_ENTRE_FECHAS("Mostrar facturas emitidas entre dos fechas. "),
-    RECUPERAR_TODAS_FACTUAS_CLIENTE("Introduce el nombre del cliente para recibir sus facturas");
+    RECUPERAR_TODAS_FACTUAS_CLIENTE("Introduce el nombre del cliente para recibir sus facturas"),
+    ATRAS("Atras...");
 
     private String descripcion;
 

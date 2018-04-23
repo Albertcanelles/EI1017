@@ -78,6 +78,8 @@ public class Ejecutar implements Serializable {
                         case LISTAR_CLIENTES_ENTRE_FECHAS:
                             recolectorCliente.listarFacturas();
                             break;
+                        case ATRAS:
+                            break;
                     }
                     break;
                 case GESTIONAR_FACTURAS:
@@ -100,6 +102,8 @@ public class Ejecutar implements Serializable {
                         case LISTAR_FACTURAS_ENTRE_FECHAS:
                             recolectorFactura.listarFacturas();
                             break;
+                        case ATRAS:
+                            break;
                     }
                     break;
                 case GESTIONAR_LLAMADAS:
@@ -118,6 +122,8 @@ public class Ejecutar implements Serializable {
                             break;
                         case LISTAR_LLAMADAS_ENTRE_FECHAS:
                             recolectorLlamada.listarLLamadas();
+                            break;
+                        case ATRAS:
                             break;
                     }
                     break;
