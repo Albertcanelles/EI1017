@@ -19,17 +19,17 @@ public class Fabrica implements IFabrica {
 
     @Override
     public Tarifa getTarifaBasica(float precio) {
-        return null;
+        return new Tarifa(precio);
     }
 
 
     @Override
     public TarifaTardes getTarifaTardes(Tarifa tarifa, float precio) {
-        return null;
+        return new TarifaTardes(tarifa,precio);
     }
 
     @Override
     public TarifaDomingos getTarifaDomingo(Tarifa tarifa, float precio) {
-        return null;
+        return new TarifaDomingos(tarifa,precio);
     }
 }
