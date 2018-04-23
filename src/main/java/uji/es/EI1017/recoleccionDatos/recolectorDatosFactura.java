@@ -1,13 +1,16 @@
 package uji.es.EI1017.recoleccionDatos;
 
+import uji.es.EI1017.Clases.Cliente;
 import uji.es.EI1017.Clases.Factura;
 import uji.es.EI1017.Clases.Llamada;
 import uji.es.EI1017.Clases.Tarifa;
+import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudFactura;
 import uji.es.EI1017.crud.CrudGenerico;
 import uji.es.EI1017.crud.CrudLlamada;
 import uji.es.EI1017.decorador.*;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
+import uji.es.EI1017.excepciones.NoExisteClienteException;
 
 
 import java.time.LocalDateTime;
@@ -101,18 +104,20 @@ public class recolectorDatosFactura {
         } catch (ErrorEntreFechasException e){};
         return suma;
     }
-    /*public float calcularFactura(String DNI) {
+    public float calcularFactura(String DNI) throws NoExisteClienteException {
         ArrayList<Llamada> llamadasCliente = crudLlamada.listarLlamadas(DNI);
+        CrudCliente crudCliente = new CrudCliente();
+        Cliente cliente = crudCliente.unCliente(DNI);
         float precioTotal = 0;
         float importe;
         for (Llamada iter : llamadasCliente) {
             if (!iter.getFecha().getDayOfWeek().equals(7)) {// Comprovado que sea 7 el domingo. Se hace con un .equals porque devuelve un dato de la clase DayOfTheWeek y no un entero
                 if (iter.getFecha().getHour() < 16 && iter.getFecha().getHour() > 20) { //La tarifa de por las tardes se hace de 16 a 20
-                    TarifaBasica tarifa = new Tarifa(0,15);
-                    importe = tarifa.getPrecio();
+                    Tarifa tarifa = new TarifaTardes(cliente.getTarifa(), 0.5f);
+                    importe = cliente.getTarifa().getPrecio();
                     precioTotal += iter.getDuracion() * importe;
                 } else {
-                    TarifaTardes tarifa = Tarifa();
+                    Tarifa tarifa = cliente.getTarifa();
                     importe = tarifa.getPrecio();
                     precioTotal += iter.getDuracion() * importe;
                 }
@@ -121,6 +126,6 @@ public class recolectorDatosFactura {
 
         }
         return precioTotal;
-    }*/
+    }
 
 }
