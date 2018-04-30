@@ -5,9 +5,11 @@ import uji.es.EI1017.Clases.Tarifa;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudGenerico;
 
+import uji.es.EI1017.decorador.TarifaBasica;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.factoria.FabricaClientes;
+import uji.es.EI1017.factoria.FabricaTarifas;
 import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
@@ -26,8 +28,6 @@ public class recolectorDatosCliente {
     public recolectorDatosCliente(CrudCliente crud){
         this.crudCliente = crud;
     }
-
-
     public void insertarDatosCliente() {
         /* RECOLECCION DE DATOS POR TECLADO */
         System.out.println("Introduce el nombre:");
@@ -62,8 +62,36 @@ public class recolectorDatosCliente {
 
         System.out.println("Introduce el precio de la tarifa basica:");
         float precio = scanner.nextFloat();
-        Tarifa tarifa = new Tarifa(precio);
-
+        ArrayList<Tarifa> listaTarifas = new ArrayList<Tarifa>();
+        FabricaTarifas fabricaTarifas = new FabricaTarifas();
+        Tarifa tarifaBasica = fabricaTarifas.getBasica(precio);
+        listaTarifas.add(tarifaBasica);
+        System.out.println("¿Deseas añadir más tarifas? (si/no)");
+        String contestacion = scanner.nextLine();
+        while(contestacion.equals("si")){
+            Tarifa tarifa1;
+            System.out.println("¿De tipo 'periodo' o 'dia'?");
+            String tipo = scanner.nextLine();
+            if(tipo.equals("periodo")){
+                System.out.println("Introduce el precio de la tarifa periodo:");
+                float precioPeriodo = scanner.nextFloat();
+                System.out.println("¿Cual es la hora de inicio? ");
+                int horaIni = scanner.nextInt();
+                System.out.println("¿Cual es la hora final? ");
+                int horaFin = scanner.nextInt();
+                tarifa1 = fabricaTarifas.getPeriodo(tarifaBasica,precioPeriodo,horaIni, horaFin);
+            }else{
+                System.out.println("Introduce el precio de la tarifa dia:");
+                float precioDia = scanner.nextFloat();
+                System.out.println("¿Cual es el día de la semana que se aplica esta tarifa? ");
+                int diaTarifa = scanner.nextInt();
+                tarifa1 = fabricaTarifas.getDia(tarifaBasica, precioDia , diaTarifa);
+            }
+            listaTarifas.add(tarifa1);
+            tarifaBasica = tarifa1;
+            System.out.println("¿Deseas añadir más tarifas? (si/no)");
+            contestacion = scanner.nextLine();
+        }
         /* FIN DE RECOLECCION DE DATOS POR TECLADO*/
 
         /* LLAMADA DEL SUB MENU TIPO CLIENTES*/
@@ -79,17 +107,16 @@ public class recolectorDatosCliente {
             case PARTICULAR:
                 System.out.println("Introduce el apellido:");
                 String apellido = scanner.next();
-                Cliente particular = fabricaClientes.getParticular(nombre, nif, email, direccion, fechaAlta, tarifa, apellido, true);
+                Cliente particular = fabricaClientes.getParticular(nombre, nif, email, direccion, fechaAlta, listaTarifas, apellido, true);
                 crudCliente.insertarCliente(particular);
 
                 break;
             case EMPRESA:
-                Cliente empresa = fabricaClientes.getEmpresa(nombre, nif, email, direccion, fechaAlta, tarifa, false);
+                Cliente empresa = fabricaClientes.getEmpresa(nombre, nif, email, direccion, fechaAlta, listaTarifas, false);
                 crudCliente.insertarCliente(empresa);
                 break;
         }
     }
-
     public void eliminarClienteDNI() {
             System.out.println("Introduce el DNI de la persona a eliminar");
             Cliente cs;
@@ -104,7 +131,6 @@ public class recolectorDatosCliente {
             }
 
     }
-
     public void recuperarClientePorDNI() {
         System.out.println("Introduce el NIF de la persona a recuperar");
         String nif = scanner.next();

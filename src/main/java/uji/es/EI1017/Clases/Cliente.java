@@ -5,6 +5,7 @@ package uji.es.EI1017.Clases;
  */
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 
 public class Cliente implements Fecha, Serializable{
@@ -14,11 +15,11 @@ public class Cliente implements Fecha, Serializable{
     private String email;
     private String direccion;
     private LocalDateTime fechaAlta;
-    private Tarifa tarifa;
+    private ArrayList<Tarifa> tarifa;
     //Si tipo cliente es =true es un particular
     private boolean tipoParticular;
 
-    public Cliente(String nombre, String nif, String email, String direccion ,LocalDateTime fechaAlta, Tarifa tarifa, boolean tipoParticular) {
+    public Cliente(String nombre, String nif, String email, String direccion ,LocalDateTime fechaAlta, ArrayList<Tarifa> tarifa, boolean tipoParticular) {
         this.nombre = nombre;
         this.nif = nif;
         this.email = email;
@@ -52,7 +53,7 @@ public class Cliente implements Fecha, Serializable{
         this.fechaAlta = fechaAlta;
     }
 
-    public void setTarifa(Tarifa tarifa) {
+    public void setTarifa(ArrayList<Tarifa> tarifa) {
         this.tarifa = tarifa;
     }
 
@@ -80,7 +81,7 @@ public class Cliente implements Fecha, Serializable{
         return fechaAlta;
     }
 
-    public Tarifa getTarifa() {
+    public ArrayList<Tarifa> getTarifa() {
         return tarifa;
     }
 

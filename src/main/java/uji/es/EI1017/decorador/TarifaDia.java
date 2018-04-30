@@ -34,4 +34,7 @@ public class TarifaDia extends TarifaBasica {
     public  String toString(){
         return super.toString() + ", tarifa de día extra: " + String.valueOf(precio);
     }
+    public void setTarifaPadre(Tarifa nuevaTarifa){
+        this.tarifaPadre = nuevaTarifa;
+    }
 }

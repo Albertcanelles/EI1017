@@ -37,4 +37,8 @@ public class TarifaPeriodo extends Tarifa {
     public String toString() {
         return super.toString() + ", tarifa de periodo extra: " + String.valueOf(precio);
     }
+
+    public void setTarifaPadre(Tarifa nuevaTarifa){
+        this.tarifaPadre = nuevaTarifa;
+    }
 }
