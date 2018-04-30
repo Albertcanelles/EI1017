@@ -2,18 +2,25 @@ package uji.es.EI1017.decorador;
 
 import uji.es.EI1017.Clases.Tarifa;
 
+import java.time.LocalDateTime;
+
 public  class TarifaBasica extends Tarifa {
 
-    private Tarifa tarifa;
-
-
-    public TarifaBasica(Tarifa tarifa, float precioTarifa) {
-        super(precioTarifa);
-        this.tarifa = tarifa;
+    public TarifaBasica(){
+        super();
+    }
+    public TarifaBasica (float precio){
+        super(precio);
     }
     @Override
-    public float getPrecio(){
-        return super.getPrecio();
+    public float getPrecio(LocalDateTime fecha){
+        return precio;
     }
+
+    @Override
+    public String toString(){
+        return super.toString();
+    }
+
 
 }

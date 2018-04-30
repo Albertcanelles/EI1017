@@ -20,8 +20,8 @@ public class recolectorDatosFactura {
     private CrudFactura crudFactura;  // Llamamos a los recoleccionDatos de la clase CrudFactura
     private CrudLlamada crudLlamada;  // Llamamos a los recoleccionDatos de la clase CrudLlamada
     private TarifaBasica basica;
-    private TarifaTardes tardes;
-    private TarifaDomingos domingos;
+    private TarifaPeriodo tardes;
+    private TarifaDia domingos;
     private Calendar calendar = Calendar.getInstance();
     private Scanner scanner = new Scanner(System.in);
 
@@ -31,7 +31,7 @@ public class recolectorDatosFactura {
 
     }
 
-    public recolectorDatosFactura(CrudLlamada crudLlamada, CrudFactura crudFactura, TarifaBasica basica, TarifaTardes tardes, TarifaDomingos domingos) {
+    public recolectorDatosFactura(CrudLlamada crudLlamada, CrudFactura crudFactura, TarifaBasica basica, TarifaPeriodo tardes, TarifaDia domingos) {
         this.crudFactura = crudFactura;
         this.crudLlamada = crudLlamada;
         this.basica = basica;
@@ -117,7 +117,7 @@ public class recolectorDatosFactura {
         for (Llamada iter : llamadasCliente) {
             if (!iter.getFecha().getDayOfWeek().equals(7)) {// Comprovado que sea 7 el domingo. Se hace con un .equals porque devuelve un dato de la clase DayOfTheWeek y no un entero
                 if (iter.getFecha().getHour() < 16 && iter.getFecha().getHour() > 20) { //La tarifa de por las tardes se hace de 16 a 20
-                    Tarifa tarifa = new TarifaTardes(cliente.getTarifa(), 0.5f);
+                    Tarifa tarifa = new TarifaPeriodo(cliente.getTarifa(), 0.5f);
                     importe = cliente.getTarifa().getPrecio();
                     precioTotal += iter.getDuracion() * importe;
                 } else {

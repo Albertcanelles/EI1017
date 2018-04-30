@@ -1,14 +1,13 @@
 package uji.es.EI1017.recoleccionDatos;
 
 import uji.es.EI1017.Clases.Cliente;
-import uji.es.EI1017.Clases.Factura;
 import uji.es.EI1017.Clases.Tarifa;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudGenerico;
 
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
-import uji.es.EI1017.factoria.Fabrica;
+import uji.es.EI1017.factoria.FabricaClientes;
 import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
@@ -23,7 +22,6 @@ public class recolectorDatosCliente {
     private CrudCliente crudCliente;
     Calendar calendar = Calendar.getInstance();
     private Scanner scanner = new Scanner(System.in);
-    private Fabrica fabrica;
     // Constructor para pasar la referencia del ejecutar.
     public recolectorDatosCliente(CrudCliente crud){
         this.crudCliente = crud;
@@ -76,16 +74,17 @@ public class recolectorDatosCliente {
         /* FINAL LLAMADA SUB MENU TIPO CLIENTES*/
 
         /*SELECCION DE TIPO DE CLIENTE*/
+        FabricaClientes fabricaClientes = new FabricaClientes();
         switch (opcionesMenuTipoCliente) {
             case PARTICULAR:
                 System.out.println("Introduce el apellido:");
                 String apellido = scanner.next();
-                Cliente particular = new Particular(nombre, nif, email, direccion, fechaAlta, tarifa, apellido, true);
+                Cliente particular = fabricaClientes.getParticular(nombre, nif, email, direccion, fechaAlta, tarifa, apellido, true);
                 crudCliente.insertarCliente(particular);
 
                 break;
             case EMPRESA:
-                Cliente empresa = new Empresa(nombre, nif, email, direccion, fechaAlta, tarifa, false);
+                Cliente empresa = fabricaClientes.getEmpresa(nombre, nif, email, direccion, fechaAlta, tarifa, false);
                 crudCliente.insertarCliente(empresa);
                 break;
         }
