@@ -5,10 +5,8 @@ package uji.es.EI1017.crud;
  */
 import uji.es.EI1017.Clases.Cliente;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
-import uji.es.EI1017.recoleccionDatos.recolectorDatosGenerico;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class CrudCliente implements Serializable {
@@ -17,6 +15,15 @@ public class CrudCliente implements Serializable {
 
     public ArrayList<Cliente> getListaClientes() {
         return listaClientes;
+    }
+
+    public Cliente getCliente(String dni){
+
+        for(Cliente cl : listaClientes){
+            if(cl.getNif().equals(dni))
+                return cl;
+        }
+        return null;
     }
 
     public void insertarCliente(Cliente cliente){

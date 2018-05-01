@@ -5,27 +5,24 @@ import uji.es.EI1017.Clases.Tarifa;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudGenerico;
 
-import uji.es.EI1017.decorador.TarifaBasica;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.factoria.FabricaClientes;
 import uji.es.EI1017.factoria.FabricaTarifas;
-import uji.es.EI1017.herencias.Empresa;
-import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
 
 
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class recolectorDatosCliente {
+public class RecolectorDatosCliente {
 
 
     private CrudCliente crudCliente;
     Calendar calendar = Calendar.getInstance();
     private Scanner scanner = new Scanner(System.in);
     // Constructor para pasar la referencia del ejecutar.
-    public recolectorDatosCliente(CrudCliente crud){
+    public RecolectorDatosCliente(CrudCliente crud){
         this.crudCliente = crud;
     }
     public void insertarDatosCliente() {
@@ -67,11 +64,11 @@ public class recolectorDatosCliente {
         Tarifa tarifaBasica = fabricaTarifas.getBasica(precio);
         listaTarifas.add(tarifaBasica);
         System.out.println("¿Deseas añadir más tarifas? (si/no)");
-        String contestacion = scanner.nextLine();
+        String contestacion = scanner.next();
         while(contestacion.equals("si")){
             Tarifa tarifa1;
             System.out.println("¿De tipo 'periodo' o 'dia'?");
-            String tipo = scanner.nextLine();
+            String tipo = scanner.next();
             if(tipo.equals("periodo")){
                 System.out.println("Introduce el precio de la tarifa periodo:");
                 float precioPeriodo = scanner.nextFloat();
@@ -90,7 +87,7 @@ public class recolectorDatosCliente {
             listaTarifas.add(tarifa1);
             tarifaBasica = tarifa1;
             System.out.println("¿Deseas añadir más tarifas? (si/no)");
-            contestacion = scanner.nextLine();
+            contestacion = scanner.next();
         }
         /* FIN DE RECOLECCION DE DATOS POR TECLADO*/
 
@@ -142,10 +139,10 @@ public class recolectorDatosCliente {
         }
     }
     public void listarFacturas(){
-        LocalDateTime fechaIni = recolectorDatosGenerico.pedirFecha();
-        LocalDateTime fechaFin = recolectorDatosGenerico.pedirFecha();
+        LocalDateTime fechaIni = RecolectorDatosGenerico.pedirFecha();
+        LocalDateTime fechaFin = RecolectorDatosGenerico.pedirFecha();
         try {
-            recolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
+            RecolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
             ArrayList<Cliente> todas = crudCliente.getListaClientes();
             Collection<Cliente> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
             for (Cliente iter : lista) {

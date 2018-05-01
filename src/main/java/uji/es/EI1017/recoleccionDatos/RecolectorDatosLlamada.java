@@ -10,13 +10,13 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Scanner;
 
-public class recolectorDatosLlamada {
+public class RecolectorDatosLlamada {
     CrudLlamada crudLlamada;  // Llamamos a los recoleccionDatos de la clase CrudLlamada
     CrudCliente crudCliente;
     Calendar calendar = Calendar.getInstance();
     Scanner scanner = new Scanner(System.in);
 
-    public recolectorDatosLlamada(CrudLlamada crudLlamada, CrudCliente crudCliente) {
+    public RecolectorDatosLlamada(CrudLlamada crudLlamada, CrudCliente crudCliente) {
         this.crudLlamada = crudLlamada;
         this.crudCliente = crudCliente;
     }
@@ -54,10 +54,10 @@ public class recolectorDatosLlamada {
         crudLlamada.listarLlamadas(DNI);
     }
     public void listarLLamadas(){
-        LocalDateTime fechaIni = recolectorDatosGenerico.pedirFecha();
-        LocalDateTime fechaFin = recolectorDatosGenerico.pedirFecha();
+        LocalDateTime fechaIni = RecolectorDatosGenerico.pedirFecha();
+        LocalDateTime fechaFin = RecolectorDatosGenerico.pedirFecha();
         try {
-            recolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
+            RecolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
             ArrayList<Llamada> todas = crudLlamada.getLlamadas();
             Collection<Llamada> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
             for(Llamada iter : lista){

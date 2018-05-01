@@ -51,4 +51,7 @@ public class CrudFactura implements Serializable {
         }
         return null;
     }
+    public int numFacturas(){
+        return facturas.size();
+    }
 }

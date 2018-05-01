@@ -9,18 +9,17 @@ import java.time.LocalDateTime;
 
 public class Factura implements Fecha, Serializable {
     private int codigo;
-    private double minutos;
     private LocalDateTime emisionFactura;
     private LocalDateTime fechaFinal;
     private LocalDateTime fechaInicial;
-
+    private float importe;
     public Factura() {
 
     }
 
-    public Factura(int codigo, double minutos, LocalDateTime emisionFactura,LocalDateTime fechaInicial, LocalDateTime fechaFinal) {
+    public Factura(int codigo,LocalDateTime emisionFactura,LocalDateTime fechaInicial, LocalDateTime fechaFinal, float importe) {
         this.codigo = codigo;
-        this.minutos = minutos;
+        this.importe = importe;
         this.emisionFactura = emisionFactura;
         this.fechaFinal = fechaFinal;
         this.fechaInicial = fechaInicial;
@@ -30,9 +29,7 @@ public class Factura implements Fecha, Serializable {
         return codigo;
     }
 
-    public double getMinutos() {
-        return minutos;
-    }
+    public float getImporte() { return importe; }
 
     public LocalDateTime getFecha() {
         return emisionFactura;
@@ -50,9 +47,7 @@ public class Factura implements Fecha, Serializable {
         this.codigo = codigo;
     }
 
-    public void setMinutos(double minutos) {
-        this.minutos = minutos;
-    }
+    public void setImporte(float importe){ this.importe = importe; }
 
     public void setEmisionFactura(LocalDateTime emisionFactura) {
         this.emisionFactura = emisionFactura;
@@ -68,12 +63,11 @@ public class Factura implements Fecha, Serializable {
 
     @Override
     public String toString() {
-        return "Factura{" +
-                "codigo=" + codigo +
-                ", minutos=" + minutos +
-                ", emisionFactura=" + emisionFactura +
-                ", fechaFinal=" + fechaFinal +
-                ", fechaInicial=" + fechaInicial +
-                '}';
+        return "Factura { " +
+                "codigo =" + codigo +
+                ", emisionFactura =" + emisionFactura +
+                ", fechaFinal =" + fechaFinal +
+                ", fechaInicial =" + fechaInicial +
+                "Precio = "+ importe + " }";
     }
 }

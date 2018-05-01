@@ -1,9 +1,11 @@
 package uji.es.EI1017.pruebas;
 
+import uji.es.EI1017.excepciones.ErrorEntreFechasException;
+
 import java.io.IOException;
 
 public class Aplicacion {
-    public static void main(String[] args){
+    public static void main(String[] args) throws ErrorEntreFechasException {
         GuardadoDatos data = new GuardadoDatos();
         Ejecutar ejecutar = data.lectura();
         ejecutar.menu();

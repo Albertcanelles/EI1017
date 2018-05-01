@@ -7,10 +7,11 @@ package uji.es.EI1017.pruebas;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudFactura;
 import uji.es.EI1017.crud.CrudLlamada;
+import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.menu.*;
-import uji.es.EI1017.recoleccionDatos.recolectorDatosCliente;
-import uji.es.EI1017.recoleccionDatos.recolectorDatosFactura;
-import uji.es.EI1017.recoleccionDatos.recolectorDatosLlamada;
+import uji.es.EI1017.recoleccionDatos.RecolectorDatosCliente;
+import uji.es.EI1017.recoleccionDatos.RecolectorDatosFactura;
+import uji.es.EI1017.recoleccionDatos.RecolectorDatosLlamada;
 
 import java.io.Serializable;
 import java.util.Scanner;
@@ -28,12 +29,12 @@ public class Ejecutar implements Serializable {
     }
 
 
-    public void menu() {
+    public void menu() throws ErrorEntreFechasException {
         int opcion = 0;
         Scanner scanner = new Scanner(System.in);
-        recolectorDatosCliente recolectorCliente = new recolectorDatosCliente(crudCliente); // Clase utilizada para la recoleccion datos de clientes
-        recolectorDatosLlamada recolectorLlamada = new recolectorDatosLlamada(crudLlamada, crudCliente); // Clase utilizada para la recoleccion datos de llamadas
-        recolectorDatosFactura recolectorFactura = new recolectorDatosFactura(crudLlamada, crudFactura); // Clase utilizada para la recoleccion datos de facturas
+        RecolectorDatosCliente recolectorCliente = new RecolectorDatosCliente(crudCliente); // Clase utilizada para la recoleccion datos de clientes
+        RecolectorDatosLlamada recolectorLlamada = new RecolectorDatosLlamada(crudLlamada, crudCliente); // Clase utilizada para la recoleccion datos de llamadas
+        RecolectorDatosFactura recolectorFactura = new RecolectorDatosFactura(crudLlamada, crudFactura, crudCliente); // Clase utilizada para la recoleccion datos de facturas
 
         do {
             /*LLAMADA DEL MENU PRINCIPAL*/
