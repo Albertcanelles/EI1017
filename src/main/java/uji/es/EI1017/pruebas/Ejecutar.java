@@ -8,11 +8,13 @@ import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudFactura;
 import uji.es.EI1017.crud.CrudLlamada;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
+import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.menu.*;
 import uji.es.EI1017.recoleccionDatos.RecolectorDatosCliente;
 import uji.es.EI1017.recoleccionDatos.RecolectorDatosFactura;
 import uji.es.EI1017.recoleccionDatos.RecolectorDatosLlamada;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.Scanner;
 
@@ -29,13 +31,18 @@ public class Ejecutar implements Serializable {
     }
 
 
-    public void menu() throws ErrorEntreFechasException {
+    public void menu() throws ErrorEntreFechasException, NoExisteClienteException {
         int opcion = 0;
         Scanner scanner = new Scanner(System.in);
         RecolectorDatosCliente recolectorCliente = new RecolectorDatosCliente(crudCliente); // Clase utilizada para la recoleccion datos de clientes
         RecolectorDatosLlamada recolectorLlamada = new RecolectorDatosLlamada(crudLlamada, crudCliente); // Clase utilizada para la recoleccion datos de llamadas
         RecolectorDatosFactura recolectorFactura = new RecolectorDatosFactura(crudLlamada, crudFactura, crudCliente); // Clase utilizada para la recoleccion datos de facturas
-
+        JFrame ventana = new JFrame("Principal");
+        JButton boton = new JButton("Boton");
+        boton.setSize(50,50);
+        ventana.getContentPane().add(boton);
+        ventana.setSize(400,400);
+        ventana.setVisible(true);
         do {
             /*LLAMADA DEL MENU PRINCIPAL*/
             System.out.println(OpcionesMenu.getMenu());
@@ -75,6 +82,9 @@ public class Ejecutar implements Serializable {
                             break;
                         case LISTAR_CLIENTES_ENTRE_FECHAS:
                             recolectorCliente.listarFacturas();
+                            break;
+                        case CAMBIAR_TARIFA_CLIENTE:
+                            recolectorCliente.modificarTarifa();
                             break;
                         case ATRAS:
                             break;

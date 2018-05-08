@@ -152,4 +152,47 @@ public class RecolectorDatosCliente {
             return;
         }
     }
+
+    // TO DO
+    public void modificarTarifa() throws NoExisteClienteException {
+        System.out.println("Introduce DNI del cliente: ");
+        String DNI = scanner.next();
+        Cliente cliente = crudCliente.unCliente(DNI);
+        System.out.println("Las tarifas que tienes son: " + cliente.getTarifa());
+        System.out.println("Introduce las nuevas tarifas: ");
+        System.out.println("Introduce el precio de la tarifa basica:");
+        float precio = scanner.nextFloat();
+        ArrayList<Tarifa> listaTarifas = new ArrayList<Tarifa>();
+        FabricaTarifas fabricaTarifas = new FabricaTarifas();
+        Tarifa tarifaBasica = fabricaTarifas.getBasica(precio);
+        listaTarifas.add(tarifaBasica);
+        System.out.println("¿Deseas añadir más tarifas? (si/no)");
+        String contestacion = scanner.next();
+        while(contestacion.equals("si")){
+            Tarifa tarifa1;
+            System.out.println("¿De tipo 'periodo' o 'dia'?");
+            String tipo = scanner.next();
+            if(tipo.equals("periodo")){
+                System.out.println("Introduce el precio de la tarifa periodo:");
+                float precioPeriodo = scanner.nextFloat();
+                System.out.println("¿Cual es la hora de inicio? ");
+                int horaIni = scanner.nextInt();
+                System.out.println("¿Cual es la hora final? ");
+                int horaFin = scanner.nextInt();
+                tarifa1 = fabricaTarifas.getPeriodo(tarifaBasica,precioPeriodo,horaIni, horaFin);
+            }else{
+                System.out.println("Introduce el precio de la tarifa dia:");
+                float precioDia = scanner.nextFloat();
+                System.out.println("¿Cual es el día de la semana que se aplica esta tarifa? ");
+                int diaTarifa = scanner.nextInt();
+                tarifa1 = fabricaTarifas.getDia(tarifaBasica, precioDia , diaTarifa);
+            }
+            listaTarifas.add(tarifa1);
+            tarifaBasica = tarifa1;
+            System.out.println("¿Deseas añadir más tarifas? (si/no)");
+            contestacion = scanner.next();
+        }
+        cliente.setTarifa(listaTarifas);
+
+    }
 }
