@@ -15,6 +15,7 @@ import uji.es.EI1017.recoleccionDatos.RecolectorDatosFactura;
 import uji.es.EI1017.recoleccionDatos.RecolectorDatosLlamada;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.Serializable;
 import java.util.Scanner;
 
@@ -37,11 +38,18 @@ public class Ejecutar implements Serializable {
         RecolectorDatosCliente recolectorCliente = new RecolectorDatosCliente(crudCliente); // Clase utilizada para la recoleccion datos de clientes
         RecolectorDatosLlamada recolectorLlamada = new RecolectorDatosLlamada(crudLlamada, crudCliente); // Clase utilizada para la recoleccion datos de llamadas
         RecolectorDatosFactura recolectorFactura = new RecolectorDatosFactura(crudLlamada, crudFactura, crudCliente); // Clase utilizada para la recoleccion datos de facturas
-        JFrame ventana = new JFrame("Principal");
-        JButton boton = new JButton("Boton");
-        boton.setSize(50,50);
-        ventana.getContentPane().add(boton);
-        ventana.setSize(400,400);
+        JFrame ventana = new JFrame("BoxLayout Manager");
+        Container contenedor = ventana.getContentPane();
+        JPanel panelTexto = new JPanel();
+        JPanel panelNorte = new JPanel();
+        panelTexto.add(new JLabel("Telefonia"));
+        contenedor.add(panelTexto, BorderLayout.NORTH);
+        panelNorte.add(new JButton("Clientes"));
+        panelNorte.add(new JButton("Facturas"));
+        panelNorte.add(new JButton("Llamadas"));
+
+        contenedor.add(panelNorte, BorderLayout.CENTER);
+        ventana.setSize(400, 400);
         ventana.setVisible(true);
         do {
             /*LLAMADA DEL MENU PRINCIPAL*/
