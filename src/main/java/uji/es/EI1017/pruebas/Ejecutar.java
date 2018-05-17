@@ -75,25 +75,25 @@ public class Ejecutar implements Serializable {
 
 
         /* Llamadas a las ventanas de Clientes Facturas y Llamadas */
-        
+
         clientes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                crudCliente.ejecutarVentana();
+                recolectorCliente.ejecutarVentana();
             }
         });
 
         llamadas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                crudLlamada.ejecutarVentana();
+                recolectorLlamada.ejecutarVentana();
             }
         });
 
         facturas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                crudFactura.ejecutarVentana();
+                recolectorFactura.ejecutarVentana();
             }
         });
 

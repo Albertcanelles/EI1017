@@ -4,6 +4,7 @@ import uji.es.EI1017.Clases.Llamada;
 import uji.es.EI1017.crud.*;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,6 +21,14 @@ public class RecolectorDatosLlamada {
         this.crudLlamada = crudLlamada;
         this.crudCliente = crudCliente;
     }
+
+    public void ejecutarVentana() {
+        JFrame vLlamadas = new JFrame("Facturas");
+        vLlamadas.setSize(500,500);
+        vLlamadas.setResizable(false);
+        vLlamadas.setVisible(true);
+    }
+
     public void insertarDatosLlamada() {
         System.out.println("Introduce el DNI del cliente:");
         String DNI = scanner.next();

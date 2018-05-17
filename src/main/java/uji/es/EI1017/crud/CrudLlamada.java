@@ -15,12 +15,7 @@ public class CrudLlamada implements Serializable {
     HashMap<String, ArrayList<Llamada>> listaLlamadas = new HashMap<String, ArrayList<Llamada>>();
 
 
-    public void ejecutarVentana() {
-        JFrame vLlamadas = new JFrame("Facturas");
-        vLlamadas.setSize(500,500);
-        vLlamadas.setResizable(false);
-        vLlamadas.setVisible(true);
-    }
+
 
     public void insertarLlamada(Llamada llamada, String DNI) {
         llamadas.add(llamada);

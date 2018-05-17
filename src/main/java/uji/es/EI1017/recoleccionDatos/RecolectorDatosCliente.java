@@ -12,6 +12,7 @@ import uji.es.EI1017.factoria.FabricaTarifas;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
 
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -21,6 +22,15 @@ public class RecolectorDatosCliente {
     private CrudCliente crudCliente;
     Calendar calendar = Calendar.getInstance();
     private Scanner scanner = new Scanner(System.in);
+
+    public void ejecutarVentana() {
+        JFrame vClientes = new JFrame("Clientes");
+        vClientes.setSize(500,500);
+        vClientes.setResizable(false);
+        vClientes.setVisible(true);
+    }
+
+
     // Constructor para pasar la referencia del ejecutar.
     public RecolectorDatosCliente(CrudCliente crud){
         this.crudCliente = crud;

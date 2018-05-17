@@ -12,6 +12,7 @@ import uji.es.EI1017.decorador.*;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -42,6 +43,13 @@ public class RecolectorDatosFactura {
         this.basica = basica;
         this.dia = dia;
         this.periodo = periodo;
+    }
+
+    public void ejecutarVentana() {
+        JFrame vFacturas = new JFrame("Facturas");
+        vFacturas.setSize(500,500);
+        vFacturas.setResizable(false);
+        vFacturas.setVisible(true);
     }
 
     public void insertarDatosFactura() throws ErrorEntreFechasException {
