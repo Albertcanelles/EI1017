@@ -5,6 +5,7 @@ package uji.es.EI1017.crud;
  */
 import uji.es.EI1017.Clases.Llamada;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -13,6 +14,13 @@ public class CrudLlamada implements Serializable {
     ArrayList<Llamada> llamadas = new ArrayList<Llamada>();
     HashMap<String, ArrayList<Llamada>> listaLlamadas = new HashMap<String, ArrayList<Llamada>>();
 
+
+    public void ejecutarVentana() {
+        JFrame vLlamadas = new JFrame("Facturas");
+        vLlamadas.setSize(500,500);
+        vLlamadas.setResizable(false);
+        vLlamadas.setVisible(true);
+    }
 
     public void insertarLlamada(Llamada llamada, String DNI) {
         llamadas.add(llamada);

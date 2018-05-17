@@ -6,12 +6,20 @@ package uji.es.EI1017.crud;
 import uji.es.EI1017.Clases.Cliente;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.*;
 
 public class CrudCliente implements Serializable {
 
     private ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+
+    public void ejecutarVentana() {
+        JFrame vClientes = new JFrame("Clientes");
+        vClientes.setSize(500,500);
+        vClientes.setResizable(false);
+        vClientes.setVisible(true);
+    }
 
     public ArrayList<Cliente> getListaClientes() {
         return listaClientes;

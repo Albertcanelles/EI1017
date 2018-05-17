@@ -5,6 +5,7 @@ package uji.es.EI1017.crud;
  */
 import uji.es.EI1017.Clases.Factura;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.*;
 
@@ -13,6 +14,12 @@ public class CrudFactura implements Serializable {
     HashMap<String, ArrayList<Factura>> listaFacturas = new HashMap<String, ArrayList<Factura>>();
     private CrudLlamada crudLlamada = new CrudLlamada();
 
+    public void ejecutarVentana() {
+        JFrame vFacturas = new JFrame("Facturas");
+        vFacturas.setSize(500,500);
+        vFacturas.setResizable(false);
+        vFacturas.setVisible(true);
+    }
     public Factura emitirFactura(Factura factura, String DNI) {
         facturas.add(factura);
         if(listaFacturas.containsKey(DNI)) {

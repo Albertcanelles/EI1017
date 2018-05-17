@@ -16,6 +16,8 @@ import uji.es.EI1017.recoleccionDatos.RecolectorDatosLlamada;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.Scanner;
 
@@ -70,7 +72,30 @@ public class Ejecutar implements Serializable {
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setResizable(false);
         ventana.setVisible(true);
+
+
+        /* Llamadas a las ventanas de Clientes Facturas y Llamadas */
         
+        clientes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                crudCliente.ejecutarVentana();
+            }
+        });
+
+        llamadas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                crudLlamada.ejecutarVentana();
+            }
+        });
+
+        facturas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                crudFactura.ejecutarVentana();
+            }
+        });
 
         do {
             /*LLAMADA DEL MENU PRINCIPAL*/
