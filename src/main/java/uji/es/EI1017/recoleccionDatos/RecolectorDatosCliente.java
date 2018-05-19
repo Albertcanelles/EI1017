@@ -9,10 +9,11 @@ import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.factoria.FabricaClientes;
 import uji.es.EI1017.factoria.FabricaTarifas;
+import uji.es.EI1017.herencias.Empresa;
+import uji.es.EI1017.herencias.Particular;
 import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
 
 
-import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -24,10 +25,7 @@ public class RecolectorDatosCliente {
     private Scanner scanner = new Scanner(System.in);
 
     public void ejecutarVentana() {
-        JFrame vClientes = new JFrame("Clientes");
-        vClientes.setSize(500,500);
-        vClientes.setResizable(false);
-        vClientes.setVisible(true);
+
     }
 
 
@@ -35,22 +33,10 @@ public class RecolectorDatosCliente {
     public RecolectorDatosCliente(CrudCliente crud){
         this.crudCliente = crud;
     }
-    public void insertarDatosCliente() {
+    //public void insertarDatosCliente() {
         /* RECOLECCION DE DATOS POR TECLADO */
-        System.out.println("Introduce el nombre:");
-        String nombre = scanner.next();
-        while (nombre == null) {
-            System.out.println("No se admiten nombres de valor null");
-            System.out.println("Introduce el nombre:");
-            nombre = scanner.next();
-        }
-        System.out.println("Introduce el NIF:");
-        String nif = scanner.next();
-        while (nif.length() != 9) {
-            System.out.println("Su NIF no es valido, ha de tener 8 números y una letra al final");
-            System.out.println("Introduce el NIF:");
-            nif = scanner.next();
-        }
+      /*  System.out.println("Introduce el nombre:");
+      
         System.out.println("Introduce el email:");
         String email = scanner.next();
         while (email.length() < 10) {
@@ -102,14 +88,14 @@ public class RecolectorDatosCliente {
         /* FIN DE RECOLECCION DE DATOS POR TECLADO*/
 
         /* LLAMADA DEL SUB MENU TIPO CLIENTES*/
-        System.out.println(OpcionesMenuTipoCliente.getMenu());
+      /*  System.out.println(OpcionesMenuTipoCliente.getMenu());
         System.out.print("Elije una opción:");
         byte opcion_TipoCliente = scanner.nextByte();
         OpcionesMenuTipoCliente opcionesMenuTipoCliente = OpcionesMenuTipoCliente.getOpcion(opcion_TipoCliente);
         /* FINAL LLAMADA SUB MENU TIPO CLIENTES*/
 
         /*SELECCION DE TIPO DE CLIENTE*/
-        FabricaClientes fabricaClientes = new FabricaClientes();
+      /*  FabricaClientes fabricaClientes = new FabricaClientes();
         switch (opcionesMenuTipoCliente) {
             case PARTICULAR:
                 System.out.println("Introduce el apellido:");
@@ -123,44 +109,78 @@ public class RecolectorDatosCliente {
                 crudCliente.insertarCliente(empresa);
                 break;
         }
-    }
-    public void eliminarClienteDNI() {
-            System.out.println("Introduce el DNI de la persona a eliminar");
-            Cliente cs;
-            String nif = scanner.next();
-            try{
-                cs = crudCliente.unCliente(nif);
-                if (crudCliente.getListaClientes().contains(cs))
-                    crudCliente.borrarCliente(cs);
+    }*/
 
-            }catch (NoExisteClienteException e){
-                System.out.printf("Error");;
-            }
+    public Cliente[] listarClientes(){
+        Cliente[] listado = new Cliente[crudCliente.tamanyoLista()];
+        for (int i = 0; i < crudCliente.tamanyoLista(); i++) {
+            listado[i] = crudCliente.listarClientes().get(i);
+        }
+        return listado;
+    }
+
+
+    public void insertarDatosClienteVista(String nombre, String nif, String email, String direccion, boolean tipo, float tarifaBase, String apellido) {
+        LocalDateTime fechaAlta = LocalDateTime.now(); // NO TOCAR
+        ArrayList<Tarifa> listaTarifas = new ArrayList<Tarifa>();
+        FabricaTarifas fabricaTarifas = new FabricaTarifas();
+        Tarifa tarifaBasica = fabricaTarifas.getBasica(tarifaBase);
+        listaTarifas.add(tarifaBasica);
+
+        /* LLAMADA DEL SUB MENU TIPO CLIENTES*/
+        FabricaClientes fabricaClientes = new FabricaClientes();
+        if (tipo) {
+            Particular particular = fabricaClientes.getParticular(nombre, nif, email, direccion, fechaAlta, listaTarifas, apellido, true);
+            crudCliente.insertarCliente(particular);
+        } else {
+            Empresa empresa = fabricaClientes.getEmpresa(nombre, nif, email, direccion, fechaAlta, listaTarifas, false);
+            crudCliente.insertarCliente(empresa);
+
+        }
 
     }
-    public void recuperarClientePorDNI() {
-        System.out.println("Introduce el NIF de la persona a recuperar");
-        String nif = scanner.next();
+    /**/
+
+    public void eliminarClienteDNI(String nif) {
+
+        Cliente cs;
         try{
-            crudCliente.unCliente(nif);
+            cs = crudCliente.unCliente(nif);
+            if (crudCliente.getListaClientes().contains(cs))
+                crudCliente.borrarCliente(cs);
 
         }catch (NoExisteClienteException e){
-            System.out.println("Error");;
+            System.out.printf("Error");;
         }
+
     }
-    public void listarFacturas(){
-        LocalDateTime fechaIni = RecolectorDatosGenerico.pedirFecha();
-        LocalDateTime fechaFin = RecolectorDatosGenerico.pedirFecha();
+    public String recuperarClientePorDNI(String nif) {
+        try{
+            return crudCliente.unCliente(nif).getNombre();
+
+        }catch (NoExisteClienteException e){
+            return "Error";
+        }
+
+    }
+
+
+    public Cliente[] listarFacturas(LocalDateTime fechaIni, LocalDateTime fechaFin){
+
+        Cliente[] listado = new Cliente[crudCliente.tamanyoLista()];
         try {
             RecolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
             ArrayList<Cliente> todas = crudCliente.getListaClientes();
             Collection<Cliente> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            int i = 0;
             for (Cliente iter : lista) {
-                System.out.println(iter.toString());
+                listado[i] = iter;
+                i++;
             }
         }catch (ErrorEntreFechasException e){
-            return;
+            System.out.println("Error");
         }
+        return listado;
     }
 
     // TO DO

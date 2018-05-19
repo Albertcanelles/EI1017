@@ -4,6 +4,7 @@ package uji.es.EI1017.crud;
  * Daniel Garcia Ruiz
  */
 import uji.es.EI1017.Clases.Factura;
+import uji.es.EI1017.Clases.Llamada;
 
 import javax.swing.*;
 import java.io.Serializable;
@@ -30,28 +31,24 @@ public class CrudFactura implements Serializable {
         return facturas;
     }
 
-    public String devolverDatosFacturaPorCodigo(int codigoFactura) {
-        for(int i = 0; i< facturas.size();i++) {
-            if(facturas.get(i).getCodigo() == codigoFactura) {
-                System.out.println(facturas.get(i).toString());
-                return facturas.get(i).toString();
-            }
-        }
-        return "No existe la factura";
-    }
 
+    public HashMap<String, ArrayList<Factura>> getListaFacturas() {
+        return listaFacturas;
+    }
     public ArrayList<Factura> recuperarTodasFacturas(String DNI) {
+
+        ArrayList<Factura> nueva = new ArrayList<Factura>();
         if(listaFacturas.containsKey(DNI)){
+            Object valor = null;
             for (HashMap.Entry entry : listaFacturas.entrySet()){
                 if(entry.getKey().equals(DNI))
-                    for(int i = 0; i<listaFacturas.entrySet().size(); i++) {
-                        System.out.println(listaFacturas.entrySet().toString());
-                    }
+                        valor = entry.getValue();
+                        nueva = (ArrayList<Factura>) valor;
             }
         }else {
             System.err.println("No existe el cliente");
         }
-        return null;
+        return nueva;
     }
     public int numFacturas(){
         return facturas.size();

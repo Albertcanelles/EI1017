@@ -31,13 +31,13 @@ public class CrudLlamada implements Serializable {
         return llamadas;
     }
 
-    public ArrayList<Llamada> listarLlamadas(String DNI) {  // Ineficiente lo mas seguro revisar para entrega final DE NADA ;)
+    public ArrayList<Llamada> listarLlamadas(String DNI) {
         ArrayList<Llamada> nueva = new ArrayList<Llamada>();
         if(listaLlamadas.containsKey(DNI)){
             Object valor = null;
             for (HashMap.Entry entry : listaLlamadas.entrySet()){
                 if(entry.getKey().equals(DNI))
-                        System.out.println(listaLlamadas.entrySet().toString());
+
                          valor = entry.getValue();
                          nueva = (ArrayList<Llamada>) valor;
             }

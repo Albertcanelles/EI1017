@@ -13,6 +13,7 @@ import uji.es.EI1017.menu.*;
 import uji.es.EI1017.recoleccionDatos.RecolectorDatosCliente;
 import uji.es.EI1017.recoleccionDatos.RecolectorDatosFactura;
 import uji.es.EI1017.recoleccionDatos.RecolectorDatosLlamada;
+import uji.es.EI1017.vistas.VistaClientes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +35,108 @@ public class Ejecutar implements Serializable {
     }
 
 
+    public void facturasEntreFechas() {
+        JFrame vFacturas = new JFrame("Recuperar Facturas por fechas");
+
+        vFacturas.setSize(500,500);
+        vFacturas.setResizable(false);
+        vFacturas.setVisible(true);
+    }
+
+    public void recuperarFacturasCliente() {
+        JFrame vFacturas = new JFrame("Recuperar Facturas un Cliente");
+
+        vFacturas.setSize(500,500);
+        vFacturas.setResizable(false);
+        vFacturas.setVisible(true);
+    }
+
+    public void recuperarFCodigo() {
+        JFrame vFacturas = new JFrame("Recuperar Facturas por Codigo");
+
+        vFacturas.setSize(500,500);
+        vFacturas.setResizable(false);
+        vFacturas.setVisible(true);
+    }
+
+    public void emitirFactura() {
+        JFrame vFacturas = new JFrame("Emitir Facturas");
+
+        vFacturas.setSize(500,500);
+        vFacturas.setResizable(false);
+        vFacturas.setVisible(true);
+    }
+
+    public void ejecutarVentanaFacturas() {
+        JFrame vFacturas = new JFrame("Facturas");
+        JPanel panelUno = new JPanel();
+        JPanel panelDos = new JPanel();
+        JPanel panelTres = new JPanel();
+        JPanel panelCuatro = new JPanel();
+        JPanel panelCinco = new JPanel();
+        JPanel panelTotal = new JPanel();
+
+        JButton emitir = new JButton("Emitir Factura Cliente");
+        JButton recuperarCodigo = new JButton("Recuperar Factura Codigo");
+        JButton recuperarFCliente = new JButton("Recuperar Facturas Cliente");
+        JButton facturasFechas = new JButton("Facturas entre Fechas");
+        JButton atras = new JButton("Atras");
+
+        panelUno.add(emitir);
+        panelDos.add(recuperarCodigo);
+        panelTres.add(recuperarFCliente);
+        panelCuatro.add(facturasFechas);
+        panelCinco.add(atras);
+
+        panelTotal.add(panelUno);
+        panelTotal.add(panelDos);
+        panelTotal.add(panelTres);
+        panelTotal.add(panelCuatro);
+        panelTotal.add(panelCinco);
+        vFacturas.add(panelTotal);
+
+
+        vFacturas.setSize(500,500);
+        vFacturas.setResizable(false);
+        vFacturas.setVisible(true);
+
+        emitir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                emitirFactura();
+            }
+        });
+
+        recuperarCodigo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                recuperarFCodigo();
+            }
+        });
+
+        recuperarFCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                recuperarFacturasCliente();
+            }
+        });
+
+        facturasFechas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                facturasEntreFechas();
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
     public void menu() throws ErrorEntreFechasException, NoExisteClienteException {
         int opcion = 0;
         Scanner scanner = new Scanner(System.in);
@@ -41,61 +144,6 @@ public class Ejecutar implements Serializable {
         RecolectorDatosLlamada recolectorLlamada = new RecolectorDatosLlamada(crudLlamada, crudCliente); // Clase utilizada para la recoleccion datos de llamadas
         RecolectorDatosFactura recolectorFactura = new RecolectorDatosFactura(crudLlamada, crudFactura, crudCliente); // Clase utilizada para la recoleccion datos de facturas
 
-        /*Definimos la ventana y los 2 contenedores el de los botones y el texto*/
-        JFrame ventana = new JFrame("Telefonia");
-        JPanel panelBotones = new JPanel();
-        JPanel panelTexto = new JPanel();
-
-        /*Creamos el titulo y le ponemos una fuente y un tamaño nuevo*/
-        JLabel titulo = new JLabel("Telefonia");
-        titulo.setFont(new Font("Serif", Font.PLAIN, 30));
-
-        /*Creamos los botones para acceder a las respectivas vistas*/
-        JButton clientes= new JButton("Clientes");
-        JButton facturas = new JButton("Facturas");
-        JButton llamadas = new JButton("Llamadas");
-
-        /*Añadimos al contenedor de texto el titulo*/
-        panelTexto.add(titulo);
-
-        /*Añadimos al contenedor de los botones los botones*/
-        panelBotones.add(clientes,BorderLayout.WEST);
-        panelBotones.add(facturas,BorderLayout.CENTER);
-        panelBotones.add(llamadas,BorderLayout.EAST);
-
-        /* Añadimos los paneles a la ventana */
-        ventana.add(panelBotones);
-        ventana.add(panelTexto , BorderLayout.NORTH);
-
-        /* Tamaño de la ventana y que se cierre y que se muestre */
-        ventana.setSize(500,150);
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setResizable(false);
-        ventana.setVisible(true);
-
-
-        /* Llamadas a las ventanas de Clientes Facturas y Llamadas */
-
-        clientes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                recolectorCliente.ejecutarVentana();
-            }
-        });
-
-        llamadas.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                recolectorLlamada.ejecutarVentana();
-            }
-        });
-
-        facturas.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                recolectorFactura.ejecutarVentana();
-            }
-        });
 
         do {
             /*LLAMADA DEL MENU PRINCIPAL*/
@@ -116,13 +164,13 @@ public class Ejecutar implements Serializable {
                     /*FINAL LLAMADA SUB MENU CLIENTES*/
                     switch (opcionMenuCliente) {
                         case DAR_DE_ALTA_CLIENTE:
-                            recolectorCliente.insertarDatosCliente(); // En la clase crudCliente metodo insertarCliente se realizan todas las operaciones
+                            //recolectorCliente.insertarDatosCliente(); // En la clase crudCliente metodo insertarCliente se realizan todas las operaciones
                             break;
                         case BORRAR_CLIENTE:
-                            recolectorCliente.eliminarClienteDNI(); // En la clase crudCliente metodo borrarClient se realizan todas las operaciones
+                            //recolectorCliente.eliminarClienteDNI(); // En la clase crudCliente metodo borrarClient se realizan todas las operaciones
                             break;
                         case RECUPERAR_CLIENTE_POR_NIF: // Recuperamos solamente un cliente por nif
-                            recolectorCliente.recuperarClientePorDNI();
+                            //recolectorCliente.recuperarClientePorDNI();
                             break;
                         case RECUPERAR_TODOS_CLIENTES:  // Recuperamos todos los clientes en la lista actualmente
                             if(crudCliente.listarClientes().size() == 0) {
@@ -130,12 +178,10 @@ public class Ejecutar implements Serializable {
                                 break;
                             }
                             System.out.println("Has seleccionado recuperar todos clientes");
-                            for (int i = 0; i < crudCliente.tamanyoLista(); i++) {
-                                System.out.println(crudCliente.listarClientes().get(i).toString());
-                            }
+
                             break;
                         case LISTAR_CLIENTES_ENTRE_FECHAS:
-                            recolectorCliente.listarFacturas();
+                            //recolectorCliente.listarFacturas();
                             break;
                         case CAMBIAR_TARIFA_CLIENTE:
                             recolectorCliente.modificarTarifa();
@@ -153,16 +199,16 @@ public class Ejecutar implements Serializable {
                     /*FINAL LLAMADA SUB MENU CLIENTES*/
                     switch (opcionesMenuFacturas) {
                         case EMITIR_FACTURA_PARA_CLIENTE:
-                            recolectorFactura.insertarDatosFactura();
+                            //recolectorFactura.insertarDatosFactura();
                             break;
                         case RECUPERAR_DATOS_FACTURA_POR_CODIGO:
-                            recolectorFactura.devolverFactuasPorCodigo();
+                            //recolectorFactura.devolverFactuasPorCodigo();
                             break;
                         case RECUPERAR_TODAS_FACTUAS_CLIENTE:
-                            recolectorFactura.devolverFacturasUnCliente();
+                            //recolectorFactura.devolverFacturasUnCliente();
                             break;
                         case LISTAR_FACTURAS_ENTRE_FECHAS:
-                            recolectorFactura.listarFacturas();
+                            //recolectorFactura.listarFacturas();
                             break;
                         case ATRAS:
                             break;
@@ -177,13 +223,13 @@ public class Ejecutar implements Serializable {
                     /*FINAL LLAMADA SUB MENU LLAMADAS*/
                     switch (opcionesMenuLlamadas) {
                         case DAR_DE_ALTA_UNA_LLAMADA:
-                            recolectorLlamada.insertarDatosLlamada();
+                           // recolectorLlamada.insertarDatosLlamada();
                             break;
                         case LISTAR_LLAMADAS_DE_UN_CLIENTE:
-                            recolectorLlamada.listarLlamadasUnCliente();
+                            //recolectorLlamada.listarLlamadasUnCliente();
                             break;
                         case LISTAR_LLAMADAS_ENTRE_FECHAS:
-                            recolectorLlamada.listarLLamadas();
+                            //recolectorLlamada.listarLLamadas();
                             break;
                         case ATRAS:
                             break;

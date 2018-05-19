@@ -15,16 +15,6 @@ public class RecolectorDatosGenerico {
         mes = Integer.parseInt(fech.substring(3,5));
         año = Integer.parseInt(fech.substring(6,10));
 
-       /* System.out.println("¿Introducir hora?");
-        String horaTrue =  sc.nextLine();
-        if(horaTrue.equals("si")){
-            System.out.println("Introduce la hora de la llamada: (xx:xx)");
-            String f =  sc.nextLine();
-            hora = Integer.parseInt(f.substring(0, 2));
-            min = Integer.parseInt(f.substring(3, 5));
-        }else{
-            hora = min = 0;
-        }*/
        hora = min = 0;
         LocalDateTime fecha = LocalDateTime.of(año, mes, dia, hora, min);
         return fecha;

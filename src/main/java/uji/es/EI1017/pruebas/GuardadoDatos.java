@@ -2,7 +2,9 @@ package uji.es.EI1017.pruebas;
 import java.io.*;
 
 public class GuardadoDatos {
-    public void escritura(Ejecutar eje) throws IOException {
+
+
+    public void escritura(Ventana ventana) throws IOException {
         try {
             File fich = new File("Datos.obj");
             if (fich.createNewFile())
@@ -11,9 +13,10 @@ public class GuardadoDatos {
             FileOutputStream fout = new FileOutputStream(fich);
             ObjectOutputStream oout = new ObjectOutputStream(fout);
 
-            oout.writeObject(eje);
+            oout.writeObject(ventana);
 
-            oout.close();
+
+
         }catch (FileNotFoundException e) {
             System.out.println("error no fichero");
         }catch (IOException e){
@@ -21,9 +24,9 @@ public class GuardadoDatos {
         }
     }
 
-    public Ejecutar lectura(){
+    public Ventana lectura(){
         ObjectInputStream oois = null;
-        Ejecutar eje = new Ejecutar();
+        Ventana ventana = new Ventana();
 
         try{
 
@@ -32,11 +35,11 @@ public class GuardadoDatos {
             oois = new ObjectInputStream(ffis);
 
 
-            eje = (Ejecutar) oois.readObject();
+            ventana = (Ventana) oois.readObject();
             System.out.println("Fichero leido de forma correcta.");
 
         } catch(FileNotFoundException e){
-            System.out.println("file exception");
+            System.out.println("No existe el fichero");
         } catch(IOException e){
             System.out.println("Io exception");
             e.printStackTrace();
@@ -45,7 +48,7 @@ public class GuardadoDatos {
         }
 
         //oois.close();
-        return eje;
+        return ventana;
     }
 }
 

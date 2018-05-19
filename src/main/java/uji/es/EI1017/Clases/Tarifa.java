@@ -17,7 +17,7 @@ public class Tarifa implements Serializable {
         this.precio = precio;
     }
 
-    public float getPrecio(LocalDateTime fecha ) {
+    public float getPrecio(LocalDateTime fecha) {
         return precio;
     }
     public void setPrecio(float precio) {

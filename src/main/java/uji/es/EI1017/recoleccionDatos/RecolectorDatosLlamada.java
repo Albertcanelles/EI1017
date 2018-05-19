@@ -22,14 +22,8 @@ public class RecolectorDatosLlamada {
         this.crudCliente = crudCliente;
     }
 
-    public void ejecutarVentana() {
-        JFrame vLlamadas = new JFrame("Facturas");
-        vLlamadas.setSize(500,500);
-        vLlamadas.setResizable(false);
-        vLlamadas.setVisible(true);
-    }
 
-    public void insertarDatosLlamada() {
+    /*public void insertarDatosLlamada() {
         System.out.println("Introduce el DNI del cliente:");
         String DNI = scanner.next();
         while ( DNI.length()!= 9){
@@ -55,25 +49,38 @@ public class RecolectorDatosLlamada {
         LocalDateTime fechaLlamada = LocalDateTime.now();
         Llamada llamada = new Llamada(telefono, fechaLlamada, duracion);
         crudLlamada.insertarLlamada(llamada,DNI);
+    }*/
+
+    public void insertarDatosLlamadaVista(String DNI, int telefono, float duracion) {
+        LocalDateTime fechaLlamada = LocalDateTime.now();
+        Llamada llamada = new Llamada(telefono, fechaLlamada, duracion);
+        crudLlamada.insertarLlamada(llamada,DNI);
     }
 
-    public void listarLlamadasUnCliente() {
-        System.out.println("Introduce el DNI del cliente a listar:");
-        String DNI = scanner.next();
-        crudLlamada.listarLlamadas(DNI);
+    public Llamada[] listarLlamadasUnCliente(String DNI) {
+        Llamada[] nuevo = new Llamada[crudLlamada.listarLlamadas(DNI).size()];
+        for(int i =0; i< crudLlamada.listarLlamadas(DNI).size(); i++){
+                nuevo[i] = crudLlamada.listarLlamadas(DNI).get(i);
+        }
+        return nuevo;
     }
-    public void listarLLamadas(){
-        LocalDateTime fechaIni = RecolectorDatosGenerico.pedirFecha();
-        LocalDateTime fechaFin = RecolectorDatosGenerico.pedirFecha();
+
+    public Llamada[] listarLLamadas(LocalDateTime fechaIni, LocalDateTime fechaFin){
+       // LocalDateTime fechaIni = RecolectorDatosGenerico.pedirFecha();
+       // LocalDateTime fechaFin = RecolectorDatosGenerico.pedirFecha();
+        Llamada[] listado = new Llamada[crudLlamada.getLlamadas().size()];
         try {
             RecolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
             ArrayList<Llamada> todas = crudLlamada.getLlamadas();
             Collection<Llamada> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            int i = 0;
             for(Llamada iter : lista){
-                System.out.println(iter.toString());
+                listado[i] = iter;
+                i++;
+                //System.out.println(iter.toString());
             }
         }catch (ErrorEntreFechasException e){};
-
+        return listado;
     }
 
 

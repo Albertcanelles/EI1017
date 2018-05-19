@@ -13,7 +13,7 @@ public class FabricaClientes {
 
     public Particular getParticular(String nombre, String nif, String email, String direccion, LocalDateTime fechaAlta,
                                     ArrayList<Tarifa> tarifa, String apellidos, boolean tipoParticular ){
-        particular = new Particular(nombre, nif, email, direccion, fechaAlta, tarifa, apellidos, false);
+        particular = new Particular(nombre, nif, email, direccion, fechaAlta, tarifa, apellidos, true);
         return particular;
 
     }

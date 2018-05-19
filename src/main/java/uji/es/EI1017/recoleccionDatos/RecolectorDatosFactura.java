@@ -45,30 +45,13 @@ public class RecolectorDatosFactura {
         this.periodo = periodo;
     }
 
-    public void ejecutarVentana() {
-        JFrame vFacturas = new JFrame("Facturas");
-        vFacturas.setSize(500,500);
-        vFacturas.setResizable(false);
-        vFacturas.setVisible(true);
-    }
 
-    public void insertarDatosFactura() throws ErrorEntreFechasException {
-        System.out.println("Introduce el DNI del cliente:");
-        String DNI = scanner.next();
-        while ( DNI.length()!= 9){
-            System.out.println("DNI invalido, ha de tener 8 números y una letra al final");
-            System.out.println("Introduce el DNI del cliente:");
-            DNI = scanner.next();
-        }
+    public void insertarDatosFactura(String DNI, LocalDateTime fechaInicio, LocalDateTime fechaFinal) throws ErrorEntreFechasException {
+
         Cliente cliente = crudCliente.getCliente(DNI);
         int codigoFactura = crudFactura.numFacturas()+1;
 
         LocalDateTime emisionFactura = LocalDateTime.now();
-        System.out.println("Introduce la fecha inicio");
-        LocalDateTime fechaInicio = RecolectorDatosGenerico.pedirFecha();
-
-        System.out.println("Introduce la fecha final");
-        LocalDateTime fechaFinal = RecolectorDatosGenerico.pedirFecha();
 
         if(!recolectorDatosGenerico.compruebaFecha(fechaInicio, fechaFinal)) {
             return;
@@ -88,30 +71,46 @@ public class RecolectorDatosFactura {
         crudFactura.emitirFactura(factura, DNI);
     }
 
-    public void devolverFactuasPorCodigo() {
-        System.out.println("Introduce el codigo de la factura:");
-        int codigoFactura= scanner.nextInt();
-        crudFactura.devolverDatosFacturaPorCodigo(codigoFactura);
+
+
+    public Factura devolverFacturasPorCodigo(int codigoFactura) {
+
+            Factura listado;
+            for(int i = 0; i< crudFactura.getFacturas().size();i++) {
+                if (crudFactura.getFacturas().get(i).getCodigo() == codigoFactura) {
+                    listado = crudFactura.getFacturas().get(i);
+                    return listado;
+                }
+            }
+            return null;
     }
 
-    public void devolverFacturasUnCliente() {
-        System.out.println("Introduce el DNI del cliente para listar sus facturas:");
-        String DNI = scanner.next();
-        crudFactura.recuperarTodasFacturas(DNI);
+    public Factura[] devolverFacturasUnCliente(String DNI) {
+        Factura[] listado = new Factura[crudFactura.getFacturas().size()];
+        for(int i = 0; i<crudFactura.recuperarTodasFacturas(DNI).size(); i++) {
+           listado[i] = crudFactura.recuperarTodasFacturas(DNI).get(i);
+        }
+        return listado;
     }
-    public void listarFacturas(){
-        LocalDateTime fechaIni = RecolectorDatosGenerico.pedirFecha();
-        LocalDateTime fechaFin = RecolectorDatosGenerico.pedirFecha();
+
+    public Factura[] listarFacturas(LocalDateTime fechaIni, LocalDateTime fechaFin){
+
         try {
+            Factura[] listado = new Factura[crudFactura.getFacturas().size()];
             RecolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
             ArrayList<Factura> todas = crudFactura.getFacturas();
             Collection<Factura> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            int i = 0;
             for (Factura iter : lista) {
                 System.out.println(iter.toString());
+                listado[i] = iter;
+                i++;
             }
+            return listado;
         } catch (ErrorEntreFechasException e){
             System.out.println("Error");
         }
+        return null;
     }
 
 
