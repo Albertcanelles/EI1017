@@ -185,6 +185,7 @@ public class RecolectorDatosCliente {
     FabricaTarifas fabricaTarifas = new FabricaTarifas();
     public void insertarTarifaBasica(String DNI, float precio) throws NoExisteClienteException {
         Tarifa nueva = fabricaTarifas.getBasica(precio);
+        crudCliente.unCliente(DNI).getTarifa().add(nueva);
     }
     public void insertarTarifaDia(String DNI, int dia, float precio) throws  NoExisteClienteException{
         Tarifa tarifaPadre = null;
@@ -194,6 +195,7 @@ public class RecolectorDatosCliente {
             }
         }
         Tarifa nueva = fabricaTarifas.getDia(tarifaPadre, precio ,dia);
+        crudCliente.unCliente(DNI).getTarifa().add(nueva);
     }
     public void insertarTarifaPeriodo(String DNI, int fechaIni, int fechaFin, float precio) throws NoExisteClienteException{
         Tarifa tarifaPadre = null;
@@ -203,6 +205,7 @@ public class RecolectorDatosCliente {
             }
         }
         Tarifa nueva = fabricaTarifas.getPeriodo(tarifaPadre,precio,fechaIni, fechaFin );
+        crudCliente.unCliente(DNI).getTarifa().add(nueva);
     }
     public void limpiarTarifas(String DNI) throws NoExisteClienteException {
         crudCliente.unCliente(DNI).getTarifa().clear();
@@ -212,6 +215,7 @@ public class RecolectorDatosCliente {
         for(int i = 0 ; i < crudCliente.unCliente(DNI).getTarifa().size(); i++){
             listado[i] = crudCliente.unCliente(DNI).getTarifa().get(i);
         }
+        System.out.println(crudCliente.unCliente(DNI).getTarifa().size());
         return listado;
     }
 }
