@@ -124,7 +124,7 @@ public class VistaClientes implements Serializable {
 
         JButton aceptar = new JButton("Aceptar");
         JButton cancelar = new JButton("Cancelar");
-        JButton limpiar = new JButton("Limpiar Tarifas Basicas");
+
 
         panelUno.add(lNif);
         panelUno.add(nif);
@@ -132,7 +132,7 @@ public class VistaClientes implements Serializable {
         panelDos.add(precio);
         panelTres.add(aceptar);
         panelTres.add(cancelar);
-        panelTres.add(limpiar);
+
 
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
@@ -166,7 +166,7 @@ public class VistaClientes implements Serializable {
 
         JButton aceptar = new JButton("Aceptar");
         JButton cancelar = new JButton("Cancelar");
-        JButton limpiar = new JButton("Limpiar Tarifas Periodicas");
+
 
         panelUno.add(lNif);
         panelUno.add(nif);
@@ -178,7 +178,7 @@ public class VistaClientes implements Serializable {
         panelCinco.add(pFin);
         panelTres.add(aceptar);
         panelTres.add(cancelar);
-        panelTres.add(limpiar);
+
 
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
@@ -211,7 +211,7 @@ public class VistaClientes implements Serializable {
 
         JButton aceptar = new JButton("Aceptar");
         JButton cancelar = new JButton("Cancelar");
-        JButton limpiar = new JButton("Limpiar Tarifas Basicas");
+
 
         panelUno.add(lNif);
         panelUno.add(nif);
@@ -221,7 +221,7 @@ public class VistaClientes implements Serializable {
         panelCuatro.add(dia);
         panelTres.add(aceptar);
         panelTres.add(cancelar);
-        panelTres.add(limpiar);
+
 
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
@@ -550,7 +550,10 @@ public class VistaClientes implements Serializable {
                 }
                 else {
                     recolectorCliente.insertarDatosClienteVista(nombre.getText(), nif.getText(), email.getText(), direccion.getText(), true, Float.parseFloat(tarifa.getText()), apellidos.getText());
+                    apellidos.setText("");
                 }
+                nombre.setText(""); nif.setText(""); email.setText(""); direccion.setText(""); tarifa.setText("");
+                JOptionPane.showMessageDialog(vClientes, "Insertado Correctamente");
             }
         });
 

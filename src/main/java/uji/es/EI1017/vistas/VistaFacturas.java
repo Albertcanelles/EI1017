@@ -72,7 +72,7 @@ public class VistaFacturas implements Serializable {
                 mes = Integer.parseInt(fech.substring(3,5));
                 año = Integer.parseInt(fech.substring(6,10));
                 hora =min = 0;
-                LocalDateTime ini = LocalDateTime.of(año, mes, dia, hora, min);
+                LocalDateTime inic = LocalDateTime.of(año, mes, dia, hora, min);
                 String fecha = fin.getText();
                 dia = Integer.parseInt(fecha.substring(0,2));
                 mes = Integer.parseInt(fecha.substring(3,5));
@@ -80,10 +80,13 @@ public class VistaFacturas implements Serializable {
                 hora = min = 0;
                 LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
                 try {
-                    recolectorDatosFactura.insertarDatosFactura(dni.getText(), ini, fina);
+                    recolectorDatosFactura.insertarDatosFactura(dni.getText(), inic, fina);
+                    dni.setText(""); ini.setText(""); fin.setText("");
+                    JOptionPane.showMessageDialog(vFacturas, "Insertado Correctamente");
                 } catch (ErrorEntreFechasException e) {
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(vFacturas, "Revise el formato de las fechas DD/MM/YYYY");
                 }
+
             }
         });
     }
