@@ -1,8 +1,8 @@
 package uji.es.EI1017.pruebas;
 
-import uji.es.EI1017.crud.CrudCliente;
-import uji.es.EI1017.crud.CrudFactura;
-import uji.es.EI1017.crud.CrudLlamada;
+import uji.es.EI1017.modelo.ModeloCliente;
+import uji.es.EI1017.modelo.ModeloFactura;
+import uji.es.EI1017.modelo.ModeloLlamada;
 import uji.es.EI1017.vistas.VistaClientes;
 import uji.es.EI1017.vistas.VistaFacturas;
 import uji.es.EI1017.vistas.VistaLlamadas;
@@ -11,24 +11,38 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.io.Serializable;
 
 public class Ventana implements Serializable {
 
-    CrudCliente crudCliente;
-    CrudLlamada crudLlamada;
-    CrudFactura crudFactura;
+    ModeloCliente modeloCliente;
+    ModeloLlamada modeloLlamada;
+    ModeloFactura crudFactura;
 
     public Ventana() {
-        crudCliente = new CrudCliente();
-        crudFactura = new CrudFactura();
-        crudLlamada = new CrudLlamada();
+        modeloCliente = new ModeloCliente();
+        crudFactura = new ModeloFactura();
+        modeloLlamada = new ModeloLlamada();
+    }
+
+    public void cosa(){
+        try {
+            GuardadoDatos.escritura(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void ventanaPrincipal() {
-        VistaClientes vistaClientes = new VistaClientes(crudCliente);
-        VistaLlamadas vistaLlamadas = new VistaLlamadas(crudCliente, crudLlamada);
-        VistaFacturas vistaFacturas = new VistaFacturas(crudCliente, crudLlamada, crudFactura);
+
+
+
+        VistaClientes vistaClientes = new VistaClientes(modeloCliente);
+        VistaLlamadas vistaLlamadas = new VistaLlamadas(modeloCliente, modeloLlamada);
+        VistaFacturas vistaFacturas = new VistaFacturas(modeloCliente, modeloLlamada, crudFactura);
 
 
         /*Definimos la ventana y los 2 contenedores el de los botones y el texto*/
@@ -64,6 +78,17 @@ public class Ventana implements Serializable {
 
 
         /* Llamadas a las ventanas de Clientes Facturas y Llamadas */
+
+
+        ventana.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing (WindowEvent windowEvent) {
+
+                System.out.println("Cerrando");
+                cosa();
+                super.windowClosing(windowEvent);
+            }
+        });
 
         clientes.addActionListener(new ActionListener() {
             @Override

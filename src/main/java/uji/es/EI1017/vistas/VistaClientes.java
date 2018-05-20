@@ -1,8 +1,8 @@
 package uji.es.EI1017.vistas;
 
-import uji.es.EI1017.crud.CrudCliente;
+import uji.es.EI1017.modelo.ModeloCliente;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
-import uji.es.EI1017.recoleccionDatos.RecolectorDatosCliente;
+import uji.es.EI1017.controlador.ControladorCliente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,13 +14,15 @@ import java.time.LocalDateTime;
 
 
 public class VistaClientes implements Serializable {
-    RecolectorDatosCliente recolectorCliente;
-    CrudCliente crudCliente;
+    ControladorCliente recolectorCliente;
+    ModeloCliente modeloCliente;
     JRadioButton empresa;
     JRadioButton particular;
-    public VistaClientes(CrudCliente crud) {
-        this.crudCliente = crud;
+    public VistaClientes(ModeloCliente crud) {
+        this.modeloCliente = crud;
     }
+
+
     public void ejecutarVentanaClientes() {
         JFrame vClientes = new JFrame("Clientes");
         JPanel panelUno = new JPanel();
@@ -38,7 +40,7 @@ public class VistaClientes implements Serializable {
         JButton listaruno = new JButton("Mostrar Cliente");
         JButton cambiarTarifa = new JButton("Cambiar Tarifa Cliente");
         JButton CEntreFechas = new JButton("Cliente Entre Fechas");
-        JButton atras = new JButton("Atras");
+        JButton cancelar = new JButton("Atras");
 
         panelUno.add(insertar);
 
@@ -52,7 +54,7 @@ public class VistaClientes implements Serializable {
 
         panelSeis.add(CEntreFechas);
 
-        panelSiete.add(atras);
+        panelSiete.add(cancelar);
 
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
@@ -108,6 +110,14 @@ public class VistaClientes implements Serializable {
                 clientesEntreFechas();
             }
         });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
+            }
+        });
+
     }
 
     public void insertarTarifaBasica(){
@@ -149,7 +159,7 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                recolectorCliente = new ControladorCliente(modeloCliente);
                 try {
                     recolectorCliente.insertarTarifaBasica(nif.getText(), Float.parseFloat(precio.getText()));
                     nif.setText(""); precio.setText("");
@@ -157,6 +167,13 @@ public class VistaClientes implements Serializable {
                 } catch (NoExisteClienteException e1) {
                     JOptionPane.showMessageDialog(vClientes, "Error");
                 }
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
             }
         });
     }
@@ -211,7 +228,7 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                recolectorCliente = new ControladorCliente(modeloCliente);
                 try {
                     recolectorCliente.insertarTarifaPeriodo(nif.getText(),Integer.parseInt(pIni.getText()), Integer.parseInt(pFin.getText()), Float.parseFloat(precio.getText()));
                     nif.setText(""); pIni.setText(""); pFin.setText(""); precio.setText("");
@@ -219,6 +236,13 @@ public class VistaClientes implements Serializable {
                 } catch (NoExisteClienteException e1) {
                     JOptionPane.showMessageDialog(vClientes, "Error");
                 }
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
             }
         });
     }
@@ -266,7 +290,7 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                recolectorCliente = new ControladorCliente(modeloCliente);
                 try {
                     recolectorCliente.insertarTarifaDia(nif.getText(),Integer.parseInt(dia.getText()) ,Float.parseFloat(precio.getText()));
                     nif.setText(""); dia.setText(""); precio.setText(" ");
@@ -274,6 +298,13 @@ public class VistaClientes implements Serializable {
                 } catch (NoExisteClienteException e1) {
                     JOptionPane.showMessageDialog(vClientes, "Error");
                 }
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
             }
         });
     }
@@ -290,10 +321,12 @@ public class VistaClientes implements Serializable {
         JTextField nif = new JTextField(10);
 
         JButton aceptar = new JButton("Aceptar");
+        JButton cancelar = new JButton("Cancelar");
 
         panelUno.add(lNif);
         panelUno.add(nif);
         panelDos.add(aceptar);
+        panelDos.add(cancelar);
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
         vClientes.add(panelTotal);
@@ -306,7 +339,7 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                recolectorCliente = new ControladorCliente(modeloCliente);
                 if(nif.getText() == "")
                     JOptionPane.showMessageDialog(vClientes, "Inserta un DNI porfavor");
 
@@ -316,6 +349,12 @@ public class VistaClientes implements Serializable {
                     } catch (NoExisteClienteException e) {
                         JOptionPane.showMessageDialog(vClientes, "Inserta un DNI valido porfavor");
                     }
+            }
+        });
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
             }
         });
     }
@@ -351,12 +390,19 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                recolectorCliente = new ControladorCliente(modeloCliente);
                 try {
                     lista.setListData( recolectorCliente.listaTarifaCliente(dni.getText()));
                 } catch (NoExisteClienteException e) {
                     JOptionPane.showMessageDialog(vClientes, "Todavia error en el DNI o no existe cliente");
                 }
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
             }
         });
     }
@@ -378,12 +424,12 @@ public class VistaClientes implements Serializable {
         JButton TDia = new JButton("Tarifa dia");
         JButton borrar = new JButton("Borrar Todas Tarifas");
         JButton listar = new JButton("Listar Todas Tarifas un Cliente");
-        JButton atras = new JButton("Atras");
+        JButton cancelar = new JButton("Atras");
 
         panelUno.add(TBasica);
         panelDos.add(TPeriodo);
         panelTres.add(TDia);
-        panelCuatro.add(atras);
+        panelCuatro.add(cancelar);
         panelCinco.add(borrar);
         panelSeis.add(listar);
         panelTotal.add(panelUno);
@@ -432,6 +478,13 @@ public class VistaClientes implements Serializable {
                 listarTarifasCliente();
             }
         });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
+            }
+        });
     }
 
     public void clientesEntreFechas() {
@@ -473,7 +526,7 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                recolectorCliente = new ControladorCliente(modeloCliente);
                 String fech = ini.getText();
                 int dia, mes, año, hora, min;
                 dia = Integer.parseInt(fech.substring(0,2));
@@ -489,6 +542,13 @@ public class VistaClientes implements Serializable {
                 LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
 
                 lista.setListData(recolectorCliente.listarFacturas(ini,fina));
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
             }
         });
 
@@ -526,10 +586,17 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                recolectorCliente = new ControladorCliente(modeloCliente);
                 String n = recolectorCliente.recuperarClientePorDNI(nif.getText());
                 nombre.setText(n);
 
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
             }
         });
     }
@@ -559,12 +626,19 @@ public class VistaClientes implements Serializable {
             @Override
             public void windowOpened(WindowEvent windowEvent) {
                 super.windowOpened(windowEvent);
-                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                recolectorCliente = new ControladorCliente(modeloCliente);
                 if(recolectorCliente.listarClientes().length == 0) {
                     JOptionPane.showMessageDialog(vClientes, "Todavia no tenemos clientes");
                 }
                 lista.setListData(recolectorCliente.listarClientes());
 
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
             }
         });
     }
@@ -581,10 +655,12 @@ public class VistaClientes implements Serializable {
         JTextField nif = new JTextField(10);
 
         JButton aceptar = new JButton("Aceptar");
+        JButton cancelar = new JButton("Cancelar");
 
         panelUno.add(lNif);
         panelUno.add(nif);
         panelDos.add(aceptar);
+        panelDos.add(cancelar);
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
         vClientes.add(panelTotal);
@@ -597,7 +673,7 @@ public class VistaClientes implements Serializable {
          aceptar.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent actionEvent) {
-                 recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                 recolectorCliente = new ControladorCliente(modeloCliente);
                  if(nif.getText() == "")
                      JOptionPane.showMessageDialog(vClientes, "Inserta un DNI porfavor");
                  else {
@@ -608,6 +684,13 @@ public class VistaClientes implements Serializable {
                  }
              }
          });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
+            }
+        });
     }
 
     public void clientesAdd() {
@@ -677,6 +760,13 @@ public class VistaClientes implements Serializable {
         vClientes.setResizable(false);
         vClientes.setVisible(true);
 
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vClientes.setVisible(false);
+            }
+        });
+
         particular.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -700,7 +790,7 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                recolectorCliente = new ControladorCliente(modeloCliente);
                 if(apellidos.getText().equals("")) {
                     recolectorCliente.insertarDatosClienteVista(nombre.getText(), nif.getText(), email.getText(), direccion.getText() ,false, Float.parseFloat(tarifa.getText()),"");
                 }
@@ -713,7 +803,16 @@ public class VistaClientes implements Serializable {
             }
         });
 
+
+
+        vClientes.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent windowEvent) {
+                super.windowOpened(windowEvent);
+                empresa.setSelected(true);
+
+            }
+        });
+
     }
-
-
 }

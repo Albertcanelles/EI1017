@@ -1,25 +1,24 @@
-package uji.es.EI1017.recoleccionDatos;
+package uji.es.EI1017.controlador;
 
 import uji.es.EI1017.Clases.Llamada;
-import uji.es.EI1017.crud.*;
+import uji.es.EI1017.modelo.*;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 
-import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Scanner;
 
-public class RecolectorDatosLlamada {
-    CrudLlamada crudLlamada;  // Llamamos a los recoleccionDatos de la clase CrudLlamada
-    CrudCliente crudCliente;
+public class ControladorLlamada {
+    ModeloLlamada modeloLlamada;  // Llamamos a los controlador de la clase ModeloLlamada
+    ModeloCliente modeloCliente;
     Calendar calendar = Calendar.getInstance();
     Scanner scanner = new Scanner(System.in);
 
-    public RecolectorDatosLlamada(CrudLlamada crudLlamada, CrudCliente crudCliente) {
-        this.crudLlamada = crudLlamada;
-        this.crudCliente = crudCliente;
+    public ControladorLlamada(ModeloLlamada modeloLlamada, ModeloCliente modeloCliente) {
+        this.modeloLlamada = modeloLlamada;
+        this.modeloCliente = modeloCliente;
     }
 
 
@@ -48,31 +47,31 @@ public class RecolectorDatosLlamada {
         }
         LocalDateTime fechaLlamada = LocalDateTime.now();
         Llamada llamada = new Llamada(telefono, fechaLlamada, duracion);
-        crudLlamada.insertarLlamada(llamada,DNI);
+        modeloLlamada.insertarLlamada(llamada,DNI);
     }*/
 
     public void insertarDatosLlamadaVista(String DNI, int telefono, float duracion) {
         LocalDateTime fechaLlamada = LocalDateTime.now();
         Llamada llamada = new Llamada(telefono, fechaLlamada, duracion);
-        crudLlamada.insertarLlamada(llamada,DNI);
+        modeloLlamada.insertarLlamada(llamada,DNI);
     }
 
     public Llamada[] listarLlamadasUnCliente(String DNI) {
-        Llamada[] nuevo = new Llamada[crudLlamada.listarLlamadas(DNI).size()];
-        for(int i =0; i< crudLlamada.listarLlamadas(DNI).size(); i++){
-                nuevo[i] = crudLlamada.listarLlamadas(DNI).get(i);
+        Llamada[] nuevo = new Llamada[modeloLlamada.listarLlamadas(DNI).size()];
+        for(int i = 0; i< modeloLlamada.listarLlamadas(DNI).size(); i++){
+                nuevo[i] = modeloLlamada.listarLlamadas(DNI).get(i);
         }
         return nuevo;
     }
 
     public Llamada[] listarLLamadas(LocalDateTime fechaIni, LocalDateTime fechaFin){
-       // LocalDateTime fechaIni = RecolectorDatosGenerico.pedirFecha();
-       // LocalDateTime fechaFin = RecolectorDatosGenerico.pedirFecha();
-        Llamada[] listado = new Llamada[crudLlamada.getLlamadas().size()];
+       // LocalDateTime fechaIni = ControladorGenerico.pedirFecha();
+       // LocalDateTime fechaFin = ControladorGenerico.pedirFecha();
+        Llamada[] listado = new Llamada[modeloLlamada.getLlamadas().size()];
         try {
-            RecolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
-            ArrayList<Llamada> todas = crudLlamada.getLlamadas();
-            Collection<Llamada> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            ControladorGenerico.compruebaFecha(fechaIni, fechaFin);
+            ArrayList<Llamada> todas = modeloLlamada.getLlamadas();
+            Collection<Llamada> lista = ModeloGenerico.extraerConjunto(todas, fechaIni, fechaFin);
             int i = 0;
             for(Llamada iter : lista){
                 listado[i] = iter;

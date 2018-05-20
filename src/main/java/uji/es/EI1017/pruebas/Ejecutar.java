@@ -4,19 +4,17 @@ package uji.es.EI1017.pruebas;
  * Daniel Garcia Ruiz
  */
 
-import uji.es.EI1017.crud.CrudCliente;
-import uji.es.EI1017.crud.CrudFactura;
-import uji.es.EI1017.crud.CrudLlamada;
+import uji.es.EI1017.controlador.ControladorFactura;
+import uji.es.EI1017.modelo.ModeloCliente;
+import uji.es.EI1017.modelo.ModeloFactura;
+import uji.es.EI1017.modelo.ModeloLlamada;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.menu.*;
-import uji.es.EI1017.recoleccionDatos.RecolectorDatosCliente;
-import uji.es.EI1017.recoleccionDatos.RecolectorDatosFactura;
-import uji.es.EI1017.recoleccionDatos.RecolectorDatosLlamada;
-import uji.es.EI1017.vistas.VistaClientes;
+import uji.es.EI1017.controlador.ControladorCliente;
+import uji.es.EI1017.controlador.ControladorLlamada;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
@@ -24,14 +22,14 @@ import java.util.Scanner;
 
 public class Ejecutar implements Serializable {
 
-    CrudCliente crudCliente;
-    CrudLlamada crudLlamada;
-    CrudFactura crudFactura;
+    ModeloCliente modeloCliente;
+    ModeloLlamada modeloLlamada;
+    ModeloFactura crudFactura;
 
     public Ejecutar(){
-        crudCliente = new CrudCliente();
-        crudFactura = new CrudFactura();
-        crudLlamada = new CrudLlamada();
+        modeloCliente = new ModeloCliente();
+        crudFactura = new ModeloFactura();
+        modeloLlamada = new ModeloLlamada();
     }
 
 
@@ -140,9 +138,9 @@ public class Ejecutar implements Serializable {
     public void menu() throws ErrorEntreFechasException, NoExisteClienteException {
         int opcion = 0;
         Scanner scanner = new Scanner(System.in);
-        RecolectorDatosCliente recolectorCliente = new RecolectorDatosCliente(crudCliente); // Clase utilizada para la recoleccion datos de clientes
-        RecolectorDatosLlamada recolectorLlamada = new RecolectorDatosLlamada(crudLlamada, crudCliente); // Clase utilizada para la recoleccion datos de llamadas
-        RecolectorDatosFactura recolectorFactura = new RecolectorDatosFactura(crudLlamada, crudFactura, crudCliente); // Clase utilizada para la recoleccion datos de facturas
+        ControladorCliente recolectorCliente = new ControladorCliente(modeloCliente); // Clase utilizada para la recoleccion datos de clientes
+        ControladorLlamada recolectorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente); // Clase utilizada para la recoleccion datos de llamadas
+        ControladorFactura recolectorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente); // Clase utilizada para la recoleccion datos de facturas
 
 
         do {
@@ -164,16 +162,16 @@ public class Ejecutar implements Serializable {
                     /*FINAL LLAMADA SUB MENU CLIENTES*/
                     switch (opcionMenuCliente) {
                         case DAR_DE_ALTA_CLIENTE:
-                            //recolectorCliente.insertarDatosCliente(); // En la clase crudCliente metodo insertarCliente se realizan todas las operaciones
+                            //recolectorCliente.insertarDatosCliente(); // En la clase modeloCliente metodo insertarCliente se realizan todas las operaciones
                             break;
                         case BORRAR_CLIENTE:
-                            //recolectorCliente.eliminarClienteDNI(); // En la clase crudCliente metodo borrarClient se realizan todas las operaciones
+                            //recolectorCliente.eliminarClienteDNI(); // En la clase modeloCliente metodo borrarClient se realizan todas las operaciones
                             break;
                         case RECUPERAR_CLIENTE_POR_NIF: // Recuperamos solamente un cliente por nif
                             //recolectorCliente.recuperarClientePorDNI();
                             break;
                         case RECUPERAR_TODOS_CLIENTES:  // Recuperamos todos los clientes en la lista actualmente
-                            if(crudCliente.listarClientes().size() == 0) {
+                            if(modeloCliente.listarClientes().size() == 0) {
                                 System.err.println("Todavia no hay clientes");
                                 break;
                             }
