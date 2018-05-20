@@ -111,6 +111,8 @@ public class VistaLlamadas implements Serializable {
             public void actionPerformed(ActionEvent actionEvent) {
                 recolectorDatosLlamada = new RecolectorDatosLlamada(crudLlamada, crudCliente);
                 recolectorDatosLlamada.insertarDatosLlamadaVista(nif.getText(), Integer.parseInt(telefono.getText()) , Float.parseFloat(duracion.getText()));
+                nif.setText(""); telefono.setText(""); duracion.setText("");
+                JOptionPane.showMessageDialog(vLlamadas, "Insertado Correctamente");
             }
         });
     }
