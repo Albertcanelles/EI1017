@@ -1,4 +1,4 @@
-package uji.es.EI1017.crud;
+package uji.es.EI1017.modelo;
 /*
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
@@ -9,7 +9,7 @@ import uji.es.EI1017.excepciones.NoExisteClienteException;
 import java.io.Serializable;
 import java.util.*;
 
-public class CrudCliente implements Serializable {
+public class ModeloCliente implements Serializable {
 
     private ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
 

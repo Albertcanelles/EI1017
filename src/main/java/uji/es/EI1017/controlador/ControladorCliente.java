@@ -1,34 +1,32 @@
-package uji.es.EI1017.recoleccionDatos;
+package uji.es.EI1017.controlador;
 
 import uji.es.EI1017.Clases.Cliente;
 import uji.es.EI1017.Clases.Tarifa;
-import uji.es.EI1017.crud.CrudCliente;
-import uji.es.EI1017.crud.CrudGenerico;
+import uji.es.EI1017.modelo.ModeloCliente;
+import uji.es.EI1017.modelo.ModeloGenerico;
 
-import uji.es.EI1017.decorador.TarifaBasica;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.factoria.FabricaClientes;
 import uji.es.EI1017.factoria.FabricaTarifas;
 import uji.es.EI1017.herencias.Empresa;
 import uji.es.EI1017.herencias.Particular;
-import uji.es.EI1017.menu.OpcionesMenuTipoCliente;
 
 
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class RecolectorDatosCliente {
+public class ControladorCliente {
 
 
-    private CrudCliente crudCliente;
+    private ModeloCliente modeloCliente;
     Calendar calendar = Calendar.getInstance();
     private Scanner scanner = new Scanner(System.in);
 
 
     // Constructor para pasar la referencia del ejecutar.
-    public RecolectorDatosCliente(CrudCliente crud){
-        this.crudCliente = crud;
+    public ControladorCliente(ModeloCliente crud){
+        this.modeloCliente = crud;
     }
     //public void insertarDatosCliente() {
         /* RECOLECCION DE DATOS POR TECLADO */
@@ -98,20 +96,20 @@ public class RecolectorDatosCliente {
                 System.out.println("Introduce el apellido:");
                 String apellido = scanner.next();
                 Cliente particular = fabricaClientes.getParticular(nombre, nif, email, direccion, fechaAlta, listaTarifas, apellido, true);
-                crudCliente.insertarCliente(particular);
+                modeloCliente.insertarCliente(particular);
 
                 break;
             case EMPRESA:
                 Cliente empresa = fabricaClientes.getEmpresa(nombre, nif, email, direccion, fechaAlta, listaTarifas, false);
-                crudCliente.insertarCliente(empresa);
+                modeloCliente.insertarCliente(empresa);
                 break;
         }
     }*/
 
     public Cliente[] listarClientes(){
-        Cliente[] listado = new Cliente[crudCliente.tamanyoLista()];
-        for (int i = 0; i < crudCliente.tamanyoLista(); i++) {
-            listado[i] = crudCliente.listarClientes().get(i);
+        Cliente[] listado = new Cliente[modeloCliente.tamanyoLista()];
+        for (int i = 0; i < modeloCliente.tamanyoLista(); i++) {
+            listado[i] = modeloCliente.listarClientes().get(i);
         }
         return listado;
     }
@@ -128,10 +126,10 @@ public class RecolectorDatosCliente {
         FabricaClientes fabricaClientes = new FabricaClientes();
         if (tipo) {
             Particular particular = fabricaClientes.getParticular(nombre, nif, email, direccion, fechaAlta, listaTarifas, apellido, true);
-            crudCliente.insertarCliente(particular);
+            modeloCliente.insertarCliente(particular);
         } else {
             Empresa empresa = fabricaClientes.getEmpresa(nombre, nif, email, direccion, fechaAlta, listaTarifas, false);
-            crudCliente.insertarCliente(empresa);
+            modeloCliente.insertarCliente(empresa);
 
         }
 
@@ -142,9 +140,9 @@ public class RecolectorDatosCliente {
 
         Cliente cs;
         try {
-            cs = crudCliente.unCliente(nif);
-            if (crudCliente.getListaClientes().contains(cs)) {
-                crudCliente.borrarCliente(cs);
+            cs = modeloCliente.unCliente(nif);
+            if (modeloCliente.getListaClientes().contains(cs)) {
+                modeloCliente.borrarCliente(cs);
                 return true;
             }
             return false;
@@ -155,7 +153,7 @@ public class RecolectorDatosCliente {
     }
     public String recuperarClientePorDNI(String nif) {
         try{
-            return crudCliente.unCliente(nif).getNombre();
+            return modeloCliente.unCliente(nif).getNombre();
 
         }catch (NoExisteClienteException e){
             return "Error";
@@ -166,11 +164,11 @@ public class RecolectorDatosCliente {
 
     public Cliente[] listarFacturas(LocalDateTime fechaIni, LocalDateTime fechaFin){
 
-        Cliente[] listado = new Cliente[crudCliente.tamanyoLista()];
+        Cliente[] listado = new Cliente[modeloCliente.tamanyoLista()];
         try {
-            RecolectorDatosGenerico.compruebaFecha(fechaIni, fechaFin);
-            ArrayList<Cliente> todas = crudCliente.getListaClientes();
-            Collection<Cliente> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            ControladorGenerico.compruebaFecha(fechaIni, fechaFin);
+            ArrayList<Cliente> todas = modeloCliente.getListaClientes();
+            Collection<Cliente> lista = ModeloGenerico.extraerConjunto(todas, fechaIni, fechaFin);
             int i = 0;
             for (Cliente iter : lista) {
                 listado[i] = iter;
@@ -185,37 +183,37 @@ public class RecolectorDatosCliente {
     FabricaTarifas fabricaTarifas = new FabricaTarifas();
     public void insertarTarifaBasica(String DNI, float precio) throws NoExisteClienteException {
         Tarifa nueva = fabricaTarifas.getBasica(precio);
-        crudCliente.unCliente(DNI).getTarifa().add(nueva);
+        modeloCliente.unCliente(DNI).getTarifa().add(nueva);
     }
     public void insertarTarifaDia(String DNI, int dia, float precio) throws  NoExisteClienteException{
         Tarifa tarifaPadre = null;
-        for(Tarifa iter :  crudCliente.unCliente(DNI).getTarifa()){
-            if(iter.equals(crudCliente.unCliente(DNI).getTarifa().size()-1)){
+        for(Tarifa iter :  modeloCliente.unCliente(DNI).getTarifa()){
+            if(iter.equals(modeloCliente.unCliente(DNI).getTarifa().size()-1)){
                 tarifaPadre = iter;
             }
         }
         Tarifa nueva = fabricaTarifas.getDia(tarifaPadre, precio ,dia);
-        crudCliente.unCliente(DNI).getTarifa().add(nueva);
+        modeloCliente.unCliente(DNI).getTarifa().add(nueva);
     }
     public void insertarTarifaPeriodo(String DNI, int fechaIni, int fechaFin, float precio) throws NoExisteClienteException{
         Tarifa tarifaPadre = null;
-        for(Tarifa iter :  crudCliente.unCliente(DNI).getTarifa()){
-            if(iter.equals(crudCliente.unCliente(DNI).getTarifa().size()-1)){
+        for(Tarifa iter :  modeloCliente.unCliente(DNI).getTarifa()){
+            if(iter.equals(modeloCliente.unCliente(DNI).getTarifa().size()-1)){
                 tarifaPadre = iter;
             }
         }
         Tarifa nueva = fabricaTarifas.getPeriodo(tarifaPadre,precio,fechaIni, fechaFin );
-        crudCliente.unCliente(DNI).getTarifa().add(nueva);
+        modeloCliente.unCliente(DNI).getTarifa().add(nueva);
     }
     public void limpiarTarifas(String DNI) throws NoExisteClienteException {
-        crudCliente.unCliente(DNI).getTarifa().clear();
+        modeloCliente.unCliente(DNI).getTarifa().clear();
     }
     public Tarifa[] listaTarifaCliente(String DNI) throws NoExisteClienteException {
-        Tarifa[] listado = new Tarifa[crudCliente.unCliente(DNI).getTarifa().size()];
-        for(int i = 0 ; i < crudCliente.unCliente(DNI).getTarifa().size(); i++){
-            listado[i] = crudCliente.unCliente(DNI).getTarifa().get(i);
+        Tarifa[] listado = new Tarifa[modeloCliente.unCliente(DNI).getTarifa().size()];
+        for(int i = 0; i < modeloCliente.unCliente(DNI).getTarifa().size(); i++){
+            listado[i] = modeloCliente.unCliente(DNI).getTarifa().get(i);
         }
-        System.out.println(crudCliente.unCliente(DNI).getTarifa().size());
+        System.out.println(modeloCliente.unCliente(DNI).getTarifa().size());
         return listado;
     }
 }

@@ -1,8 +1,8 @@
 package uji.es.EI1017.vistas;
 
-import uji.es.EI1017.crud.CrudCliente;
-import uji.es.EI1017.crud.CrudLlamada;
-import uji.es.EI1017.recoleccionDatos.RecolectorDatosLlamada;
+import uji.es.EI1017.modelo.ModeloCliente;
+import uji.es.EI1017.modelo.ModeloLlamada;
+import uji.es.EI1017.controlador.ControladorLlamada;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,12 +11,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class VistaLlamadas implements Serializable {
-    RecolectorDatosLlamada recolectorDatosLlamada;
-    CrudLlamada crudLlamada;
-    CrudCliente crudCliente;
-    public VistaLlamadas(CrudCliente crudCliente, CrudLlamada crudLlamada) {
-        this.crudCliente = crudCliente;
-        this.crudLlamada = crudLlamada;
+    ControladorLlamada controladorLlamada;
+    ModeloLlamada modeloLlamada;
+    ModeloCliente modeloCliente;
+    public VistaLlamadas(ModeloCliente modeloCliente, ModeloLlamada modeloLlamada) {
+        this.modeloCliente = modeloCliente;
+        this.modeloLlamada = modeloLlamada;
     }
 
     public void ejecutarVentanaLlamadas() {
@@ -109,8 +109,8 @@ public class VistaLlamadas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorDatosLlamada = new RecolectorDatosLlamada(crudLlamada, crudCliente);
-                recolectorDatosLlamada.insertarDatosLlamadaVista(nif.getText(), Integer.parseInt(telefono.getText()) , Float.parseFloat(duracion.getText()));
+                controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
+                controladorLlamada.insertarDatosLlamadaVista(nif.getText(), Integer.parseInt(telefono.getText()) , Float.parseFloat(duracion.getText()));
                 nif.setText(""); telefono.setText(""); duracion.setText("");
                 JOptionPane.showMessageDialog(vLlamadas, "Insertado Correctamente");
             }
@@ -149,8 +149,8 @@ public class VistaLlamadas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorDatosLlamada= new RecolectorDatosLlamada(crudLlamada, crudCliente);
-                lista.setListData(recolectorDatosLlamada.listarLlamadasUnCliente(nif.getText()));
+                controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
+                lista.setListData(controladorLlamada.listarLlamadasUnCliente(nif.getText()));
             }
         });
     }
@@ -193,7 +193,7 @@ public class VistaLlamadas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorDatosLlamada = new RecolectorDatosLlamada(crudLlamada, crudCliente);
+                controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
                 String fech = ini.getText();
                 int dia, mes, año, hora, min;
                 dia = Integer.parseInt(fech.substring(0,2));
@@ -207,7 +207,7 @@ public class VistaLlamadas implements Serializable {
                 año = Integer.parseInt(fecha.substring(6,10));
                 hora = min = 0;
                 LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
-                lista.setListData(recolectorDatosLlamada.listarLLamadas(ini,fina));
+                lista.setListData(controladorLlamada.listarLLamadas(ini,fina));
 
             }
         });

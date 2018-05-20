@@ -1,9 +1,8 @@
 package uji.es.EI1017.pruebas;
 
-import com.sun.corba.se.impl.orbutil.fsm.GuardedAction;
-import uji.es.EI1017.crud.CrudCliente;
-import uji.es.EI1017.crud.CrudFactura;
-import uji.es.EI1017.crud.CrudLlamada;
+import uji.es.EI1017.modelo.ModeloCliente;
+import uji.es.EI1017.modelo.ModeloFactura;
+import uji.es.EI1017.modelo.ModeloLlamada;
 import uji.es.EI1017.vistas.VistaClientes;
 import uji.es.EI1017.vistas.VistaFacturas;
 import uji.es.EI1017.vistas.VistaLlamadas;
@@ -19,14 +18,14 @@ import java.io.Serializable;
 
 public class Ventana implements Serializable {
 
-    CrudCliente crudCliente;
-    CrudLlamada crudLlamada;
-    CrudFactura crudFactura;
+    ModeloCliente modeloCliente;
+    ModeloLlamada modeloLlamada;
+    ModeloFactura crudFactura;
 
     public Ventana() {
-        crudCliente = new CrudCliente();
-        crudFactura = new CrudFactura();
-        crudLlamada = new CrudLlamada();
+        modeloCliente = new ModeloCliente();
+        crudFactura = new ModeloFactura();
+        modeloLlamada = new ModeloLlamada();
     }
 
     public void cosa(){
@@ -41,9 +40,9 @@ public class Ventana implements Serializable {
 
 
 
-        VistaClientes vistaClientes = new VistaClientes(crudCliente);
-        VistaLlamadas vistaLlamadas = new VistaLlamadas(crudCliente, crudLlamada);
-        VistaFacturas vistaFacturas = new VistaFacturas(crudCliente, crudLlamada, crudFactura);
+        VistaClientes vistaClientes = new VistaClientes(modeloCliente);
+        VistaLlamadas vistaLlamadas = new VistaLlamadas(modeloCliente, modeloLlamada);
+        VistaFacturas vistaFacturas = new VistaFacturas(modeloCliente, modeloLlamada, crudFactura);
 
 
         /*Definimos la ventana y los 2 contenedores el de los botones y el texto*/

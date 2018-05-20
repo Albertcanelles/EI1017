@@ -1,11 +1,11 @@
-package uji.es.EI1017.recoleccionDatos;
+package uji.es.EI1017.controlador;
 
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-public class RecolectorDatosGenerico {
+public class ControladorGenerico {
     public static LocalDateTime pedirFecha(){
         int dia, mes, año, hora, min;
         Scanner sc = new Scanner(System.in);

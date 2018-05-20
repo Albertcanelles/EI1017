@@ -1,16 +1,14 @@
-package uji.es.EI1017.crud;
+package uji.es.EI1017.modelo;
 /*
  * Albert Cañelles Panisello
  * Daniel Garcia Ruiz
  */
 import uji.es.EI1017.Clases.Llamada;
 
-import javax.swing.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.*;
 
-public class CrudLlamada implements Serializable {
+public class ModeloLlamada implements Serializable {
     ArrayList<Llamada> llamadas = new ArrayList<Llamada>();
     HashMap<String, ArrayList<Llamada>> listaLlamadas = new HashMap<String, ArrayList<Llamada>>();
 
