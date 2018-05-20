@@ -5,6 +5,7 @@ import uji.es.EI1017.Clases.Tarifa;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudGenerico;
 
+import uji.es.EI1017.decorador.TarifaBasica;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.factoria.FabricaClientes;
@@ -23,10 +24,6 @@ public class RecolectorDatosCliente {
     private CrudCliente crudCliente;
     Calendar calendar = Calendar.getInstance();
     private Scanner scanner = new Scanner(System.in);
-
-    public void ejecutarVentana() {
-
-    }
 
 
     // Constructor para pasar la referencia del ejecutar.
@@ -141,16 +138,18 @@ public class RecolectorDatosCliente {
     }
     /**/
 
-    public void eliminarClienteDNI(String nif) {
+    public boolean eliminarClienteDNI(String nif) {
 
         Cliente cs;
         try{
             cs = crudCliente.unCliente(nif);
-            if (crudCliente.getListaClientes().contains(cs))
+            if (crudCliente.getListaClientes().contains(cs)) {
                 crudCliente.borrarCliente(cs);
-
+                return true;
+            }
+            return false;
         }catch (NoExisteClienteException e){
-            System.out.printf("Error");;
+            System.out.printf("Error");
         }
 
     }
@@ -183,46 +182,29 @@ public class RecolectorDatosCliente {
         return listado;
     }
 
-    // TO DO
-    public void modificarTarifa() throws NoExisteClienteException {
-        System.out.println("Introduce DNI del cliente: ");
-        String DNI = scanner.next();
-        Cliente cliente = crudCliente.unCliente(DNI);
-        System.out.println("Las tarifas que tienes son: " + cliente.getTarifa());
-        System.out.println("Introduce las nuevas tarifas: ");
-        System.out.println("Introduce el precio de la tarifa basica:");
-        float precio = scanner.nextFloat();
-        ArrayList<Tarifa> listaTarifas = new ArrayList<Tarifa>();
-        FabricaTarifas fabricaTarifas = new FabricaTarifas();
-        Tarifa tarifaBasica = fabricaTarifas.getBasica(precio);
-        listaTarifas.add(tarifaBasica);
-        System.out.println("¿Deseas añadir más tarifas? (si/no)");
-        String contestacion = scanner.next();
-        while(contestacion.equals("si")){
-            Tarifa tarifa1;
-            System.out.println("¿De tipo 'periodo' o 'dia'?");
-            String tipo = scanner.next();
-            if(tipo.equals("periodo")){
-                System.out.println("Introduce el precio de la tarifa periodo:");
-                float precioPeriodo = scanner.nextFloat();
-                System.out.println("¿Cual es la hora de inicio? ");
-                int horaIni = scanner.nextInt();
-                System.out.println("¿Cual es la hora final? ");
-                int horaFin = scanner.nextInt();
-                tarifa1 = fabricaTarifas.getPeriodo(tarifaBasica,precioPeriodo,horaIni, horaFin);
-            }else{
-                System.out.println("Introduce el precio de la tarifa dia:");
-                float precioDia = scanner.nextFloat();
-                System.out.println("¿Cual es el día de la semana que se aplica esta tarifa? ");
-                int diaTarifa = scanner.nextInt();
-                tarifa1 = fabricaTarifas.getDia(tarifaBasica, precioDia , diaTarifa);
+    FabricaTarifas fabricaTarifas = new FabricaTarifas();
+    public void insertarTarifaBasica(String DNI, float precio) throws NoExisteClienteException {
+        Tarifa nueva = fabricaTarifas.getBasica(precio);
+    }
+    public void insertarTarifaDia(String DNI, int dia, float precio) throws  NoExisteClienteException{
+        Tarifa tarifaPadre = null;
+        for(Tarifa iter :  crudCliente.unCliente(DNI).getTarifa()){
+            if(iter.equals(crudCliente.unCliente(DNI).getTarifa().size()-1)){
+                tarifaPadre = iter;
             }
-            listaTarifas.add(tarifa1);
-            tarifaBasica = tarifa1;
-            System.out.println("¿Deseas añadir más tarifas? (si/no)");
-            contestacion = scanner.next();
         }
-        cliente.setTarifa(listaTarifas);
-
+        Tarifa nueva = fabricaTarifas.getDia(tarifaPadre, precio ,dia);
+    }
+    public void insertarTarifaPeriodo(String DNI, LocalDateTime fechaIni, LocalDateTime fechaFin, float precio) throws NoExisteClienteException{
+        Tarifa tarifaPadre = null;
+        for(Tarifa iter :  crudCliente.unCliente(DNI).getTarifa()){
+            if(iter.equals(crudCliente.unCliente(DNI).getTarifa().size()-1)){
+                tarifaPadre = iter;
+            }
+        }
+        Tarifa nueva = fabricaTarifas.getPeriodo(tarifaPadre,precio,fechaIni, fechaFin );
+    }
+    public void limpiarTarifas(String DNI) throws NoExisteClienteException {
+        crudCliente.unCliente(DNI).getTarifa().clear();
     }
 }
