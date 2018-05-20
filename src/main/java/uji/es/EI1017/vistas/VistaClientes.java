@@ -277,6 +277,91 @@ public class VistaClientes implements Serializable {
             }
         });
     }
+
+    public void limpiarTarifasCliente() {
+        JFrame vClientes = new JFrame("Eliminar Tarifas de un Cliente");
+
+
+        JPanel panelUno = new JPanel();
+        JPanel panelDos = new JPanel();
+        JPanel panelTotal = new JPanel();
+
+        JLabel lNif = new JLabel("NIF");
+        JTextField nif = new JTextField(10);
+
+        JButton aceptar = new JButton("Aceptar");
+
+        panelUno.add(lNif);
+        panelUno.add(nif);
+        panelDos.add(aceptar);
+        panelTotal.add(panelUno);
+        panelTotal.add(panelDos);
+        vClientes.add(panelTotal);
+
+
+        vClientes.setSize(500,200);
+        vClientes.setResizable(false);
+        vClientes.setVisible(true);
+
+        aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                if(nif.getText() == "")
+                    JOptionPane.showMessageDialog(vClientes, "Inserta un DNI porfavor");
+
+                    try {
+                        recolectorCliente.limpiarTarifas(nif.getText());
+                        JOptionPane.showMessageDialog(vClientes, "Tarifas eliminadas");
+                    } catch (NoExisteClienteException e) {
+                        JOptionPane.showMessageDialog(vClientes, "Inserta un DNI valido porfavor");
+                    }
+            }
+        });
+    }
+
+    public void listarTarifasCliente() {
+        JFrame vClientes = new JFrame("Recuperar Facturas Cliente");
+        JPanel panelUno = new JPanel();
+        JPanel panelDos = new JPanel();
+        JPanel panelTres = new JPanel();
+        JPanel panelTotal = new JPanel();
+
+        JList lista = new JList();
+        JButton aceptar = new JButton("Aceptar");
+        JButton cancelar = new JButton("Cancelar");
+
+        JLabel lDni = new JLabel("DNI Cliente");
+        JTextField dni = new JTextField(10);
+
+        panelUno.add(lDni);
+        panelUno.add(dni);
+        panelDos.add(lista);
+        panelTres.add(aceptar);
+        panelTres.add(cancelar);
+        panelTotal.add(panelUno);
+        panelTotal.add(panelDos);
+        panelTotal.add(panelTres);
+        vClientes.add(panelTotal);
+
+        vClientes.setSize(500,500);
+        vClientes.setResizable(true);
+        vClientes.setVisible(true);
+
+        aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                try {
+                    lista.setListData( recolectorCliente.listaTarifaCliente(dni.getText()));
+                } catch (NoExisteClienteException e) {
+                    JOptionPane.showMessageDialog(vClientes, "Todavia error en el DNI o no existe cliente");
+                }
+            }
+        });
+    }
+
+
     public void clientesCambiarTarifa() {
         JFrame vClientes = new JFrame("Cambiar Tarifa Clientes");
 
@@ -285,12 +370,14 @@ public class VistaClientes implements Serializable {
         JPanel panelTres = new JPanel();
         JPanel panelCuatro = new JPanel();
         JPanel panelCinco = new JPanel();
+        JPanel panelSeis = new JPanel();
         JPanel panelTotal = new JPanel();
 
         JButton TBasica = new JButton("Tarifa basica");
         JButton TPeriodo = new JButton("Tarifa Periodo");
         JButton TDia = new JButton("Tarifa dia");
         JButton borrar = new JButton("Borrar Todas Tarifas");
+        JButton listar = new JButton("Listar Todas Tarifas un Cliente");
         JButton atras = new JButton("Atras");
 
         panelUno.add(TBasica);
@@ -298,10 +385,12 @@ public class VistaClientes implements Serializable {
         panelTres.add(TDia);
         panelCuatro.add(atras);
         panelCinco.add(borrar);
+        panelSeis.add(listar);
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
         panelTotal.add(panelTres);
         panelTotal.add(panelCinco);
+        panelTotal.add(panelSeis);
         panelTotal.add(panelCuatro);
 
         vClientes.add(panelTotal);
@@ -327,6 +416,20 @@ public class VistaClientes implements Serializable {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 insertarTarifaDia();
+            }
+        });
+
+        borrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limpiarTarifasCliente();
+            }
+        });
+
+        listar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listarTarifasCliente();
             }
         });
     }
