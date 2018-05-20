@@ -207,4 +207,11 @@ public class RecolectorDatosCliente {
     public void limpiarTarifas(String DNI) throws NoExisteClienteException {
         crudCliente.unCliente(DNI).getTarifa().clear();
     }
+    public Tarifa[] listaTarifaCliente(String DNI) throws NoExisteClienteException {
+        Tarifa[] listado = new Tarifa[crudCliente.unCliente(DNI).getTarifa().size()];
+        for(int i = 0 ; i < crudCliente.unCliente(DNI).getTarifa().size(); i++){
+            listado[i] = crudCliente.unCliente(DNI).getTarifa().get(i);
+        }
+        return listado;
+    }
 }
