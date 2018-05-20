@@ -714,6 +714,4 @@ public class VistaClientes implements Serializable {
         });
 
     }
-
-
 }

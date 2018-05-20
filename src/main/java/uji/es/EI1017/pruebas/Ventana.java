@@ -1,5 +1,6 @@
 package uji.es.EI1017.pruebas;
 
+import com.sun.corba.se.impl.orbutil.fsm.GuardedAction;
 import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.crud.CrudFactura;
 import uji.es.EI1017.crud.CrudLlamada;
@@ -11,6 +12,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.io.Serializable;
 
 public class Ventana implements Serializable {
@@ -25,7 +29,18 @@ public class Ventana implements Serializable {
         crudLlamada = new CrudLlamada();
     }
 
+    public void cosa(){
+        try {
+            GuardadoDatos.escritura(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void ventanaPrincipal() {
+
+
+
         VistaClientes vistaClientes = new VistaClientes(crudCliente);
         VistaLlamadas vistaLlamadas = new VistaLlamadas(crudCliente, crudLlamada);
         VistaFacturas vistaFacturas = new VistaFacturas(crudCliente, crudLlamada, crudFactura);
@@ -64,6 +79,17 @@ public class Ventana implements Serializable {
 
 
         /* Llamadas a las ventanas de Clientes Facturas y Llamadas */
+
+
+        ventana.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing (WindowEvent windowEvent) {
+
+                System.out.println("Cerrando");
+                cosa();
+                super.windowClosing(windowEvent);
+            }
+        });
 
         clientes.addActionListener(new ActionListener() {
             @Override

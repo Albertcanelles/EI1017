@@ -10,7 +10,7 @@ public class Aplicacion {
         GuardadoDatos data = new GuardadoDatos();
         Ventana ventana = data.lectura();
         ventana.ventanaPrincipal();
-        //System.out.println("vamos a guardar");
+        System.out.println("vamos a guardar");
         try {
 
             data.escritura(ventana);

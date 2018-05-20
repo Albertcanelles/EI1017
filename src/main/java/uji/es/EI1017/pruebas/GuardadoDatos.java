@@ -4,7 +4,7 @@ import java.io.*;
 public class GuardadoDatos {
 
 
-    public void escritura(Ventana ventana) throws IOException {
+    public static void escritura(Ventana ventana) throws IOException {
         try {
             File fich = new File("Datos.obj");
             if (fich.createNewFile())
@@ -24,7 +24,7 @@ public class GuardadoDatos {
         }
     }
 
-    public Ventana lectura(){
+    public static Ventana lectura(){
         ObjectInputStream oois = null;
         Ventana ventana = new Ventana();
 
