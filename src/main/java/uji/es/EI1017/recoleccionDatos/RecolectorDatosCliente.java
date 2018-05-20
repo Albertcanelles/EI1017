@@ -141,17 +141,17 @@ public class RecolectorDatosCliente {
     public boolean eliminarClienteDNI(String nif) {
 
         Cliente cs;
-        try{
+        try {
             cs = crudCliente.unCliente(nif);
             if (crudCliente.getListaClientes().contains(cs)) {
                 crudCliente.borrarCliente(cs);
                 return true;
             }
             return false;
-        }catch (NoExisteClienteException e){
+        } catch (NoExisteClienteException e) {
             System.out.printf("Error");
         }
-
+        return false;
     }
     public String recuperarClientePorDNI(String nif) {
         try{
@@ -195,7 +195,7 @@ public class RecolectorDatosCliente {
         }
         Tarifa nueva = fabricaTarifas.getDia(tarifaPadre, precio ,dia);
     }
-    public void insertarTarifaPeriodo(String DNI, LocalDateTime fechaIni, LocalDateTime fechaFin, float precio) throws NoExisteClienteException{
+    public void insertarTarifaPeriodo(String DNI, int fechaIni, int fechaFin, float precio) throws NoExisteClienteException{
         Tarifa tarifaPadre = null;
         for(Tarifa iter :  crudCliente.unCliente(DNI).getTarifa()){
             if(iter.equals(crudCliente.unCliente(DNI).getTarifa().size()-1)){
