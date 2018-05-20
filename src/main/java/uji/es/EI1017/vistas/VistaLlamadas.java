@@ -30,12 +30,12 @@ public class VistaLlamadas implements Serializable {
         JButton insertarLlamada = new JButton("Insertar Llamada Cliente");
         JButton listarLlamadas = new JButton("Listar Llamadas un Cliente");
         JButton llamadasEntreFechas = new JButton("Recuperar Llamadas entre Fechas");
-        JButton atras = new JButton("Atras");
+        JButton cancelar = new JButton("Atras");
 
         panelUno.add(insertarLlamada);
         panelDos.add(listarLlamadas);
         panelTres.add(llamadasEntreFechas);
-        panelCuatro.add(atras);
+        panelCuatro.add(cancelar);
 
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
@@ -67,6 +67,13 @@ public class VistaLlamadas implements Serializable {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 listarLlamadasFecha();
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vLlamadas.setVisible(false);
             }
         });
     }
@@ -115,6 +122,13 @@ public class VistaLlamadas implements Serializable {
                 JOptionPane.showMessageDialog(vLlamadas, "Insertado Correctamente");
             }
         });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vLlamadas.setVisible(false);
+            }
+        });
     }
 
     public void listarLlamadasCliente() {
@@ -151,6 +165,13 @@ public class VistaLlamadas implements Serializable {
             public void actionPerformed(ActionEvent actionEvent) {
                 controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
                 lista.setListData(controladorLlamada.listarLlamadasUnCliente(nif.getText()));
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vLlamadas.setVisible(false);
             }
         });
     }
@@ -209,6 +230,13 @@ public class VistaLlamadas implements Serializable {
                 LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
                 lista.setListData(controladorLlamada.listarLLamadas(ini,fina));
 
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vLlamadas.setVisible(false);
             }
         });
     }

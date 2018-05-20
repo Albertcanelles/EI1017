@@ -89,6 +89,13 @@ public class VistaFacturas implements Serializable {
 
             }
         });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vFacturas.setVisible(false);
+            }
+        });
     }
 
     public void devolverFacturaCodigo(){
@@ -131,6 +138,13 @@ public class VistaFacturas implements Serializable {
 
             }
         });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vFacturas.setVisible(false);
+            }
+        });
     }
     public void recuperarFacturasCliente(){
         JFrame vFacturas = new JFrame("Recuperar Facturas Cliente");
@@ -165,6 +179,13 @@ public class VistaFacturas implements Serializable {
             public void actionPerformed(ActionEvent actionEvent) {
                 ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
                 lista.setListData( controladorFactura.devolverFacturasUnCliente(dni.getText()));
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vFacturas.setVisible(false);
             }
         });
     }
@@ -224,6 +245,12 @@ public class VistaFacturas implements Serializable {
 
             }
         });
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vFacturas.setVisible(false);
+            }
+        });
     }
     public void ejecutarVentanaFacturas() {
         JFrame vFacturas = new JFrame("Facturas");
@@ -238,13 +265,13 @@ public class VistaFacturas implements Serializable {
         JButton listarFacturaCodigo = new JButton("Devolver Factura Codigo");
         JButton listarFacturaCliente = new JButton("Recuperar Factura Cliente");
         JButton listarFechaFacturas = new JButton("Recuperar todas las facturas ");
-        JButton atras = new JButton("Atras");
+        JButton cancelar = new JButton("Atras");
 
         panelUno.add(insertarFactura);
         panelDos.add(listarFacturaCodigo);
         panelTres.add(listarFacturaCliente);
         panelCuatro.add(listarFechaFacturas);
-        panelCuatro.add(atras);
+        panelCuatro.add(cancelar);
 
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
@@ -284,6 +311,12 @@ public class VistaFacturas implements Serializable {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 recuperarFechaFacturas();
+            }
+        });
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vFacturas.setVisible(false);
             }
         });
     }
