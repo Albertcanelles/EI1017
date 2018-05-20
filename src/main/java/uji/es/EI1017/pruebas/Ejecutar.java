@@ -184,7 +184,7 @@ public class Ejecutar implements Serializable {
                             //recolectorCliente.listarFacturas();
                             break;
                         case CAMBIAR_TARIFA_CLIENTE:
-                            recolectorCliente.modificarTarifa();
+                            //recolectorCliente.modificarTarifa();
                             break;
                         case ATRAS:
                             break;
