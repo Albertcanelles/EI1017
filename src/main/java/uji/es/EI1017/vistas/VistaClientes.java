@@ -1,6 +1,7 @@
 package uji.es.EI1017.vistas;
 
 import uji.es.EI1017.crud.CrudCliente;
+import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.recoleccionDatos.RecolectorDatosCliente;
 
 import javax.swing.*;
@@ -144,6 +145,20 @@ public class VistaClientes implements Serializable {
         vClientes.setSize(500,200);
         vClientes.setResizable(false);
         vClientes.setVisible(true);
+
+        aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                try {
+                    recolectorCliente.insertarTarifaBasica(nif.getText(), Float.parseFloat(precio.getText()));
+                    nif.setText(""); precio.setText("");
+                    JOptionPane.showMessageDialog(vClientes, "Tarfifa insertada");
+                } catch (NoExisteClienteException e1) {
+                    JOptionPane.showMessageDialog(vClientes, "Error");
+                }
+            }
+        });
     }
     public void insertarTarifaPeriodo(){
         JFrame vClientes = new JFrame("Insertar Tarifa Periodo");
@@ -158,9 +173,9 @@ public class VistaClientes implements Serializable {
         JTextField nif = new JTextField(10);
         JLabel lPrecio = new JLabel("Precio");
         JTextField precio = new JTextField(10);
-        JLabel lPIni = new JLabel("Inicio xx:xx");
+        JLabel lPIni = new JLabel("Inicio xx Hora en punto formato 24h ");
         JTextField pIni= new JTextField(10);
-        JLabel lPFin = new JLabel("Fin xx:xx");
+        JLabel lPFin = new JLabel("Fin Hora en punto formato 24h ");
         JTextField pFin= new JTextField(10);
 
 
@@ -192,6 +207,20 @@ public class VistaClientes implements Serializable {
         vClientes.setSize(500,200);
         vClientes.setResizable(false);
         vClientes.setVisible(true);
+
+        aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                try {
+                    recolectorCliente.insertarTarifaPeriodo(nif.getText(),Integer.parseInt(pIni.getText()), Integer.parseInt(pFin.getText()), Float.parseFloat(precio.getText()));
+                    nif.setText(""); pIni.setText(""); pFin.setText(""); precio.setText("");
+                    JOptionPane.showMessageDialog(vClientes, "Tarfifa insertada");
+                } catch (NoExisteClienteException e1) {
+                    JOptionPane.showMessageDialog(vClientes, "Error");
+                }
+            }
+        });
     }
     public void insertarTarifaDia(){
         JFrame vClientes = new JFrame("Insertar Tarifa Basica");
@@ -222,7 +251,6 @@ public class VistaClientes implements Serializable {
         panelTres.add(aceptar);
         panelTres.add(cancelar);
 
-
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
         panelTotal.add(panelCuatro);
@@ -234,6 +262,20 @@ public class VistaClientes implements Serializable {
         vClientes.setSize(500,200);
         vClientes.setResizable(false);
         vClientes.setVisible(true);
+
+        aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                try {
+                    recolectorCliente.insertarTarifaDia(nif.getText(),Integer.parseInt(dia.getText()) ,Float.parseFloat(precio.getText()));
+                    nif.setText(""); dia.setText(""); precio.setText(" ");
+                    JOptionPane.showMessageDialog(vClientes, "Tarfifa insertada");
+                } catch (NoExisteClienteException e1) {
+                    JOptionPane.showMessageDialog(vClientes, "Error");
+                }
+            }
+        });
     }
     public void clientesCambiarTarifa() {
         JFrame vClientes = new JFrame("Cambiar Tarifa Clientes");
@@ -415,7 +457,11 @@ public class VistaClientes implements Serializable {
             public void windowOpened(WindowEvent windowEvent) {
                 super.windowOpened(windowEvent);
                 recolectorCliente = new RecolectorDatosCliente(crudCliente);
+                if(recolectorCliente.listarClientes().length == 0) {
+                    JOptionPane.showMessageDialog(vClientes, "Todavia no tenemos clientes");
+                }
                 lista.setListData(recolectorCliente.listarClientes());
+
             }
         });
     }
@@ -449,7 +495,14 @@ public class VistaClientes implements Serializable {
              @Override
              public void actionPerformed(ActionEvent actionEvent) {
                  recolectorCliente = new RecolectorDatosCliente(crudCliente);
-                recolectorCliente.eliminarClienteDNI(nif.getText());
+                 if(nif.getText() == "")
+                     JOptionPane.showMessageDialog(vClientes, "Inserta un DNI porfavor");
+                 else {
+                     if(recolectorCliente.eliminarClienteDNI(nif.getText()))
+                         JOptionPane.showMessageDialog(vClientes, "Cliente eliminado correctamente");
+                     else
+                         JOptionPane.showMessageDialog(vClientes, "Algo a sucedido");
+                 }
              }
          });
     }
