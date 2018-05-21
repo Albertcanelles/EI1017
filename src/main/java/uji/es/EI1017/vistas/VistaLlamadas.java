@@ -116,10 +116,16 @@ public class VistaLlamadas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
-                controladorLlamada.insertarDatosLlamadaVista(nif.getText(), Integer.parseInt(telefono.getText()) , Float.parseFloat(duracion.getText()));
-                nif.setText(""); telefono.setText(""); duracion.setText("");
-                JOptionPane.showMessageDialog(vLlamadas, "Insertado Correctamente");
+                try {
+                    controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
+                    controladorLlamada.insertarDatosLlamadaVista(nif.getText(), Integer.parseInt(telefono.getText()), Float.parseFloat(duracion.getText()));
+                    nif.setText("");
+                    telefono.setText("");
+                    duracion.setText("");
+                    JOptionPane.showMessageDialog(vLlamadas, "Insertado Correctamente");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(vLlamadas, "Error");
+                }
             }
         });
 
@@ -164,7 +170,10 @@ public class VistaLlamadas implements Serializable {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
-                lista.setListData(controladorLlamada.listarLlamadasUnCliente(nif.getText()));
+                if(controladorLlamada.listarLlamadasUnCliente(nif.getText()).length == 0)
+                    JOptionPane.showMessageDialog(vLlamadas, "DNI Incorrecto o sin llamadas");
+                else
+                    lista.setListData(controladorLlamada.listarLlamadasUnCliente(nif.getText()));
             }
         });
 
@@ -214,21 +223,25 @@ public class VistaLlamadas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
-                String fech = ini.getText();
-                int dia, mes, año, hora, min;
-                dia = Integer.parseInt(fech.substring(0,2));
-                mes = Integer.parseInt(fech.substring(3,5));
-                año = Integer.parseInt(fech.substring(6,10));
-                hora =min = 0;
-                LocalDateTime ini = LocalDateTime.of(año, mes, dia, hora, min);
-                String fecha = fin.getText();
-                dia = Integer.parseInt(fecha.substring(0,2));
-                mes = Integer.parseInt(fecha.substring(3,5));
-                año = Integer.parseInt(fecha.substring(6,10));
-                hora = min = 0;
-                LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
-                lista.setListData(controladorLlamada.listarLLamadas(ini,fina));
+                try {
+                    controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
+                    String fech = ini.getText();
+                    int dia, mes, año, hora, min;
+                    dia = Integer.parseInt(fech.substring(0, 2));
+                    mes = Integer.parseInt(fech.substring(3, 5));
+                    año = Integer.parseInt(fech.substring(6, 10));
+                    hora = min = 0;
+                    LocalDateTime ini = LocalDateTime.of(año, mes, dia, hora, min);
+                    String fecha = fin.getText();
+                    dia = Integer.parseInt(fecha.substring(0, 2));
+                    mes = Integer.parseInt(fecha.substring(3, 5));
+                    año = Integer.parseInt(fecha.substring(6, 10));
+                    hora = min = 0;
+                    LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
+                    lista.setListData(controladorLlamada.listarLLamadas(ini, fina));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(vLlamadas, "Error de fechas");
+                }
 
             }
         });
