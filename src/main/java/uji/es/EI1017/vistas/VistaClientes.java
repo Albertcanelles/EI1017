@@ -276,7 +276,7 @@ public class VistaClientes implements Serializable {
 
         vClientes.add(panelTotal);
 
-        //vClientes.add(panelTotal);
+        //vClientes.add(panelTotal);sdf
         vClientes.setSize(500,200);
         vClientes.setResizable(false);
         vClientes.setVisible(true);
