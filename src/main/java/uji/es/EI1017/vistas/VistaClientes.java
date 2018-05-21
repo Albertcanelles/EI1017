@@ -158,7 +158,7 @@ public class VistaClientes implements Serializable {
                     recolectorCliente.insertarTarifaBasica(nif.getText(), Float.parseFloat(precio.getText()));
                     nif.setText(""); precio.setText("");
                     JOptionPane.showMessageDialog(vClientes, "Tarfifa insertada");
-                } catch (NoExisteClienteException e1) {
+                } catch (Exception e1) {
                     JOptionPane.showMessageDialog(vClientes, "Error");
                 }
             }
@@ -227,7 +227,7 @@ public class VistaClientes implements Serializable {
                     recolectorCliente.insertarTarifaPeriodo(nif.getText(),Integer.parseInt(pIni.getText()), Integer.parseInt(pFin.getText()), Float.parseFloat(precio.getText()));
                     nif.setText(""); pIni.setText(""); pFin.setText(""); precio.setText("");
                     JOptionPane.showMessageDialog(vClientes, "Tarfifa insertada");
-                } catch (NoExisteClienteException e1) {
+                } catch (Exception e1) {
                     JOptionPane.showMessageDialog(vClientes, "Error");
                 }
             }
