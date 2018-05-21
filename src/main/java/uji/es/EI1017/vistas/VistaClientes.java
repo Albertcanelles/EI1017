@@ -532,8 +532,6 @@ public class VistaClientes implements Serializable {
                 recolectorCliente = new ControladorCliente(modeloCliente);
 
                 try {
-
-
                     String fech = ini.getText();
                     int dia, mes, año, hora, min;
                     dia = Integer.parseInt(fech.substring(0, 2));

@@ -65,26 +65,32 @@ public class VistaFacturas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
-                String fech = ini.getText();
-                int dia, mes, año, hora, min;
-                dia = Integer.parseInt(fech.substring(0,2));
-                mes = Integer.parseInt(fech.substring(3,5));
-                año = Integer.parseInt(fech.substring(6,10));
-                hora =min = 0;
-                LocalDateTime inic = LocalDateTime.of(año, mes, dia, hora, min);
-                String fecha = fin.getText();
-                dia = Integer.parseInt(fecha.substring(0,2));
-                mes = Integer.parseInt(fecha.substring(3,5));
-                año = Integer.parseInt(fecha.substring(6,10));
-                hora = min = 0;
-                LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
                 try {
-                    controladorFactura.insertarDatosFactura(dni.getText(), inic, fina);
-                    dni.setText(""); ini.setText(""); fin.setText("");
-                    JOptionPane.showMessageDialog(vFacturas, "Insertado Correctamente");
-                } catch (ErrorEntreFechasException e) {
-                    JOptionPane.showMessageDialog(vFacturas, "Revise el formato de las fechas DD/MM/YYYY");
+                    ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
+                    String fech = ini.getText();
+                    int dia, mes, año, hora, min;
+                    dia = Integer.parseInt(fech.substring(0, 2));
+                    mes = Integer.parseInt(fech.substring(3, 5));
+                    año = Integer.parseInt(fech.substring(6, 10));
+                    hora = min = 0;
+                    LocalDateTime inic = LocalDateTime.of(año, mes, dia, hora, min);
+                    String fecha = fin.getText();
+                    dia = Integer.parseInt(fecha.substring(0, 2));
+                    mes = Integer.parseInt(fecha.substring(3, 5));
+                    año = Integer.parseInt(fecha.substring(6, 10));
+                    hora = min = 0;
+                    LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
+                    try {
+                        controladorFactura.insertarDatosFactura(dni.getText(), inic, fina);
+                        dni.setText("");
+                        ini.setText("");
+                        fin.setText("");
+                        JOptionPane.showMessageDialog(vFacturas, "Insertado Correctamente");
+                    } catch (ErrorEntreFechasException e) {
+                        JOptionPane.showMessageDialog(vFacturas, "Revise el formato de las fechas DD/MM/YYYY");
+                    }
+                }catch (Exception e){
+                    JOptionPane.showMessageDialog(vFacturas, "Introduce los datos");
                 }
 
             }
@@ -131,10 +137,15 @@ public class VistaFacturas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
-                //lista.setListData( controladorFactura.devolverFacturasPorCodigo(Integer.parseInt(codigo.getText())));
-                Factura factura = controladorFactura.devolverFacturasPorCodigo(Integer.parseInt(codigo.getText()));
-                resultado.setText(factura.toString());
+                try {
+                    ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
+                    //lista.setListData( controladorFactura.devolverFacturasPorCodigo(Integer.parseInt(codigo.getText())));
+                    Factura factura = controladorFactura.devolverFacturasPorCodigo(Integer.parseInt(codigo.getText()));
+                    resultado.setText(factura.toString());
+
+                }catch (Exception f){
+                    JOptionPane.showMessageDialog(vFacturas, "Introduce los datos");
+                }
 
             }
         });
@@ -177,8 +188,13 @@ public class VistaFacturas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
-                lista.setListData( controladorFactura.devolverFacturasUnCliente(dni.getText()));
+                    ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
+                    lista.setListData(controladorFactura.devolverFacturasUnCliente(dni.getText()));
+                    if(controladorFactura.devolverFacturasUnCliente(dni.getText()).length == 0) {
+                        JOptionPane.showMessageDialog(vFacturas, "Introduce los datos");
+                    }else{
+                        lista.setListData(controladorFactura.devolverFacturasUnCliente(dni.getText()));
+                }
             }
         });
 
@@ -227,23 +243,28 @@ public class VistaFacturas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
-                String fech = ini.getText();
-                int dia, mes, año, hora, min;
-                dia = Integer.parseInt(fech.substring(0,2));
-                mes = Integer.parseInt(fech.substring(3,5));
-                año = Integer.parseInt(fech.substring(6,10));
-                hora =min = 0;
-                LocalDateTime ini = LocalDateTime.of(año, mes, dia, hora, min);
-                String fecha = fin.getText();
-                dia = Integer.parseInt(fecha.substring(0,2));
-                mes = Integer.parseInt(fecha.substring(3,5));
-                año = Integer.parseInt(fecha.substring(6,10));
-                hora = min = 0;
-                LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
-                lista.setListData(controladorFactura.listarFacturas(ini,fina));
+                try {
+                    ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
+                    String fech = ini.getText();
+                    int dia, mes, año, hora, min;
+                    dia = Integer.parseInt(fech.substring(0,2));
+                    mes = Integer.parseInt(fech.substring(3,5));
+                    año = Integer.parseInt(fech.substring(6,10));
+                    hora =min = 0;
+                    LocalDateTime ini = LocalDateTime.of(año, mes, dia, hora, min);
+                    String fecha = fin.getText();
+                    dia = Integer.parseInt(fecha.substring(0,2));
+                    mes = Integer.parseInt(fecha.substring(3,5));
+                    año = Integer.parseInt(fecha.substring(6,10));
+                    hora = min = 0;
+                    LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
+                    lista.setListData(controladorFactura.listarFacturas(ini,fina));
 
-            }
+
+                }catch (Exception h){
+                    JOptionPane.showMessageDialog(vFacturas, "Introduce los datos");
+                }
+                            }
         });
         cancelar.addActionListener(new ActionListener() {
             @Override
