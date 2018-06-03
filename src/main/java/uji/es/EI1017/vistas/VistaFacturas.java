@@ -1,10 +1,10 @@
 package uji.es.EI1017.vistas;
 
 import uji.es.EI1017.Clases.Factura;
-import uji.es.EI1017.controlador.ControladorFactura;
-import uji.es.EI1017.modelo.ModeloCliente;
 import uji.es.EI1017.modelo.ModeloFactura;
-import uji.es.EI1017.modelo.ModeloLlamada;
+import uji.es.EI1017.crud.CrudCliente;
+import uji.es.EI1017.crud.CrudFactura;
+import uji.es.EI1017.crud.CrudLlamada;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 
 import javax.swing.*;
@@ -15,17 +15,17 @@ import java.time.LocalDateTime;
 
 public class VistaFacturas implements Serializable {
 
-    ModeloFactura crudFactura;
-    ModeloCliente modeloCliente;
-    ModeloLlamada modeloLlamada;
+    private CrudFactura crudFactura;
+    private CrudCliente crudCliente;
+    private CrudLlamada crudLlamada;
 
-    public VistaFacturas(ModeloCliente modeloCliente, ModeloLlamada modeloLlamada, ModeloFactura crudFactura) {
-        this.modeloCliente = modeloCliente;
+    public VistaFacturas(CrudCliente crudCliente, CrudLlamada crudLlamada, CrudFactura crudFactura) {
+        this.crudCliente = crudCliente;
         this.crudFactura = crudFactura;
-        this.modeloLlamada = modeloLlamada;
+        this.crudLlamada = crudLlamada;
     }
 
-    public void añadirFactura(){
+    private void anyadirFactura(){
         JFrame vFacturas = new JFrame("Añadir Facturas");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -66,22 +66,22 @@ public class VistaFacturas implements Serializable {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
+                    ModeloFactura modeloFactura = new ModeloFactura(crudLlamada, crudFactura, crudCliente);
                     String fech = ini.getText();
-                    int dia, mes, año, hora, min;
+                    int dia, mes, anyo, hora, min;
                     dia = Integer.parseInt(fech.substring(0, 2));
                     mes = Integer.parseInt(fech.substring(3, 5));
-                    año = Integer.parseInt(fech.substring(6, 10));
+                    anyo = Integer.parseInt(fech.substring(6, 10));
                     hora = min = 0;
-                    LocalDateTime inic = LocalDateTime.of(año, mes, dia, hora, min);
+                    LocalDateTime inic = LocalDateTime.of(anyo, mes, dia, hora, min);
                     String fecha = fin.getText();
                     dia = Integer.parseInt(fecha.substring(0, 2));
                     mes = Integer.parseInt(fecha.substring(3, 5));
-                    año = Integer.parseInt(fecha.substring(6, 10));
+                    anyo = Integer.parseInt(fecha.substring(6, 10));
                     hora = min = 0;
-                    LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
+                    LocalDateTime fina = LocalDateTime.of(anyo, mes, dia, hora, min);
                     try {
-                        controladorFactura.insertarDatosFactura(dni.getText(), inic, fina);
+                        modeloFactura.insertarDatosFactura(dni.getText(), inic, fina);
                         dni.setText("");
                         ini.setText("");
                         fin.setText("");
@@ -104,7 +104,7 @@ public class VistaFacturas implements Serializable {
         });
     }
 
-    public void devolverFacturaCodigo(){
+    private void devolverFacturaCodigo(){
         JFrame vFacturas = new JFrame("Recuperar Facturas Codigo");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -138,9 +138,9 @@ public class VistaFacturas implements Serializable {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
-                    //lista.setListData( controladorFactura.devolverFacturasPorCodigo(Integer.parseInt(codigo.getText())));
-                    Factura factura = controladorFactura.devolverFacturasPorCodigo(Integer.parseInt(codigo.getText()));
+                    ModeloFactura modeloFactura = new ModeloFactura(crudLlamada, crudFactura, crudCliente);
+                    //lista.setListData( modeloFactura.devolverFacturasPorCodigo(Integer.parseInt(codigo.getText())));
+                    Factura factura = modeloFactura.devolverFacturasPorCodigo(Integer.parseInt(codigo.getText()));
                     resultado.setText(factura.toString());
 
                 }catch (Exception f){
@@ -157,7 +157,7 @@ public class VistaFacturas implements Serializable {
             }
         });
     }
-    public void recuperarFacturasCliente(){
+    private void recuperarFacturasCliente(){
         JFrame vFacturas = new JFrame("Recuperar Facturas Cliente");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -188,12 +188,12 @@ public class VistaFacturas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                    ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
-                    lista.setListData(controladorFactura.devolverFacturasUnCliente(dni.getText()));
-                    if(controladorFactura.devolverFacturasUnCliente(dni.getText()).length == 0) {
+                    ModeloFactura modeloFactura = new ModeloFactura(crudLlamada, crudFactura, crudCliente);
+                    lista.setListData(modeloFactura.devolverFacturasUnCliente(dni.getText()));
+                    if(modeloFactura.devolverFacturasUnCliente(dni.getText()).length == 0) {
                         JOptionPane.showMessageDialog(vFacturas, "Introduce los datos");
                     }else{
-                        lista.setListData(controladorFactura.devolverFacturasUnCliente(dni.getText()));
+                        lista.setListData(modeloFactura.devolverFacturasUnCliente(dni.getText()));
                 }
             }
         });
@@ -205,7 +205,7 @@ public class VistaFacturas implements Serializable {
             }
         });
     }
-    public void recuperarFechaFacturas(){
+    private void recuperarFechaFacturas(){
         JFrame vFacturas = new JFrame("Recuperar Todas Facturas");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -244,21 +244,21 @@ public class VistaFacturas implements Serializable {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    ControladorFactura controladorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente);
+                    ModeloFactura modeloFactura = new ModeloFactura(crudLlamada, crudFactura, crudCliente);
                     String fech = ini.getText();
-                    int dia, mes, año, hora, min;
+                    int dia, mes, anyo, hora, min;
                     dia = Integer.parseInt(fech.substring(0,2));
                     mes = Integer.parseInt(fech.substring(3,5));
-                    año = Integer.parseInt(fech.substring(6,10));
+                    anyo = Integer.parseInt(fech.substring(6,10));
                     hora =min = 0;
-                    LocalDateTime ini = LocalDateTime.of(año, mes, dia, hora, min);
+                    LocalDateTime ini = LocalDateTime.of(anyo, mes, dia, hora, min);
                     String fecha = fin.getText();
                     dia = Integer.parseInt(fecha.substring(0,2));
                     mes = Integer.parseInt(fecha.substring(3,5));
-                    año = Integer.parseInt(fecha.substring(6,10));
+                    anyo = Integer.parseInt(fecha.substring(6,10));
                     hora = min = 0;
-                    LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
-                    lista.setListData(controladorFactura.listarFacturas(ini,fina));
+                    LocalDateTime fina = LocalDateTime.of(anyo, mes, dia, hora, min);
+                    lista.setListData(modeloFactura.listarFacturas(ini,fina));
 
 
                 }catch (Exception h){
@@ -310,7 +310,7 @@ public class VistaFacturas implements Serializable {
         insertarFactura.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                añadirFactura();
+                anyadirFactura();
             }
         });
 

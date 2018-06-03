@@ -1,8 +1,7 @@
 package uji.es.EI1017.vistas;
 
+import uji.es.EI1017.crud.CrudCliente;
 import uji.es.EI1017.modelo.ModeloCliente;
-import uji.es.EI1017.excepciones.NoExisteClienteException;
-import uji.es.EI1017.controlador.ControladorCliente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,12 +13,12 @@ import java.time.LocalDateTime;
 
 
 public class VistaClientes implements Serializable {
-    ControladorCliente recolectorCliente;
-    ModeloCliente modeloCliente;
+    private ModeloCliente recolectorCliente;
+    private CrudCliente crudCliente;
     JRadioButton empresa;
     JRadioButton particular;
-    public VistaClientes(ModeloCliente crud) {
-        this.modeloCliente = crud;
+    public VistaClientes(CrudCliente crud) {
+        this.crudCliente = crud;
     }
 
 
@@ -114,7 +113,7 @@ public class VistaClientes implements Serializable {
 
     }
 
-    public void insertarTarifaBasica(){
+    private void insertarTarifaBasica(){
         JFrame vClientes = new JFrame("Insertar Tarifa Basica");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -153,7 +152,7 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                recolectorCliente = new ControladorCliente(modeloCliente);
+                recolectorCliente = new ModeloCliente(crudCliente);
                 try {
                     recolectorCliente.insertarTarifaBasica(nif.getText(), Float.parseFloat(precio.getText()));
                     nif.setText(""); precio.setText("");
@@ -171,7 +170,7 @@ public class VistaClientes implements Serializable {
             }
         });
     }
-    public void insertarTarifaPeriodo(){
+    private void insertarTarifaPeriodo(){
         JFrame vClientes = new JFrame("Insertar Tarifa Periodo");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -222,7 +221,7 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                recolectorCliente = new ControladorCliente(modeloCliente);
+                recolectorCliente = new ModeloCliente(crudCliente);
                 try {
                     recolectorCliente.insertarTarifaPeriodo(nif.getText(),Integer.parseInt(pIni.getText()), Integer.parseInt(pFin.getText()), Float.parseFloat(precio.getText()));
                     nif.setText(""); pIni.setText(""); pFin.setText(""); precio.setText("");
@@ -240,7 +239,7 @@ public class VistaClientes implements Serializable {
             }
         });
     }
-    public void insertarTarifaDia(){
+    private void insertarTarifaDia(){
         JFrame vClientes = new JFrame("Insertar Tarifa Basica");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -284,7 +283,7 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                recolectorCliente = new ControladorCliente(modeloCliente); /*REVISAR CONTROL DE ERRORES HACIA ARRIBA ABAJO REVISAR EN AÑADIRCLIENTE*/
+                recolectorCliente = new ModeloCliente(crudCliente); /*REVISAR CONTROL DE ERRORES HACIA ARRIBA ABAJO REVISAR EN AÑADIRCLIENTE*/
                 float ptarifa = 0.0f;
                 int pdia = 0;
                 try {
@@ -311,7 +310,7 @@ public class VistaClientes implements Serializable {
         });
     }
 
-    public void limpiarTarifasCliente() {
+    private void limpiarTarifasCliente() {
         JFrame vClientes = new JFrame("Eliminar Tarifas de un Cliente");
 
 
@@ -341,9 +340,9 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorCliente = new ControladorCliente(modeloCliente);
+                recolectorCliente = new ModeloCliente(crudCliente);
 
-                if(nif.getText() == "")
+                if(nif.getText().equals(""))
                     JOptionPane.showMessageDialog(vClientes, "Inserta un DNI porfavor");
 
                     try {
@@ -362,7 +361,7 @@ public class VistaClientes implements Serializable {
         });
     }
 
-    public void listarTarifasCliente() {
+    private void listarTarifasCliente() {
         JFrame vClientes = new JFrame("Recuperar Facturas Cliente");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -393,7 +392,7 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorCliente = new ControladorCliente(modeloCliente);
+                recolectorCliente = new ModeloCliente(crudCliente);
                 try {
                     lista.setListData( recolectorCliente.listaTarifaCliente(dni.getText()));
                 } catch (Exception e) {
@@ -411,7 +410,7 @@ public class VistaClientes implements Serializable {
     }
 
 
-    public void clientesCambiarTarifa() {
+    private void clientesCambiarTarifa() {
         JFrame vClientes = new JFrame("Cambiar Tarifa Clientes");
 
         JPanel panelUno = new JPanel();
@@ -490,7 +489,7 @@ public class VistaClientes implements Serializable {
         });
     }
 
-    public void clientesEntreFechas() {
+    private void clientesEntreFechas() {
         JFrame vClientes = new JFrame("Clientes entre fechas");
 
         JPanel panelUno = new JPanel();
@@ -529,22 +528,22 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorCliente = new ControladorCliente(modeloCliente);
+                recolectorCliente = new ModeloCliente(crudCliente);
 
                 try {
                     String fech = ini.getText();
-                    int dia, mes, año, hora, min;
+                    int dia, mes, anyo, hora, min;
                     dia = Integer.parseInt(fech.substring(0, 2));
                     mes = Integer.parseInt(fech.substring(3, 5));
-                    año = Integer.parseInt(fech.substring(6, 10));
+                    anyo = Integer.parseInt(fech.substring(6, 10));
                     hora = min = 0;
-                    LocalDateTime ini = LocalDateTime.of(año, mes, dia, hora, min);
+                    LocalDateTime ini = LocalDateTime.of(anyo, mes, dia, hora, min);
                     String fecha = fin.getText();
                     dia = Integer.parseInt(fecha.substring(0, 2));
                     mes = Integer.parseInt(fecha.substring(3, 5));
-                    año = Integer.parseInt(fecha.substring(6, 10));
+                    anyo = Integer.parseInt(fecha.substring(6, 10));
                     hora = min = 0;
-                    LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
+                    LocalDateTime fina = LocalDateTime.of(anyo, mes, dia, hora, min);
 
                     lista.setListData(recolectorCliente.listarFacturas(ini, fina));
                 } catch (Exception e) {
@@ -562,7 +561,7 @@ public class VistaClientes implements Serializable {
 
     }
 
-    public void recuperarCliente() {
+    private void recuperarCliente() {
         JFrame vClientes = new JFrame("Un Cliente");
 
 
@@ -573,8 +572,12 @@ public class VistaClientes implements Serializable {
 
         JLabel lNif = new JLabel("NIF");
         JTextField nif = new JTextField(10);
+
+        JList lista = new JList();
         JTextField nombre = new JTextField(10);
         nombre.disable();
+
+
         JButton aceptar = new JButton("Aceptar");
         JButton cancelar = new JButton("Cancelar");
 
@@ -584,20 +587,19 @@ public class VistaClientes implements Serializable {
         panelDos.add(cancelar);
         panelTotal.add(panelUno);
         panelTotal.add(panelDos);
-        panelTres.add(nombre);
+        panelTres.add(lista);
         panelTotal.add(panelTres);
         vClientes.add(panelTotal);
 
-        vClientes.setSize(500,200);
-        vClientes.setResizable(false);
+        vClientes.setSize(900,200);
+        vClientes.setResizable(true);
         vClientes.setVisible(true);
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorCliente = new ControladorCliente(modeloCliente);
+                recolectorCliente = new ModeloCliente(crudCliente);
                 try {
-                    String n = recolectorCliente.recuperarClientePorDNI(nif.getText());
-                    nombre.setText(n);
+                    lista.setListData(recolectorCliente.recuperarClientePorDNIVista(nif.getText()));
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(vClientes, "DNI Incorrecto");
                 }
@@ -613,7 +615,7 @@ public class VistaClientes implements Serializable {
         });
     }
 
-    public void clientesList() {
+    private void clientesList() {
         JFrame vClientes = new JFrame("Listado de Clientes");
         JList lista = new JList();
 
@@ -638,7 +640,7 @@ public class VistaClientes implements Serializable {
             @Override
             public void windowOpened(WindowEvent windowEvent) {
                 super.windowOpened(windowEvent);
-                recolectorCliente = new ControladorCliente(modeloCliente);
+                recolectorCliente = new ModeloCliente(crudCliente);
                 if(recolectorCliente.listarClientes().length == 0) {
                     JOptionPane.showMessageDialog(vClientes, "Todavia no tenemos clientes");
                 }
@@ -655,7 +657,7 @@ public class VistaClientes implements Serializable {
         });
     }
 
-    public  void clientesDelete() {
+    private  void clientesDelete() {
         JFrame vClientes = new JFrame("Eliminar Cliente");
 
 
@@ -685,8 +687,8 @@ public class VistaClientes implements Serializable {
          aceptar.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent actionEvent) {
-                 recolectorCliente = new ControladorCliente(modeloCliente);
-                 if(nif.getText() == "")
+                 recolectorCliente = new ModeloCliente(crudCliente);
+                 if(nif.getText().equals(""))
                      JOptionPane.showMessageDialog(vClientes, "Inserta un DNI porfavor");
                  else {
                      try {
@@ -707,7 +709,7 @@ public class VistaClientes implements Serializable {
         });
     }
 
-    public void clientesAdd() {
+    private void clientesAdd() {
         JFrame vClientes = new JFrame("Añadir Cliente");
 
 
@@ -804,14 +806,14 @@ public class VistaClientes implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                recolectorCliente = new ControladorCliente(modeloCliente);
+                recolectorCliente = new ModeloCliente(crudCliente);
 
-                if(nombre.getText() == " " || email.getText() == " " ||  direccion.getText() == " " || tarifa.getText() == " " ) {
+                if(nombre.getText().equals("") || email.getText().equals("") ||  direccion.getText().equals("") || tarifa.getText().equals("") ) {
                     JOptionPane.showMessageDialog(vClientes, "Los campos son obligatorios");
                     return;
                 }
 
-                if(nif.getText() == " " || nif.getText().length() != 9) {
+                if(nif.getText().equals("") || nif.getText().length() != 9) {
                     JOptionPane.showMessageDialog(vClientes, "El dni no cumple con el formato 8N 1L :NNNNNNNNL");
                     return;
                 }
