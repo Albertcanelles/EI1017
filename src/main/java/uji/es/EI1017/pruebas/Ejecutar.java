@@ -4,15 +4,15 @@ package uji.es.EI1017.pruebas;
  * Daniel Garcia Ruiz
  */
 
-import uji.es.EI1017.controlador.ControladorFactura;
-import uji.es.EI1017.modelo.ModeloCliente;
 import uji.es.EI1017.modelo.ModeloFactura;
-import uji.es.EI1017.modelo.ModeloLlamada;
+import uji.es.EI1017.crud.CrudCliente;
+import uji.es.EI1017.crud.CrudFactura;
+import uji.es.EI1017.crud.CrudLlamada;
 import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 import uji.es.EI1017.excepciones.NoExisteClienteException;
 import uji.es.EI1017.menu.*;
-import uji.es.EI1017.controlador.ControladorCliente;
-import uji.es.EI1017.controlador.ControladorLlamada;
+import uji.es.EI1017.modelo.ModeloCliente;
+import uji.es.EI1017.modelo.ModeloLlamada;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,125 +22,23 @@ import java.util.Scanner;
 
 public class Ejecutar implements Serializable {
 
-    ModeloCliente modeloCliente;
-    ModeloLlamada modeloLlamada;
-    ModeloFactura crudFactura;
+    private CrudCliente crudCliente;
+    private CrudLlamada crudLlamada;
+    private CrudFactura crudFactura;
 
     public Ejecutar(){
-        modeloCliente = new ModeloCliente();
-        crudFactura = new ModeloFactura();
-        modeloLlamada = new ModeloLlamada();
+        crudCliente = new CrudCliente();
+        crudFactura = new CrudFactura();
+        crudLlamada = new CrudLlamada();
     }
 
 
-    public void facturasEntreFechas() {
-        JFrame vFacturas = new JFrame("Recuperar Facturas por fechas");
-
-        vFacturas.setSize(500,500);
-        vFacturas.setResizable(false);
-        vFacturas.setVisible(true);
-    }
-
-    public void recuperarFacturasCliente() {
-        JFrame vFacturas = new JFrame("Recuperar Facturas un Cliente");
-
-        vFacturas.setSize(500,500);
-        vFacturas.setResizable(false);
-        vFacturas.setVisible(true);
-    }
-
-    public void recuperarFCodigo() {
-        JFrame vFacturas = new JFrame("Recuperar Facturas por Codigo");
-
-        vFacturas.setSize(500,500);
-        vFacturas.setResizable(false);
-        vFacturas.setVisible(true);
-    }
-
-    public void emitirFactura() {
-        JFrame vFacturas = new JFrame("Emitir Facturas");
-
-        vFacturas.setSize(500,500);
-        vFacturas.setResizable(false);
-        vFacturas.setVisible(true);
-    }
-
-    public void ejecutarVentanaFacturas() {
-        JFrame vFacturas = new JFrame("Facturas");
-        JPanel panelUno = new JPanel();
-        JPanel panelDos = new JPanel();
-        JPanel panelTres = new JPanel();
-        JPanel panelCuatro = new JPanel();
-        JPanel panelCinco = new JPanel();
-        JPanel panelTotal = new JPanel();
-
-        JButton emitir = new JButton("Emitir Factura Cliente");
-        JButton recuperarCodigo = new JButton("Recuperar Factura Codigo");
-        JButton recuperarFCliente = new JButton("Recuperar Facturas Cliente");
-        JButton facturasFechas = new JButton("Facturas entre Fechas");
-        JButton atras = new JButton("Atras");
-
-        panelUno.add(emitir);
-        panelDos.add(recuperarCodigo);
-        panelTres.add(recuperarFCliente);
-        panelCuatro.add(facturasFechas);
-        panelCinco.add(atras);
-
-        panelTotal.add(panelUno);
-        panelTotal.add(panelDos);
-        panelTotal.add(panelTres);
-        panelTotal.add(panelCuatro);
-        panelTotal.add(panelCinco);
-        vFacturas.add(panelTotal);
-
-
-        vFacturas.setSize(500,500);
-        vFacturas.setResizable(false);
-        vFacturas.setVisible(true);
-
-        emitir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                emitirFactura();
-            }
-        });
-
-        recuperarCodigo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                recuperarFCodigo();
-            }
-        });
-
-        recuperarFCliente.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                recuperarFacturasCliente();
-            }
-        });
-
-        facturasFechas.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                facturasEntreFechas();
-            }
-        });
-    }
-
-
-
-
-
-
-
-
-
-    public void menu() throws ErrorEntreFechasException, NoExisteClienteException {
-        int opcion = 0;
+    public void menu() {
+        int opcion;
         Scanner scanner = new Scanner(System.in);
-        ControladorCliente recolectorCliente = new ControladorCliente(modeloCliente); // Clase utilizada para la recoleccion datos de clientes
-        ControladorLlamada recolectorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente); // Clase utilizada para la recoleccion datos de llamadas
-        ControladorFactura recolectorFactura = new ControladorFactura(modeloLlamada, crudFactura, modeloCliente); // Clase utilizada para la recoleccion datos de facturas
+        ModeloCliente recolectorCliente = new ModeloCliente(crudCliente); // Clase utilizada para la recoleccion datos de clientes
+        ModeloLlamada recolectorLlamada = new ModeloLlamada(crudLlamada, crudCliente); // Clase utilizada para la recoleccion datos de llamadas
+        ModeloFactura recolectorFactura = new ModeloFactura(crudLlamada, crudFactura, crudCliente); // Clase utilizada para la recoleccion datos de facturas
 
 
         do {
@@ -162,16 +60,16 @@ public class Ejecutar implements Serializable {
                     /*FINAL LLAMADA SUB MENU CLIENTES*/
                     switch (opcionMenuCliente) {
                         case DAR_DE_ALTA_CLIENTE:
-                            //recolectorCliente.insertarDatosCliente(); // En la clase modeloCliente metodo insertarCliente se realizan todas las operaciones
+                            //recolectorCliente.insertarDatosCliente(); // En la clase crudCliente metodo insertarCliente se realizan todas las operaciones
                             break;
                         case BORRAR_CLIENTE:
-                            //recolectorCliente.eliminarClienteDNI(); // En la clase modeloCliente metodo borrarClient se realizan todas las operaciones
+                            //recolectorCliente.eliminarClienteDNI(); // En la clase crudCliente metodo borrarClient se realizan todas las operaciones
                             break;
                         case RECUPERAR_CLIENTE_POR_NIF: // Recuperamos solamente un cliente por nif
                             //recolectorCliente.recuperarClientePorDNI();
                             break;
                         case RECUPERAR_TODOS_CLIENTES:  // Recuperamos todos los clientes en la lista actualmente
-                            if(modeloCliente.listarClientes().size() == 0) {
+                            if(crudCliente.listarClientes().size() == 0) {
                                 System.err.println("Todavia no hay clientes");
                                 break;
                             }

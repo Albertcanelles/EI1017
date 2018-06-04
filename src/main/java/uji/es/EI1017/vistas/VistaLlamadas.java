@@ -1,8 +1,8 @@
 package uji.es.EI1017.vistas;
 
-import uji.es.EI1017.modelo.ModeloCliente;
+import uji.es.EI1017.crud.CrudCliente;
+import uji.es.EI1017.crud.CrudLlamada;
 import uji.es.EI1017.modelo.ModeloLlamada;
-import uji.es.EI1017.controlador.ControladorLlamada;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,12 +11,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class VistaLlamadas implements Serializable {
-    ControladorLlamada controladorLlamada;
-    ModeloLlamada modeloLlamada;
-    ModeloCliente modeloCliente;
-    public VistaLlamadas(ModeloCliente modeloCliente, ModeloLlamada modeloLlamada) {
-        this.modeloCliente = modeloCliente;
-        this.modeloLlamada = modeloLlamada;
+    private ModeloLlamada modeloLlamada;
+    private CrudLlamada crudLlamada;
+    private CrudCliente crudCliente;
+    public VistaLlamadas(CrudCliente crudCliente, CrudLlamada crudLlamada) {
+        this.crudCliente = crudCliente;
+        this.crudLlamada = crudLlamada;
     }
 
     public void ejecutarVentanaLlamadas() {
@@ -78,7 +78,7 @@ public class VistaLlamadas implements Serializable {
         });
     }
 
-    public void insertarLlamadas() {
+    private void insertarLlamadas() {
         JFrame vLlamadas = new JFrame("Insertar Llamadas");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -117,8 +117,8 @@ public class VistaLlamadas implements Serializable {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
-                    controladorLlamada.insertarDatosLlamadaVista(nif.getText(), Integer.parseInt(telefono.getText()), Float.parseFloat(duracion.getText()));
+                    modeloLlamada = new ModeloLlamada(crudLlamada, crudCliente);
+                    modeloLlamada.insertarDatosLlamadaVista(nif.getText(), Integer.parseInt(telefono.getText()), Float.parseFloat(duracion.getText()));
                     nif.setText("");
                     telefono.setText("");
                     duracion.setText("");
@@ -137,7 +137,7 @@ public class VistaLlamadas implements Serializable {
         });
     }
 
-    public void listarLlamadasCliente() {
+    private void listarLlamadasCliente() {
         JFrame vLlamadas = new JFrame("Listar Llamadas Cliente");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -169,11 +169,11 @@ public class VistaLlamadas implements Serializable {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
-                if(controladorLlamada.listarLlamadasUnCliente(nif.getText()).length == 0)
+                modeloLlamada = new ModeloLlamada(crudLlamada, crudCliente);
+                if(modeloLlamada.listarLlamadasUnCliente(nif.getText()).length == 0)
                     JOptionPane.showMessageDialog(vLlamadas, "DNI Incorrecto o sin llamadas");
                 else
-                    lista.setListData(controladorLlamada.listarLlamadasUnCliente(nif.getText()));
+                    lista.setListData(modeloLlamada.listarLlamadasUnCliente(nif.getText()));
             }
         });
 
@@ -185,7 +185,7 @@ public class VistaLlamadas implements Serializable {
         });
     }
 
-    public void listarLlamadasFecha() {
+    private void listarLlamadasFecha() {
         JFrame vLlamadas = new JFrame("Listar Llamadas Fecha");
         JPanel panelUno = new JPanel();
         JPanel panelDos = new JPanel();
@@ -224,21 +224,21 @@ public class VistaLlamadas implements Serializable {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    controladorLlamada = new ControladorLlamada(modeloLlamada, modeloCliente);
+                    modeloLlamada = new ModeloLlamada(crudLlamada, crudCliente);
                     String fech = ini.getText();
-                    int dia, mes, año, hora, min;
+                    int dia, mes, anyo, hora, min;
                     dia = Integer.parseInt(fech.substring(0, 2));
                     mes = Integer.parseInt(fech.substring(3, 5));
-                    año = Integer.parseInt(fech.substring(6, 10));
+                    anyo = Integer.parseInt(fech.substring(6, 10));
                     hora = min = 0;
-                    LocalDateTime ini = LocalDateTime.of(año, mes, dia, hora, min);
+                    LocalDateTime ini = LocalDateTime.of(anyo, mes, dia, hora, min);
                     String fecha = fin.getText();
                     dia = Integer.parseInt(fecha.substring(0, 2));
                     mes = Integer.parseInt(fecha.substring(3, 5));
-                    año = Integer.parseInt(fecha.substring(6, 10));
+                    anyo = Integer.parseInt(fecha.substring(6, 10));
                     hora = min = 0;
-                    LocalDateTime fina = LocalDateTime.of(año, mes, dia, hora, min);
-                    lista.setListData(controladorLlamada.listarLLamadas(ini, fina));
+                    LocalDateTime fina = LocalDateTime.of(anyo, mes, dia, hora, min);
+                    lista.setListData(modeloLlamada.listarLLamadas(ini, fina));
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(vLlamadas, "Error de fechas");
                 }

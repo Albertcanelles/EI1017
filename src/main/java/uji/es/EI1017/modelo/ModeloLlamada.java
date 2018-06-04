@@ -1,48 +1,56 @@
 package uji.es.EI1017.modelo;
-/*
- * Albert Cañelles Panisello
- * Daniel Garcia Ruiz
- */
+
 import uji.es.EI1017.Clases.Llamada;
+import uji.es.EI1017.crud.*;
+import uji.es.EI1017.excepciones.ErrorEntreFechasException;
 
-import java.io.Serializable;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Scanner;
 
-public class ModeloLlamada implements Serializable {
-    ArrayList<Llamada> llamadas = new ArrayList<Llamada>();
-    HashMap<String, ArrayList<Llamada>> listaLlamadas = new HashMap<String, ArrayList<Llamada>>();
+public class ModeloLlamada {
+    private CrudLlamada crudLlamada;  // Llamamos a los modelo de la clase CrudLlamada
+    private CrudCliente crudCliente;
+    Calendar calendar = Calendar.getInstance();
+    Scanner scanner = new Scanner(System.in);
 
-
-
-
-    public void insertarLlamada(Llamada llamada, String DNI) {
-        llamadas.add(llamada);
-        if(listaLlamadas.containsKey(DNI)) {
-            listaLlamadas.replace(DNI, llamadas, llamadas);
-        }
-        else {
-            listaLlamadas.put(DNI, llamadas);
-        }
+    public ModeloLlamada(CrudLlamada crudLlamada, CrudCliente crudCliente) {
+        this.crudLlamada = crudLlamada;
+        this.crudCliente = crudCliente;
     }
 
-    public ArrayList<Llamada> getLlamadas() {
-        return llamadas;
+
+    public void insertarDatosLlamadaVista(String DNI, int telefono, float duracion) {
+        LocalDateTime fechaLlamada = LocalDateTime.now();
+        Llamada llamada = new Llamada(telefono, fechaLlamada, duracion);
+        crudLlamada.insertarLlamada(llamada,DNI);
     }
 
-    public ArrayList<Llamada> listarLlamadas(String DNI) {
-        ArrayList<Llamada> nueva = new ArrayList<Llamada>();
-        if(listaLlamadas.containsKey(DNI)){
-            Object valor = null;
-            for (HashMap.Entry entry : listaLlamadas.entrySet()){
-                if(entry.getKey().equals(DNI))
+    public Llamada[] listarLlamadasUnCliente(String DNI) {
+        Llamada[] nuevo = new Llamada[crudLlamada.listarLlamadas(DNI).size()];
+        for(int i = 0; i< crudLlamada.listarLlamadas(DNI).size(); i++){
+                nuevo[i] = crudLlamada.listarLlamadas(DNI).get(i);
+        }
+        return nuevo;
+    }
 
-                         valor = entry.getValue();
-                         nueva = (ArrayList<Llamada>) valor;
+    public Llamada[] listarLLamadas(LocalDateTime fechaIni, LocalDateTime fechaFin){
+        Llamada[] listado = new Llamada[crudLlamada.getLlamadas().size()];
+        try {
+            ModeloGenerico.compruebaFecha(fechaIni, fechaFin);
+            ArrayList<Llamada> todas = crudLlamada.getLlamadas();
+            Collection<Llamada> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            int i = 0;
+            for(Llamada iter : lista){
+                listado[i] = iter;
+                i++;
             }
-        }else {
-            System.err.println("No existe el cliente");
+        }catch (ErrorEntreFechasException e){
+            System.err.println("Error entre fechas");
         }
-        return nueva;
+        return listado;
     }
 
 

@@ -1,54 +1,116 @@
 package uji.es.EI1017.modelo;
-/*
- * Albert Cañelles Panisello
- * Daniel Garcia Ruiz
- */
-import uji.es.EI1017.Clases.Factura;
 
-import java.io.Serializable;
+import uji.es.EI1017.Clases.Cliente;
+import uji.es.EI1017.Clases.Factura;
+import uji.es.EI1017.Clases.Llamada;
+import uji.es.EI1017.Clases.Tarifa;
+import uji.es.EI1017.crud.CrudCliente;
+import uji.es.EI1017.crud.CrudFactura;
+import uji.es.EI1017.crud.CrudGenerico;
+import uji.es.EI1017.crud.CrudLlamada;
+import uji.es.EI1017.decorador.*;
+import uji.es.EI1017.excepciones.ErrorEntreFechasException;
+
+
+import java.time.LocalDateTime;
 import java.util.*;
 
-public class ModeloFactura implements Serializable {
-    ArrayList<Factura> facturas = new ArrayList<Factura>();
-    HashMap<String, ArrayList<Factura>> listaFacturas = new HashMap<String, ArrayList<Factura>>();
-    private ModeloLlamada modeloLlamada = new ModeloLlamada();
+public class ModeloFactura {
+    private CrudFactura crudFactura;  // Llamamos a los modelo de la clase CrudFactura
+    private CrudLlamada crudLlamada;  // Llamamos a los modelo de la clase CrudLlamada
+    private ModeloGenerico modeloGenerico;
+    private TarifaBasica basica;
+    private TarifaPeriodo periodo;
+    private TarifaDia dia;
+    private CrudCliente crudCliente;
+    private Calendar calendar = Calendar.getInstance();
+    private Scanner scanner = new Scanner(System.in);
+
+    public ModeloFactura(CrudLlamada crudLlamada, CrudFactura crudFactura, CrudCliente crudCliente) {
+        this.crudFactura = crudFactura;
+        this.crudLlamada = crudLlamada;
+        this.crudCliente = crudCliente;
+        this.modeloGenerico = new ModeloGenerico();
+
+    }
+
+    public ModeloFactura(CrudLlamada crudLlamada, CrudCliente crudCliente, CrudFactura crudFactura, TarifaBasica basica, TarifaPeriodo periodo, TarifaDia dia) {
+        this.crudFactura = crudFactura;
+        this.crudCliente = crudCliente;
+        this.crudLlamada = crudLlamada;
+        this.modeloGenerico = new ModeloGenerico();
+        this.basica = basica;
+        this.dia = dia;
+        this.periodo = periodo;
+    }
 
 
-    public Factura emitirFactura(Factura factura, String DNI) {
-        facturas.add(factura);
-        if(listaFacturas.containsKey(DNI)) {
-            listaFacturas.replace(DNI, facturas, facturas);
+    public void insertarDatosFactura(String DNI, LocalDateTime fechaInicio, LocalDateTime fechaFinal) throws ErrorEntreFechasException {
+
+        Cliente cliente = crudCliente.getCliente(DNI);
+        int codigoFactura = crudFactura.numFacturas()+1;
+
+        LocalDateTime emisionFactura = LocalDateTime.now();
+
+        if(!modeloGenerico.compruebaFecha(fechaInicio, fechaFinal)) {
+            return;
         }
-        else {
-            listaFacturas.put(DNI, facturas);
+        float importeTemporal;
+        float importeTotal = 0;
+        ArrayList<Llamada> lista = crudLlamada.listarLlamadas(DNI);
+        ArrayList<Tarifa> listaTarifas = cliente.getTarifa();
+        Tarifa ultimaTarifa = listaTarifas.get(listaTarifas.size()-1);
+        Collection<Llamada> nuevaLlamadas = CrudGenerico.extraerConjunto(lista, fechaInicio, fechaFinal);
+        for  (Llamada i : nuevaLlamadas){
+            importeTemporal = ultimaTarifa.getPrecio(i.getFecha());
+            importeTotal += importeTemporal*i.getDuracion();
         }
-        return factura;
+
+        Factura factura = new Factura(codigoFactura, emisionFactura,fechaInicio, fechaFinal,importeTotal);
+        crudFactura.emitirFactura(factura, DNI);
     }
 
-    public ArrayList<Factura> getFacturas() {
-        return facturas;
-    }
 
 
-    public HashMap<String, ArrayList<Factura>> getListaFacturas() {
-        return listaFacturas;
-    }
-    public ArrayList<Factura> recuperarTodasFacturas(String DNI) {
+    public Factura devolverFacturasPorCodigo(int codigoFactura) {
 
-        ArrayList<Factura> nueva = new ArrayList<Factura>();
-        if(listaFacturas.containsKey(DNI)){
-            Object valor = null;
-            for (HashMap.Entry entry : listaFacturas.entrySet()){
-                if(entry.getKey().equals(DNI))
-                        valor = entry.getValue();
-                        nueva = (ArrayList<Factura>) valor;
+            Factura listado;
+            for(int i = 0; i< crudFactura.getFacturas().size();i++) {
+                if (crudFactura.getFacturas().get(i).getCodigo() == codigoFactura) {
+                    listado = crudFactura.getFacturas().get(i);
+                    return listado;
+                }
             }
-        }else {
-            System.err.println("No existe el cliente");
+            return null;
+    }
+
+    public Factura[] devolverFacturasUnCliente(String DNI) {
+        Factura[] listado = new Factura[crudFactura.getFacturas().size()];
+        for(int i = 0; i<crudFactura.recuperarTodasFacturas(DNI).size(); i++) {
+           listado[i] = crudFactura.recuperarTodasFacturas(DNI).get(i);
         }
-        return nueva;
+        return listado;
     }
-    public int numFacturas(){
-        return facturas.size();
+
+    public Factura[] listarFacturas(LocalDateTime fechaIni, LocalDateTime fechaFin){
+
+        try {
+            Factura[] listado = new Factura[crudFactura.getFacturas().size()];
+            ModeloGenerico.compruebaFecha(fechaIni, fechaFin);
+            ArrayList<Factura> todas = crudFactura.getFacturas();
+            Collection<Factura> lista = CrudGenerico.extraerConjunto(todas, fechaIni, fechaFin);
+            int i = 0;
+            for (Factura iter : lista) {
+                System.out.println(iter.toString());
+                listado[i] = iter;
+                i++;
+            }
+            return listado;
+        } catch (ErrorEntreFechasException e){
+            System.out.println("Error");
+        }
+        return null;
     }
+
+
 }
